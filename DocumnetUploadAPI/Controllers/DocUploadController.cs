@@ -1,15 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using static System.Net.Mime.MediaTypeNames;
-using System.Reflection.PortableExecutable;
-using PdfSharpCore.Pdf;
-using PdfSharpCore.Drawing;
-using PdfSharpCore.Pdf.IO;
-using SixLabors.ImageSharp.Formats;
-using System.Drawing;
-using System.Drawing.Imaging;
+﻿using DocumnetUploadAPI.Model;
 using Ghostscript.NET.Rasterizer;
-using Ghostscript.NET;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace DocumnetUploadAPI.Controllers
 {
@@ -17,7 +10,17 @@ namespace DocumnetUploadAPI.Controllers
     [ApiController]
     public class DocUploadController : ControllerBase
     {
+        private readonly DocumentUpload documentUpload;
         private string _uploadFolder = "Documents";
+        private readonly ILogger<DocUploadController> _logger;
+
+        public DocUploadController(IOptions<DocumentUpload> documentUpload, ILogger<DocUploadController> logger)
+        {
+            this.documentUpload = documentUpload.Value;
+            _uploadFolder = this.documentUpload.Path;
+            _logger = logger;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Upload([FromForm] IFormFile file)
         {
@@ -26,24 +29,33 @@ namespace DocumnetUploadAPI.Controllers
                 return BadRequest("No file uploaded!");
             }
 
-            var fileName = Path.GetFileName(file.FileName);
-            var filePath = Path.Combine(_uploadFolder + "/" + Path.GetFileNameWithoutExtension(file.FileName), fileName);
+            _logger.LogInformation($"Upload Started at {_uploadFolder}");
 
-            if (!Directory.Exists(_uploadFolder + "/" + Path.GetFileNameWithoutExtension(file.FileName)))
+            try
             {
-                Directory.CreateDirectory(_uploadFolder + "/" + Path.GetFileNameWithoutExtension(file.FileName));
+                var fileName = Path.GetFileName(file.FileName);
+                var filePath = Path.Combine(_uploadFolder + "/" + Path.GetFileNameWithoutExtension(file.FileName), fileName);
+
+                if (!Directory.Exists(_uploadFolder + "/" + Path.GetFileNameWithoutExtension(file.FileName)))
+                {
+                    Directory.CreateDirectory(_uploadFolder + "/" + Path.GetFileNameWithoutExtension(file.FileName));
+                }
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                // Convert PDF to images
+                ConvertPdfToImages(filePath, _uploadFolder + "/" + Path.GetFileNameWithoutExtension(file.FileName) + "/Images");
+                return Ok("File uploaded successfully!");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"Upload Failed  {ex.Message} :: {ex.InnerException}");
+                return Ok("File uploaded Failed!");
             }
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-            // Read PDF file and convert pages to images
-
-
-            // Convert PDF to images
-            ConvertPdfToImages(filePath, "Documents/" + Path.GetFileNameWithoutExtension(file.FileName) + "/Images");
-            return Ok("File uploaded successfully!");
         }
 
         [HttpGet("filecount")]
@@ -57,7 +69,7 @@ namespace DocumnetUploadAPI.Controllers
                     filePaths[i] = filePaths[i].Replace("Documents/21583473018/Images\\", "../../../assets/Images/");
                 }
 
-                return Ok(filePaths);   
+                return Ok(filePaths);
             }
             catch (Exception ex)
             {
@@ -65,7 +77,39 @@ namespace DocumnetUploadAPI.Controllers
             }
         }
 
-        public void ConvertPdfToImages(string pdfFilePath, string outputDirectory)
+
+        [HttpGet("files")]
+        public async Task<ActionResult<List<string>>> GetFiles(string filename)
+        {
+            try
+            {
+                _logger.LogInformation($"GetFiles of {filename}");
+                var base64Images = new List<string>();
+                string folderName = Path.GetFileNameWithoutExtension(filename);
+
+                string[] filePaths = Directory.GetFiles($"{_uploadFolder}/{folderName}/Images");
+
+                foreach (var item in filePaths)
+                {
+                    base64Images.Add(await ImageToBase64(item));
+                }
+
+                return Ok(base64Images);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"GetFiles Failed  {ex.Message} :: {ex.InnerException}");
+                return StatusCode(500, $"Error: {ex.Message}");
+            }
+        }
+
+        private async Task<string> ImageToBase64(string imagePath)
+        {
+            byte[] imageBytes = await System.IO.File.ReadAllBytesAsync(imagePath);
+            return Convert.ToBase64String(imageBytes);
+        }
+
+        private void ConvertPdfToImages(string pdfFilePath, string outputDirectory)
         {
             using (var rasterizer = new GhostscriptRasterizer())
             {
@@ -81,7 +125,8 @@ namespace DocumnetUploadAPI.Controllers
                 {
                     var pageFilePath = Path.Combine(outputDirectory, $"{pageNumber}.jpg");
                     var img = rasterizer.GetPage(300, pageNumber);
-                    img.Save(pageFilePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    img.Save(pageFilePath,
+                             format: System.Drawing.Imaging.ImageFormat.Jpeg);
                 }
             }
         }

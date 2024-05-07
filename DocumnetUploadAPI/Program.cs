@@ -1,6 +1,11 @@
+using DocumnetUploadAPI.Model;
+using System.Reflection.Metadata;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.Configure<DocumentUpload>(builder.Configuration.GetSection("DocumentUpload"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

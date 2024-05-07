@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  documnetuploadapi:
+    image: ${DOCKER_REGISTRY-}documnetuploadapi
+    build:
+      context: .
+      dockerfile: DocumnetUploadAPI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - DocumentUpload:Path=GoDigitalUploadedFiles
+    ports:
+      - "2000:8080"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - D:\GoDigitalUploadedFiles:/app/GoDigitalUploadedFiles
+
+  documnetupload.frontend:
+    image: ${DOCKER_REGISTRY-}documnetupload.frontend
+    container_name: documnetupload.frontend
+    build:
+      context: .
+      dockerfile: FrontEnd/Dockerfile
+    ports:
+      - "2001:80"
