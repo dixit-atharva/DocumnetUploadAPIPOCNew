@@ -47,21 +47,45 @@ export class DocUploadComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
 
-      const uploadReq = new HttpRequest(
-        'POST',
-        `${this.apiUrl}/DocUpload`, // Replace with your API endpoint URL
+      // const uploadReq = new HttpRequest(
+      //   'POST',
+      //   `${this.apiUrl}/DocUpload`, // Replace with your API endpoint URL
+      //   formData,
+      //   { reportProgress: true }
+      // );
+
+      const uploadReq = this.http.post<string[]>(
+        `${this.apiUrl}/DocUpload`,
         formData,
         { reportProgress: true }
       );
 
-      this.http.request(uploadReq).subscribe((event) => {
-        this.getFileList(this.selectedFile?.name);
-        if (event.type === HttpEventType.UploadProgress) {
-        } else if (event instanceof HttpResponse) {
-          
-          this.selectedFile = null; // Clear selection
+      uploadReq.subscribe(
+        (images: string[]) => {
+          this.files = images;
+          // Handle the response here
+          console.log('Response:', images);
+          // Do something with the array of strings
+        },
+        (error) => {
+          console.error('Error:', error);
+          // Handle error
         }
-      });
+      );
+      // .subscribe((event) => {
+      //   this.getFileList(this.selectedFile?.name);
+      //   if (event.type === HttpEventType.UploadProgress) {
+      //   } else if (event instanceof HttpResponse) {
+          
+      //     this.selectedFile = null; // Clear selection
+      //   }
+      //   (images: string[]) => {
+      //     this.files = images;
+      //     //debugger;
+      //     //this.loadImages();
+      //   }
+      // })
+      ;
     } else {
       this.uploadMessage = 'Please select a file to upload.';
     }
