@@ -1,6 +1,6 @@
 using System;
 
-namespace PDFtoImage.Internals
+namespace PDFUtility.Internals
 {
     internal sealed class PdfLibrary : IDisposable
     {

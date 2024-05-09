@@ -1,4 +1,4 @@
-﻿namespace PDFtoImage
+﻿namespace PDFUtility
 {
     /// <summary>
     /// Specifies the rotation of pages shown in the PDF renderer.

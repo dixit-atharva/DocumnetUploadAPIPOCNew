@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 using System.Threading;
 
-namespace PDFtoImage.Compatibility
+namespace PDFUtility.Compatibility
 {
     /// <summary>
     /// Provides methods to render PDFs into images. Used for backward compatibility.
@@ -18,7 +18,7 @@ namespace PDFtoImage.Compatibility
     [SupportedOSPlatform("macOS")]
     [SupportedOSPlatform("Android31.0")]
 #endif
-    [Obsolete("This class is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+    [Obsolete("This class is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
     [Browsable(false)]
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class Conversion
@@ -39,7 +39,7 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveJpeg(
@@ -57,7 +57,7 @@ namespace PDFtoImage.Compatibility
             PdfAntiAliasing antiAliasing = PdfAntiAliasing.All,
             SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Jpeg, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Jpeg, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveJpeg(
@@ -94,7 +94,7 @@ namespace PDFtoImage.Compatibility
             PdfAntiAliasing antiAliasing = PdfAntiAliasing.All,
             SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Jpeg, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Jpeg, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveJpeg(
@@ -131,7 +131,7 @@ namespace PDFtoImage.Compatibility
             PdfAntiAliasing antiAliasing = PdfAntiAliasing.All,
             SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Jpeg, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Jpeg, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveJpeg(
@@ -168,7 +168,7 @@ namespace PDFtoImage.Compatibility
             PdfAntiAliasing antiAliasing = PdfAntiAliasing.All,
             SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Jpeg, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Jpeg, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveJpeg(
@@ -205,7 +205,7 @@ namespace PDFtoImage.Compatibility
             PdfAntiAliasing antiAliasing = PdfAntiAliasing.All,
             SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Jpeg, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Jpeg, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveJpeg(
@@ -242,7 +242,7 @@ namespace PDFtoImage.Compatibility
             PdfAntiAliasing antiAliasing = PdfAntiAliasing.All,
             SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Jpeg, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Jpeg, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -261,12 +261,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SavePng(string imageFilename, string pdfAsBase64String, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Png, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Png, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -285,12 +285,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SavePng(Stream imageStream, string pdfAsBase64String, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Png, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Png, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -309,12 +309,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SavePng(string imageFilename, byte[] pdfAsByteArray, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Png, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Png, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -333,12 +333,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SavePng(Stream imageStream, byte[] pdfAsByteArray, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Png, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Png, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -357,12 +357,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SavePng(string imageFilename, Stream pdfStream, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Png, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Png, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -381,12 +381,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SavePng(Stream imageStream, Stream pdfStream, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Png, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Png, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -405,12 +405,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveWebp(string imageFilename, string pdfAsBase64String, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Webp, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Webp, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -429,12 +429,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveWebp(Stream imageStream, string pdfAsBase64String, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Webp, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Webp, pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -453,12 +453,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveWebp(string imageFilename, byte[] pdfAsByteArray, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Webp, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Webp, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -477,12 +477,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveWebp(Stream imageStream, byte[] pdfAsByteArray, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Webp, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Webp, pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -501,12 +501,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveWebp(string imageFilename, Stream pdfStream, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Webp, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageFilename, SKEncodedImageFormat.Webp, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -525,12 +525,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="rotation">Specifies the rotation at 90 degree intervals.</param>
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void SaveWebp(Stream imageStream, Stream pdfStream, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            PDFtoImage.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Webp, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            PDFUtility.Conversion.SaveImpl(imageStream, SKEncodedImageFormat.Webp, pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -549,12 +549,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The converted PDF page as an image.</returns>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static SKBitmap ToImage(string pdfAsBase64String, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            return PDFtoImage.Conversion.ToImage(pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            return PDFUtility.Conversion.ToImage(pdfAsBase64String, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -573,12 +573,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The converted PDF page as an image.</returns>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static SKBitmap ToImage(byte[] pdfAsByteArray, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            return PDFtoImage.Conversion.ToImage(pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            return PDFUtility.Conversion.ToImage(pdfAsByteArray, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -597,12 +597,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The rendered PDF page as an image.</returns>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static SKBitmap ToImage(Stream pdfStream, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            return PDFtoImage.Conversion.ToImage(pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            return PDFUtility.Conversion.ToImage(pdfStream, false, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -622,12 +622,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The rendered PDF page as an image.</returns>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static SKBitmap ToImage(Stream pdfStream, bool leaveOpen, string? password = null, int page = 0, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            return PDFtoImage.Conversion.ToImage(pdfStream, leaveOpen, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            return PDFUtility.Conversion.ToImage(pdfStream, leaveOpen, password, page, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -645,12 +645,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The rendered PDF pages as images.</returns>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static IEnumerable<SKBitmap> ToImages(string pdfAsBase64String, string? password = null, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            return PDFtoImage.Conversion.ToImages(pdfAsBase64String, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            return PDFUtility.Conversion.ToImages(pdfAsBase64String, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -668,12 +668,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The rendered PDF pages as images.</returns>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static IEnumerable<SKBitmap> ToImages(byte[] pdfAsByteArray, string? password = null, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            return PDFtoImage.Conversion.ToImages(pdfAsByteArray, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            return PDFUtility.Conversion.ToImages(pdfAsByteArray, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -691,12 +691,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The rendered PDF pages as images.</returns>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static IEnumerable<SKBitmap> ToImages(Stream pdfStream, string? password = null, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            return PDFtoImage.Conversion.ToImages(pdfStream, false, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            return PDFUtility.Conversion.ToImages(pdfStream, false, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
         /// <summary>
@@ -715,12 +715,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The rendered PDF pages as images.</returns>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static IEnumerable<SKBitmap> ToImages(Stream pdfStream, bool leaveOpen, string? password = null, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null)
         {
-            return PDFtoImage.Conversion.ToImages(pdfStream, leaveOpen, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
+            return PDFUtility.Conversion.ToImages(pdfStream, leaveOpen, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor));
         }
 
 #if NET6_0_OR_GREATER
@@ -740,12 +740,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The rendered PDF pages as images.</returns>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static async IAsyncEnumerable<SKBitmap> ToImagesAsync(string pdfAsBase64String, string? password = null, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            await foreach (var image in PDFtoImage.Conversion.ToImagesAsync(pdfAsBase64String, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor), cancellationToken))
+            await foreach (var image in PDFUtility.Conversion.ToImagesAsync(pdfAsBase64String, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor), cancellationToken))
             {
                 yield return image;
             }
@@ -768,13 +768,13 @@ namespace PDFtoImage.Compatibility
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The rendered PDF pages as images.</returns>
 #if NET6_0_OR_GREATER
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
 #endif
         public static async IAsyncEnumerable<SKBitmap> ToImagesAsync(byte[] pdfAsByteArray, string? password = null, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            await foreach (var image in PDFtoImage.Conversion.ToImagesAsync(pdfAsByteArray, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor), cancellationToken))
+            await foreach (var image in PDFUtility.Conversion.ToImagesAsync(pdfAsByteArray, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor), cancellationToken))
             {
                 yield return image;
             }
@@ -797,13 +797,13 @@ namespace PDFtoImage.Compatibility
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The rendered PDF pages as images.</returns>
 #if NET6_0_OR_GREATER
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
 #endif
         public static async IAsyncEnumerable<SKBitmap> ToImagesAsync(Stream pdfStream, string? password = null, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            await foreach (var image in PDFtoImage.Conversion.ToImagesAsync(pdfStream, false, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor), cancellationToken))
+            await foreach (var image in PDFUtility.Conversion.ToImagesAsync(pdfStream, false, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor), cancellationToken))
             {
                 yield return image;
             }
@@ -826,12 +826,12 @@ namespace PDFtoImage.Compatibility
         /// <param name="antiAliasing">Specifies which parts of the PDF should be anti-aliasing for rendering.</param>
         /// <param name="backgroundColor">Specifies the background color. Defaults to <see cref="SKColors.White"/>.</param>
         /// <returns>The rendered PDF pages as images.</returns>
-        [Obsolete("This method is for backward compatibility. Use PDFtoImage.Conversion instead.", false)]
+        [Obsolete("This method is for backward compatibility. Use PDFUtility.Conversion instead.", false)]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static async IAsyncEnumerable<SKBitmap> ToImagesAsync(Stream pdfStream, bool leaveOpen, string? password = null, int dpi = 300, int? width = null, int? height = null, bool withAnnotations = false, bool withFormFill = false, bool withAspectRatio = false, PdfRotation rotation = PdfRotation.Rotate0, PdfAntiAliasing antiAliasing = PdfAntiAliasing.All, SKColor? backgroundColor = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            await foreach (var image in PDFtoImage.Conversion.ToImagesAsync(pdfStream, leaveOpen, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor), cancellationToken))
+            await foreach (var image in PDFUtility.Conversion.ToImagesAsync(pdfStream, leaveOpen, password, new(dpi, width, height, withAnnotations, withFormFill, withAspectRatio, rotation, antiAliasing, backgroundColor), cancellationToken))
             {
                 yield return image;
             }

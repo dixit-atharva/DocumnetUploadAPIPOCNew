@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PDFtoImage
+namespace PDFUtility
 {
     /// <summary>
     /// Specifies which parts of the PDF should be rendered with anti-aliasing.

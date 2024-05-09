@@ -1,7 +1,7 @@
 ﻿using System;
-using static PDFtoImage.Internals.NativeMethods;
+using static PDFUtility.Internals.NativeMethods;
 
-namespace PDFtoImage.Exceptions
+namespace PDFUtility.Exceptions
 {
     /// <summary>
     /// Base class for all PDF related exceptions.

@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace PDFtoImage.Internals
+namespace PDFUtility.Internals
 {
 #if NET6_0_OR_GREATER
 #pragma warning disable CA2101 // Specify marshalling for P/Invoke string arguments

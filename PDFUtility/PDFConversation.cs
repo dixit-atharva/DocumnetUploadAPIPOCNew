@@ -1,18 +1,15 @@
 ﻿using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
+using PdfSharpCore.Pdf.IO;
 using System;
 using System.Drawing;
 using System.IO;
 
-namespace PDFtoImage;
+namespace PDFUtility;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 public static class PDFConversation
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static void CreatePdf(string folderPath, string outputDirectory, string fileName)
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         if (!Directory.Exists(outputDirectory))
         {
@@ -76,4 +73,32 @@ public static class PDFConversation
         // Save the document to the specified path
         document.Save($"{outputDirectory}/{fileName}");
     }
+
+    public static void SignedPdf(string documentPath, string sinaturePath, string outputDirectory, string fileName)
+    {
+        if (!Directory.Exists(outputDirectory))
+        {
+            Directory.CreateDirectory(outputDirectory);
+        }
+
+        PdfDocument document = PdfReader.Open(documentPath, PdfDocumentOpenMode.Modify);
+
+        // Get the first page of the document
+        PdfPage page = document.Pages[0];
+
+        // Define the coordinate where you want to add the signature
+        XPoint signaturePosition = new XPoint(100, 100); // Adjust coordinates as needed
+
+        // Load the signature image
+        XImage signatureImage = XImage.FromFile(sinaturePath);
+
+        // Draw the signature image onto the page
+        XGraphics gfx = XGraphics.FromPdfPage(page);
+        gfx.DrawImage(signatureImage, signaturePosition.X, signaturePosition.Y, signatureImage.PixelWidth, signatureImage.PixelHeight);
+
+        // Save the modified document
+        document.Save($"{outputDirectory}/{fileName}");
+        document.Close();
+    }
+
 }

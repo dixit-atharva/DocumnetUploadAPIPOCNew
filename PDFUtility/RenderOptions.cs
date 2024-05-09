@@ -1,7 +1,7 @@
 ﻿using SkiaSharp;
 using System.Drawing;
 
-namespace PDFtoImage
+namespace PDFUtility
 {
     /// <summary>
     /// Contains all relevant information to render a PDF page into an image.

@@ -1,6 +1,6 @@
-﻿using static PDFtoImage.Internals.NativeMethods;
+﻿using static PDFUtility.Internals.NativeMethods;
 
-namespace PDFtoImage.Exceptions
+namespace PDFUtility.Exceptions
 {
     /// <summary>
     /// Thrown if the PDF requires a password and the given password was not given or incorrect.

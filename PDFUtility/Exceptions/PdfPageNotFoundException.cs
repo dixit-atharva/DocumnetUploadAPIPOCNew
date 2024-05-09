@@ -1,6 +1,6 @@
-﻿using static PDFtoImage.Internals.NativeMethods;
+﻿using static PDFUtility.Internals.NativeMethods;
 
-namespace PDFtoImage.Exceptions
+namespace PDFUtility.Exceptions
 {
     /// <summary>
     /// Thrown if the PDF does not contain the given page number.

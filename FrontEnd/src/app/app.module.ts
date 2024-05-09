@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DocUploadPOCComponent } from './Pages/doc-upload-poc/doc-upload-poc.component';
 import { MainPOCComponent } from './Pages/main-poc/main-poc.component';
 import { FormsModule } from '@angular/forms';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 
@@ -17,13 +18,14 @@ import { FormsModule } from '@angular/forms';
     DocUploadComponent,
     DocUploadPOCComponent,
     DocUploadPOCComponent,
-    MainPOCComponent,
+    MainPOCComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule 
+    FormsModule,
+    PdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace PDFtoImage.Internals
+namespace PDFUtility.Internals
 {
 #if NET8_0_OR_GREATER
 #pragma warning disable CA1510 // Use ArgumentNullException throw helper

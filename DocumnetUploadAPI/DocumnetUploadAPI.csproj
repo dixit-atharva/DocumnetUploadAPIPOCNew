@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PDFtoImage\PDFtoImage.csproj" />
+    <ProjectReference Include="..\PDFUtility\PDFUtility.csproj" />
   </ItemGroup>
 
 </Project>

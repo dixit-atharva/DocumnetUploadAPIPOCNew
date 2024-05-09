@@ -47,7 +47,7 @@ namespace DocumnetUploadAPI.Controllers
         //        }
 
         //        // Convert PDF to images
-        //        ConvertPdfToImages(filePath, _uploadFolder + "/" + Path.GetFileNameWithoutExtension(file.FileName) + "/Images");
+        //        ConvertPDFUtilitys(filePath, _uploadFolder + "/" + Path.GetFileNameWithoutExtension(file.FileName) + "/Images");
         //        return Ok("File uploaded successfully!");
         //    }
         //    catch (Exception ex)
@@ -102,7 +102,7 @@ namespace DocumnetUploadAPI.Controllers
                 string base64String = Convert.ToBase64String(pdfBytes);
 
                 int i = 1;
-                await foreach (var image in PDFtoImage.Conversion.ToImagesAsync(base64String))
+                await foreach (var image in PDFUtility.Conversion.ToImagesAsync(base64String))
                 {
                     using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
                     using (var stream = System.IO.File.OpenWrite(Path.Combine(fileImagesDirectory, $"{i}.png")))
@@ -123,7 +123,13 @@ namespace DocumnetUploadAPI.Controllers
 
                 string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/{fileFolderName}/SIGNED");
 
-                PDFtoImage.PDFConversation.CreatePdf(fileImagesDirectory, PDFCombinedDirectory, fileName);
+                // PDFUtility.PDFConversation.CreatePdf(fileImagesDirectory, PDFCombinedDirectory, fileName);
+
+                string signaturePath = Path.Combine($"{_uploadFolder}/RP_Signature.jpg");
+
+                //PDFUtility.PDFConversation.SignedPdf(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf");
+
+                PDFUtility.ItextSharpPDFConversation.SignedPdf(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
 
                 return Ok(base64Images);
             }
@@ -170,6 +176,7 @@ namespace DocumnetUploadAPI.Controllers
             byte[] imageBytes = await System.IO.File.ReadAllBytesAsync(imagePath);
             return Convert.ToBase64String(imageBytes);
         }
+
 
     }
 }

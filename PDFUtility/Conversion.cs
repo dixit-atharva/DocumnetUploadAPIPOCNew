@@ -1,4 +1,4 @@
-﻿using PDFtoImage.Internals;
+﻿using PDFUtility.Internals;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PDFtoImage
+namespace PDFUtility
 {
     /// <summary>
     /// Provides methods to render PDFs into images.

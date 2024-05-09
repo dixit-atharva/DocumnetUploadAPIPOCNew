@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   HttpClient,
   HttpEventType,
@@ -12,14 +18,29 @@ import { environment } from 'src/environments/environment';
   templateUrl: './doc-upload.component.html',
   styleUrls: ['./doc-upload.component.css'],
 })
-export class DocUploadComponent implements OnInit {
+export class DocUploadComponent implements OnInit, AfterViewInit {
+  @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
+
   selectedFile: File | null = null;
   uploadProgress = 0;
   uploadMessage = '';
   files: string[] | null = null;
   public apiUrl: string = environment.apiUrl;
+  base64String: string = ''; // Initialize the base64 string variable
+  pdfSrc: string = '';
+  context: CanvasRenderingContext2D | null = null; // Initialize as null
+  isDrawing: boolean = false;
+  lastX!: number;
+  lastY!: number;
 
   constructor(private http: HttpClient) {}
+
+  ngAfterViewInit() {
+    // Ensure canvas is not null before accessing its context
+    if (this.canvas && this.canvas.nativeElement) {
+      this.context = this.canvas.nativeElement.getContext('2d');
+    }
+  }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
@@ -76,7 +97,7 @@ export class DocUploadComponent implements OnInit {
       //   this.getFileList(this.selectedFile?.name);
       //   if (event.type === HttpEventType.UploadProgress) {
       //   } else if (event instanceof HttpResponse) {
-          
+
       //     this.selectedFile = null; // Clear selection
       //   }
       //   (images: string[]) => {
@@ -85,7 +106,6 @@ export class DocUploadComponent implements OnInit {
       //     //this.loadImages();
       //   }
       // })
-      ;
     } else {
       this.uploadMessage = 'Please select a file to upload.';
     }
@@ -121,6 +141,62 @@ export class DocUploadComponent implements OnInit {
       const x = (imageWidth + imageMargin) * (this.imagesLoaded - 1);
       const y = 0; // Adjust y-coordinate for vertical positioning
       context.drawImage(image, x, y, imageWidth, imageHeight);
+    }
+  }
+
+  onView() {
+    this.convertToBase64(this.selectedFile);
+  }
+
+  // Convert the selected file to base64
+  convertToBase64(file: File | null) {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const arrayBuffer = e.target.result;
+        this.byteArrayToString(arrayBuffer);
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  }
+
+  byteArrayToString(arrayBuffer: ArrayBuffer) {
+    const bytes = new Uint8Array(arrayBuffer);
+    const file = new Blob([bytes], { type: 'application/pdf' });
+    this.pdfSrc = URL.createObjectURL(file);
+  }
+
+  onMouseDown(event: MouseEvent) {
+    this.isDrawing = true;
+    const rect = this.canvas.nativeElement.getBoundingClientRect();
+    this.lastX = event.clientX - rect.left;
+    this.lastY = event.clientY - rect.top;
+  }
+
+  onMouseMove(event: MouseEvent) {
+    if (this.isDrawing) {
+      const rect = this.canvas.nativeElement.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      this.draw(this.lastX, this.lastY, x, y);
+      this.lastX = x;
+      this.lastY = y;
+    }
+  }
+
+  onMouseUp(event: MouseEvent) {
+    this.isDrawing = false;
+  }
+
+  draw(x1: number, y1: number, x2: number, y2: number) {
+    if (this.context) {
+      this.context.beginPath();
+      this.context.strokeStyle = 'black';
+      this.context.lineWidth = 2;
+      this.context.moveTo(x1, y1);
+      this.context.lineTo(x2, y2);
+      this.context.stroke();
+      this.context.closePath();
     }
   }
 }
