@@ -1,0 +1,15 @@
+<p>ngx-extended-pdf-viewer works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <input type="file" (change)="onFileSelected($event)" />
+      <button (click)="onView()">View</button>
+    </div>
+  </div>
+</div>
+@if (pdfSrc != '') {
+<div class="row" style="width: 1000px;height: 1000px;" >
+  <ngx-extended-pdf-viewer [src]="pdfSrc" [height]="'90vh'" >
+  </ngx-extended-pdf-viewer>
+</div>
+}

@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { Ng2PdfjsViewerComponent } from './Pages/ng2-pdfjs-viewer/ng2-pdfjs-viewer.component';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { NgxExtendedPdfViewerComponent } from './Pages/ngx-extended-pdf-viewer/ngx-extended-pdf-viewer.component';
 
 
 
@@ -21,6 +23,7 @@ import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
     DocUploadPOCComponent,
     DocUploadPOCComponent,
     MainPOCComponent,
+    NgxExtendedPdfViewerComponent,
     Ng2PdfjsViewerComponent    
   ],
   imports: [
@@ -29,7 +32,8 @@ import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
     HttpClientModule,
     FormsModule,
     PdfViewerModule,
-    PdfJsViewerModule
+    PdfJsViewerModule,
+    NgxExtendedPdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
