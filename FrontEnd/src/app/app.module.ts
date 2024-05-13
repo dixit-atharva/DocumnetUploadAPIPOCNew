@@ -9,6 +9,7 @@ import { DocUploadPOCComponent } from './Pages/doc-upload-poc/doc-upload-poc.com
 import { MainPOCComponent } from './Pages/main-poc/main-poc.component';
 import { FormsModule } from '@angular/forms';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { Ng2PdfjsViewerComponent } from './Pages/ng2-pdfjs-viewer/ng2-pdfjs-viewer.component';
 
 
 
@@ -18,7 +19,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     DocUploadComponent,
     DocUploadPOCComponent,
     DocUploadPOCComponent,
-    MainPOCComponent    
+    MainPOCComponent,
+    Ng2PdfjsViewerComponent    
   ],
   imports: [
     BrowserModule,
