@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-ng2-pdfjs-viewer',
@@ -9,7 +9,8 @@ export class Ng2PdfjsViewerComponent {
   selectedFile: File | null = null;
   base64String: string = ''; // Initialize the base64 string variable
   pdfSrc: string = '';
-
+  @ViewChild('pdfViewerOnDemand') pdfViewerOnDemand : any;
+  
   onView() {
     this.convertToBase64(this.selectedFile);
   }
@@ -30,6 +31,8 @@ export class Ng2PdfjsViewerComponent {
     const bytes = new Uint8Array(arrayBuffer);
     const file = new Blob([bytes], { type: 'application/pdf' });
     this.pdfSrc = URL.createObjectURL(file);
+    this.pdfViewerOnDemand.pdfSrc = this.pdfSrc;
+    this.pdfViewerOnDemand.refresh(); 
   }
 
   onFileSelected(event: any) {

@@ -10,6 +10,7 @@ import { MainPOCComponent } from './Pages/main-poc/main-poc.component';
 import { FormsModule } from '@angular/forms';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { Ng2PdfjsViewerComponent } from './Pages/ng2-pdfjs-viewer/ng2-pdfjs-viewer.component';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
 
 
@@ -27,7 +28,8 @@ import { Ng2PdfjsViewerComponent } from './Pages/ng2-pdfjs-viewer/ng2-pdfjs-view
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    PdfJsViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
