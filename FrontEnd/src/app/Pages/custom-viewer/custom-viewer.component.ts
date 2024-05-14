@@ -1,55 +1,86 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import {
   NgxExtendedPdfViewerModule,
-  PdfSidebarView,
-  TextLayerRenderedEvent,
+  PagesLoadedEvent,
 } from 'ngx-extended-pdf-viewer';
 
 @Component({
   selector: 'app-custom-viewer',
   standalone: true,
-  imports: [IonicModule, NgxExtendedPdfViewerModule],
+  imports: [IonicModule, NgxExtendedPdfViewerModule,CommonModule,FormsModule],
   templateUrl: './custom-viewer.component.html',
   styleUrl: './custom-viewer.component.css',
 })
-export class CustomViewerComponent  {
+export class CustomViewerComponent {
   sidebarOpen = true;
   handTool: boolean = true;
   _zoomSetting: number | string | undefined = 'page-width';
-  currentZoomFactor: number | string | undefined = "auto";
+  currentZoomFactor: number | string | undefined = 'auto';
+  currentPage: number = 1;
+  maxPage: number = 1;
 
   enableTextSelection() {
     this.handTool = false;
   }
-  enableHandTool(){
+  enableHandTool() {
     this.handTool = true;
   }
 
-  enableshowPresentationModeButton(){
+  enableshowPresentationModeButton() {
     const element = document.getElementById('presentationMode');
     if (element) {
       element.click();
-      
     }
   }
 
-  showSidebarButton(){
+  showSidebarButton() {
     const element = document.getElementById('primarySidebarToggle');
     if (element) {
       element.click();
     }
   }
 
-  zoomIn(){
+  zoomIn() {
     const element = document.getElementById('zoomIn');
     if (element) {
       element.click();
     }
   }
 
-  zoomOut(){
+  zoomOut() {
     const element = document.getElementById('zoomOut');
+    if (element) {
+      element.click();
+    }
+  }
+
+  onEnterFirstTextbox(event: KeyboardEvent | any) {
+    const value = parseInt((event.target as HTMLInputElement).value);
+    // Check if the key pressed is "Enter"
+    if (event.key === 'Enter' && value <= this.maxPage) {
+      // Set the value of the second text box
+      this.currentPage = value;
+    } else {
+      this.currentPage = 1;
+    }
+  }
+
+  onPagesLoaded(pagecount: PagesLoadedEvent): void {
+    this.maxPage = pagecount.pagesCount;
+  }
+
+  downLoad() {
+    const element = document.getElementById('download');
     if (element) {
       element.click();
     }
