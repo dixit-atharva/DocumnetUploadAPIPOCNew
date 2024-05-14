@@ -70,6 +70,13 @@
           <div class="d-block text-primary">
             <button
               class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Refresh"
+              (click)="refresh()"
+            >
+              <ion-icon name="sync"></ion-icon>
+            </button>
+            <button
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
               title="Zoom Out"
               (click)="zoomOut()"
             >
@@ -164,6 +171,7 @@
                 [(zoom)]="currentZoomFactor"
                 [(page)]="currentPage"
                 (pagesLoaded)="onPagesLoaded($event)"
+                [ignoreKeyboard]="true"
               >
               </ngx-extended-pdf-viewer>
             </div>
