@@ -62,8 +62,15 @@
           <div class="d-block text-primary">
             Go to page
             <span class="go-page">
-              <input type="number" id="gotopage" [(ngModel)]="currentPage" min="1" max="{{maxPage}}"  #gotopage (keydown.enter)="onEnterFirstTextbox($event)" />
-              
+              <input
+                type="number"
+                id="gotopage"
+                [(ngModel)]="currentPage"
+                min="1"
+                max="{{ maxPage }}"
+                #gotopage
+                (keydown.enter)="onEnterFirstTextbox($event)"
+              />
             </span>
           </div>
           <!-- .d-block -->
@@ -121,9 +128,47 @@
           <!-- .d-block -->
           <div class="d-block text-primary">
             <strong>Page</strong>
-            <span class="page-current" id="pageCurrent">{{currentPage}}</span>/<span
-              class="page-of"
-            >{{maxPage}}</span>
+            <span class="page-current" id="pageCurrent">{{ currentPage }}</span
+            >/<span class="page-of">{{ maxPage }}</span>
+          </div>
+          <div class="d-block text-primary">
+            <section class="section">
+              <input
+                id="searchtext"
+                class="margin"
+                [(ngModel)]="searchtext"
+                placeholder="search term"
+              />
+              <small *ngIf="findState !== undefined"
+                ><span class="margin-left-24px">{{ findStateText }}</span>
+                <span
+                  class="margin-left-24px"
+                  *ngIf="totalMatches && totalMatches > 0"
+                  >Result {{ currentMatchNumber }} of {{ totalMatches }}
+                </span></small
+              >
+              <button
+              id="gotoPreviousPage"
+              (click)="findPrevious()"
+              style="margin-left: 10px"
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Previous"
+            >
+              <ion-icon name="caret-back-outline"></ion-icon>
+            </button>
+              <button
+              id="gotoNextPage"
+              (click)="findNext()"
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Next"
+            >
+              <ion-icon name="caret-forward-outline"></ion-icon>
+            </button>
+            
+            </section>
+            <section class="section button-box">
+             
+            </section>
           </div>
           <!-- .d-block -->
         </div>
@@ -166,12 +211,14 @@
                 [showScrollingButton]="false"
                 [showSpreadButton]="false"
                 [showPropertiesButton]="false"
-                [textLayer]="true"
+                [textLayer]="textLayer"
                 [handTool]="handTool"
                 [(zoom)]="currentZoomFactor"
                 [(page)]="currentPage"
                 (pagesLoaded)="onPagesLoaded($event)"
                 [ignoreKeyboard]="true"
+                (updateFindMatchesCount)="updateFindMatchesCount($event)"
+                (updateFindState)="updateFindState($event)"
               >
               </ngx-extended-pdf-viewer>
             </div>

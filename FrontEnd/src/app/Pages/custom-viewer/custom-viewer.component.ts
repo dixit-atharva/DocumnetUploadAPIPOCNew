@@ -10,14 +10,17 @@ import {
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import {
+  FindResultMatchesCount,
+  FindState,
   NgxExtendedPdfViewerModule,
+  NgxExtendedPdfViewerService,
   PagesLoadedEvent,
 } from 'ngx-extended-pdf-viewer';
 
 @Component({
   selector: 'app-custom-viewer',
   standalone: true,
-  imports: [IonicModule, NgxExtendedPdfViewerModule,CommonModule,FormsModule],
+  imports: [IonicModule, NgxExtendedPdfViewerModule, CommonModule, FormsModule],
   templateUrl: './custom-viewer.component.html',
   styleUrl: './custom-viewer.component.css',
 })
@@ -28,6 +31,18 @@ export class CustomViewerComponent {
   currentZoomFactor: number | string | undefined = 'auto';
   currentPage: number = 1;
   maxPage: number = 1;
+  public _searchtext = '';
+  public currentMatchNumber: number | undefined;
+
+  public totalMatches: number | undefined;
+
+  findState: FindState | undefined;
+
+  textLayer:boolean = true;
+
+  constructor(
+    private ngxExtendedPdfViewerService: NgxExtendedPdfViewerService
+  ) {}
 
   enableTextSelection() {
     this.handTool = false;
@@ -86,9 +101,60 @@ export class CustomViewerComponent {
     }
   }
 
-  refresh(){
+  refresh() {
     this.currentPage = 1;
-    this.currentZoomFactor = "auto";
+    this.currentZoomFactor = 'auto';
+    this.handTool = true;
+    this.textLayer = false;
+  }
+
+  public get searchtext(): string {
+    return this._searchtext;
+  }
+
+  public set searchtext(text: string) {
+    this._searchtext = text;
+    this.find();
+  }
+
+  private find() {
+    if (!this._searchtext) {
+      this.findState = undefined;
+      this.currentMatchNumber = undefined;
+      this.totalMatches = undefined;
+    }
+    this.ngxExtendedPdfViewerService.find(this._searchtext);
+  }
+
+  updateFindState(result: FindState) {
+    this.findState = result;
+  }
+
+  updateFindMatchesCount(result: FindResultMatchesCount) {
+    this.currentMatchNumber = result.current;
+    this.totalMatches = result.total;
+  }
+
+  findNext(): void {
+    this.ngxExtendedPdfViewerService.findNext();
+  }
+
+  findPrevious(): void {
+    this.ngxExtendedPdfViewerService.findPrevious();
+  }
+
+  public get findStateText(): string {
+    switch (this.findState) {
+      case FindState.FOUND:
+        return 'found';
+      case FindState.NOT_FOUND:
+        return 'not found';
+      case FindState.PENDING:
+        return 'pending';
+      case FindState.WRAPPED:
+        return 'wrapped';
+    }
+    return '';
   }
 
   pdfData =
