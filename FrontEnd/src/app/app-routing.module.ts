@@ -5,6 +5,7 @@ import { DocUploadPOCComponent } from './Pages/doc-upload-poc/doc-upload-poc.com
 import { MainPOCComponent } from './Pages/main-poc/main-poc.component';
 import { Ng2PdfjsViewerComponent } from './Pages/ng2-pdfjs-viewer/ng2-pdfjs-viewer.component';
 import { NgxExtendedPdfViewerComponent } from './Pages/ngx-extended-pdf-viewer/ngx-extended-pdf-viewer.component';
+import { CustomViewerComponent } from './Pages/custom-viewer/custom-viewer.component';
 
 const routes: Routes = [
   { path: '', component: DocUploadComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'main', component: MainPOCComponent },
   { path: 'ng2-pdfjs-viewer', component: Ng2PdfjsViewerComponent },
   { path: 'ngx-extended-pdf-viewer', component: NgxExtendedPdfViewerComponent },
+  { path: 'custom-viewer', component: CustomViewerComponent },
 ];
 
 @NgModule({

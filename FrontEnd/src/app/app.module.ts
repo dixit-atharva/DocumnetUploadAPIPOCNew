@@ -13,6 +13,7 @@ import { Ng2PdfjsViewerComponent } from './Pages/ng2-pdfjs-viewer/ng2-pdfjs-view
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { NgxExtendedPdfViewerComponent } from './Pages/ngx-extended-pdf-viewer/ngx-extended-pdf-viewer.component';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -33,7 +34,8 @@ import { NgxExtendedPdfViewerComponent } from './Pages/ngx-extended-pdf-viewer/n
     FormsModule,
     PdfViewerModule,
     PdfJsViewerModule,
-    NgxExtendedPdfViewerModule
+    NgxExtendedPdfViewerModule,
+    IonicModule
   ],
   providers: [],
   bootstrap: [AppComponent]
