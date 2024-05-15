@@ -2,11 +2,14 @@
   <div class="row"><a href="/ngx-extended-pdf-viewer"> ngx-extended-pdf-viewer</a></div>
   <div class="row"><a href="/ng2-pdfjs-viewer"> ng2-pdfjs-viewer</a></div>
   <div class="row"><a href="/custom-viewer"> custom-viewer</a></div>
+  <div class="row"><a href="/pdf-viewer-custom"> pdf-viewer-custom For DG</a></div>
   <div class="row">
     <div class="col-md-12">
       <input type="file" (change)="onFileSelected($event)" />
       <button (click)="onUpload()">Upload</button>
       <button (click)="onView()">View</button>
+      <button (click)="addSignatureDivToPage(1)">Add Div to Page 1</button>
+      <button (click)="getSignaturePosition(1)">get Coordinate from Page 1</button>
       <div *ngIf="uploadProgress > 0">
         Upload Progress: {{ uploadProgress }}%
       </div>
