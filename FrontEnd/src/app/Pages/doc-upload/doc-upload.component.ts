@@ -199,4 +199,56 @@ export class DocUploadComponent implements OnInit, AfterViewInit {
       this.context.closePath();
     }
   }
+
+  addSignatureDivToPage(pageNumber: any) {
+    const pageElement = document.querySelector(
+      `.page[data-page-number="${pageNumber}"]`
+    );
+    if (pageElement) {
+      const canvasWrapper = pageElement.querySelector('.canvasWrapper');
+
+      // Create a div element for the signature
+      const signatureDiv = document.createElement('div');
+      signatureDiv.classList.add('signature');
+
+      // Style the signature div (adjust styles as needed)
+      signatureDiv.style.position = 'absolute';
+      signatureDiv.style.width = '100px'; // Adjust width as needed
+      signatureDiv.style.height = '100px'; // Adjust height as needed
+      signatureDiv.style.zIndex = '999999'; 
+      signatureDiv.style.top = '10px'; 
+      signatureDiv.style.backgroundColor = 'yellow'; // Adjust color as needed
+      if (canvasWrapper) {
+        // Append the signature div to the canvas wrapper
+        canvasWrapper.appendChild(signatureDiv);
+      }
+    }
+  }
+
+  // Function to get the position of the signature div on the specified page
+  getSignaturePosition(pageNumber: any) {
+    const signatureDiv = document.querySelector(
+      `.page[data-page-number="${pageNumber}"] .signature`
+    );
+
+    if (signatureDiv !== null && signatureDiv instanceof Element) {
+      // Get the position of the signature div relative to the page
+      const pageRect = signatureDiv.closest('.page')?.getBoundingClientRect();
+      const signatureRect = signatureDiv.getBoundingClientRect();
+      if (pageRect) {
+        const posX = signatureRect.left - pageRect.left;
+        const posY = signatureRect.top - pageRect.top;
+        alert(`Pos X ${posX} :: Pos Y ${posY}`);
+        return { x: posX, y: posY };
+      } else {
+        console.error(
+          'Page element not found for signature on page ' + pageNumber
+        );
+        return null;
+      }
+    } else {
+      console.error('Signature div not found on page ' + pageNumber);
+      return null;
+    }
+  }
 }

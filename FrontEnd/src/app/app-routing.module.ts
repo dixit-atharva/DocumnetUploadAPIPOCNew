@@ -6,6 +6,7 @@ import { MainPOCComponent } from './Pages/main-poc/main-poc.component';
 import { Ng2PdfjsViewerComponent } from './Pages/ng2-pdfjs-viewer/ng2-pdfjs-viewer.component';
 import { NgxExtendedPdfViewerComponentTest } from './Pages/ngx-extended-pdf-viewer/ngx-extended-pdf-viewer.component';
 import { CustomViewerComponent } from './Pages/custom-viewer/custom-viewer.component';
+import { PdfViewerCustomComponent } from './Pages/pdf-viewer-custom/pdf-viewer-custom.component';
 
 const routes: Routes = [
   { path: '', component: DocUploadComponent },
