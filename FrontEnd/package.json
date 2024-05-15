@@ -20,6 +20,7 @@
     "@angular/router": "^17.3.8",
     "@ionic/angular": "^8.1.1",
     "bootstrap": "^5.3.3",
+    "interactjs": "^1.10.27",
     "ionicons": "^7.4.0",
     "jquery": "^3.7.1",
     "ng2-pdf-viewer": "^10.0.0",
