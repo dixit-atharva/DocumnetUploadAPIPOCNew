@@ -12,7 +12,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { Ng2PdfjsViewerComponent } from './Pages/ng2-pdfjs-viewer/ng2-pdfjs-viewer.component';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { NgxExtendedPdfViewerComponent } from './Pages/ngx-extended-pdf-viewer/ngx-extended-pdf-viewer.component';
+import { NgxExtendedPdfViewerComponentTest } from './Pages/ngx-extended-pdf-viewer/ngx-extended-pdf-viewer.component';
 
 
 
@@ -23,7 +23,7 @@ import { NgxExtendedPdfViewerComponent } from './Pages/ngx-extended-pdf-viewer/n
     DocUploadPOCComponent,
     DocUploadPOCComponent,
     MainPOCComponent,
-    NgxExtendedPdfViewerComponent,
+    NgxExtendedPdfViewerComponentTest,
     Ng2PdfjsViewerComponent    
   ],
   imports: [
