@@ -5,12 +5,14 @@ import { DocUploadPOCComponent } from './Pages/doc-upload-poc/doc-upload-poc.com
 import { MainPOCComponent } from './Pages/main-poc/main-poc.component';
 import { Ng2PdfjsViewerComponent } from './Pages/ng2-pdfjs-viewer/ng2-pdfjs-viewer.component';
 import { NgxExtendedPdfViewerComponentTest } from './Pages/ngx-extended-pdf-viewer/ngx-extended-pdf-viewer.component';
+import { CustomViewerComponent } from './Pages/custom-viewer/custom-viewer.component';
 
 const routes: Routes = [
   { path: '', component: DocUploadComponent },
   { path: 'DocUploadPOC', component: DocUploadPOCComponent },
   { path: 'main', component: MainPOCComponent },
   { path: 'ng2-pdfjs-viewer', component: Ng2PdfjsViewerComponent },
+  { path: 'custom-viewer', component: CustomViewerComponent },
   { path: 'ngx-extended-pdf-viewer', component: NgxExtendedPdfViewerComponentTest },
 ];
 
