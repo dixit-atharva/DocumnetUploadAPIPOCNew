@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'ng2-pdfjs-viewer', component: Ng2PdfjsViewerComponent },
   { path: 'custom-viewer', component: CustomViewerComponent },
   { path: 'ngx-extended-pdf-viewer', component: NgxExtendedPdfViewerComponentTest },
+  { path: 'pdf-viewer-custom', component: PdfViewerCustomComponent },
 ];
 
 @NgModule({
