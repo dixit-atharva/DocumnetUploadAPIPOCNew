@@ -194,7 +194,7 @@ namespace DocumnetUploadAPI.Controllers
                     Directory.CreateDirectory(fileDirectory);
                 }
 
-                System.IO.File.Copy(pdfFile, Path.Combine($"{_uploadFolder}/{fileFolderName}/{fileName}"));
+                System.IO.File.Copy(pdfFile, Path.Combine($"{_uploadFolder}/{fileFolderName}/{fileName}"),true);
 
                 string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/{fileFolderName}/SIGNED");
 
