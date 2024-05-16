@@ -116,21 +116,21 @@ public static class PDFConversation
         return pixels;// / PixelsPerPoint;
     }
 
-    public static void SignedPdfByCoordinates(string documentPath, string sinaturePath, string outputDirectory, string fileName)
+    public static void SignedPdfByCoordinates(string documentPath, string sinaturePath, string outputDirectory, string fileName, PDFCoordinates pDFCoordinates)
     {
-        string coordinatesObject = @"
-        [
-            {
-                ""pageNumber"": ""1"",
-                ""cordinate"": [
-                    {
-                        ""posX"": 34,
-                        ""posY"": 67
-                    }
-                ]
-            }
-        ]";
-        List<Pages>? pDFCoordinates = JsonConvert.DeserializeObject<List<Pages>>(coordinatesObject);
+        //string coordinatesObject = @"
+        //[
+        //    {
+        //        ""pageNumber"": ""1"",
+        //        ""cordinate"": [
+        //            {
+        //                ""posX"": 34,
+        //                ""posY"": 67
+        //            }
+        //        ]
+        //    }
+        //]";
+        //List<Pages>? pDFCoordinates = JsonConvert.DeserializeObject<List<Pages>>(SignObjectJson);
 
         if (!Directory.Exists(outputDirectory))
         {
@@ -151,26 +151,26 @@ public static class PDFConversation
             PdfDocument document = PdfReader.Open(documentPath, PdfDocumentOpenMode.Modify);
             document.Info.Title = "Created with PDFsharp";
 
-            foreach (var item in pDFCoordinates)
+            foreach (var item in pDFCoordinates.Pages)
             {
                 // Create an empty page
                 PdfPage page = document.Pages[item.PageNumber - 1];
                 // Get an XGraphics object for drawing
                 XGraphics gfx = XGraphics.FromPdfPage(page);
-                // Define the coordinates and dimensions from the provided data
-                double left = 59.25 + 40;
-                double top = 106.5 + 40;
-                double width = 150;
-                double height = 45;
-                // Load the image
-              
-                XImage image = XImage.FromFile(imagePath);
 
-                gfx.DrawImage(image, left,top,width,height);
+                foreach (var itemcordinate in item.cordinate)
+                {
+                    // Define the coordinates and dimensions from the provided data
+                    double left = itemcordinate.Left + 40;
+                    double top = itemcordinate.Top + 40;
+                    double width = itemcordinate.Width;
+                    double height = itemcordinate.Height;
+                    // Load the image
 
-                gfx.DrawImage(image, 27 + 40, 735 + 40, width, height);
+                    XImage image = XImage.FromFile(imagePath);
 
-                gfx.DrawImage(image, 436.5 + 40, 734.25 + 40, width, height);
+                    gfx.DrawImage(image, left, top, width, height);
+                }
             }
 
             // Save the modified document

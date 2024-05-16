@@ -1,6 +1,7 @@
 ﻿using DocumnetUploadAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using PDFtoImage.Model;
 using SkiaSharp;
 using System.IO;
 
@@ -173,7 +174,7 @@ namespace DocumnetUploadAPI.Controllers
 
 
         [HttpPost("pdfsigned")]
-        public async Task<IActionResult> PDFSigned()
+        public async Task<IActionResult> PDFSigned(PDFCoordinates pDFCoordinates)
         {
             _logger.LogInformation($"Upload Started at {_uploadFolder}");
 
@@ -206,8 +207,8 @@ namespace DocumnetUploadAPI.Controllers
 
                 //PDFUtility.ItextSharpPDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
 
-                //PDFUtility.PDFConversation.SignedPdf(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf");
-                PDFUtility.ItextSharpPDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
+                PDFUtility.PDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf", pDFCoordinates);
+                //PDFUtility.ItextSharpPDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
 
                 return Ok();
             }
