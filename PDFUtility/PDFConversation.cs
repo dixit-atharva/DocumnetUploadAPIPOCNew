@@ -161,8 +161,8 @@ public static class PDFConversation
                 foreach (var itemcordinate in item.cordinate)
                 {
                     // Define the coordinates and dimensions from the provided data
-                    double left = itemcordinate.Left + 40;
-                    double top = itemcordinate.Top + 40;
+                    double left = itemcordinate.Left ;
+                    double top = itemcordinate.Top ;
                     double width = itemcordinate.Width;
                     double height = itemcordinate.Height;
                     // Load the image
