@@ -7,8 +7,12 @@
         class="btn-group btn-group-rounded justify-content-center d-flex mt-4 mb-5"
         role="group"
       >
-        <button type="button" class="btn btn-uppercase btn-primary px-4">
-          Continue
+        <button
+          type="button"
+          class="btn btn-uppercase btn-primary px-4"
+          (click)="SaveCordinates()"
+        >
+          Sign
         </button>
         <button type="button" class="btn btn-uppercase btn-secondary px-4">
           Cancel
@@ -35,7 +39,7 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-8">
           <div class="document-container">
             <div
               class="document-render"
@@ -51,15 +55,16 @@
                   height: 100%;
                   position: absolute;
                 "
-                [zoom]="1"
-                [zoom-scale]="'page-width'"
-                [original-size]="true"
                 (click)="AddSignatueOnPageLoad($event)"
+                id="pdfviwerData"
               ></pdf-viewer>
             </div>
             <!-- .document-render -->
           </div>
           <!-- .document-container -->
+        </div>
+        <div class="col-lg-4">
+          <pre>{{ ObjCordinates | json }}</pre>
         </div>
         <!-- .col-## -->
       </div>

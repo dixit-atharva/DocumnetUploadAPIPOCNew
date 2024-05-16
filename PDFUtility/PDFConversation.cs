@@ -6,6 +6,7 @@ using PDFtoImage.Model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 
 namespace PDFUtility;
@@ -157,15 +158,19 @@ public static class PDFConversation
                 // Get an XGraphics object for drawing
                 XGraphics gfx = XGraphics.FromPdfPage(page);
                 // Define the coordinates and dimensions from the provided data
-                double left = 30;
-                double top = 966;
-                double width = 200;
-                double height = 60;
+                double left = 59.25 + 40;
+                double top = 106.5 + 40;
+                double width = 150;
+                double height = 45;
                 // Load the image
-                XRect rect = new XRect(left, top, width, height);
+              
                 XImage image = XImage.FromFile(imagePath);
-                // Draw the image on the page
-                gfx.DrawImage(image, rect);
+
+                gfx.DrawImage(image, left,top,width,height);
+
+                gfx.DrawImage(image, 27 + 40, 735 + 40, width, height);
+
+                gfx.DrawImage(image, 436.5 + 40, 734.25 + 40, width, height);
             }
 
             // Save the modified document
@@ -174,6 +179,14 @@ public static class PDFConversation
         }
 
 
+    }
+
+    public static double ConvertToPDFCoordinates(double value, double maxValue, double defaultValue, double imageMaxValue)
+    {
+       
+            return Convert.ToDouble(value) * (maxValue / imageMaxValue);
+        
+       
     }
 
     public static void SignedPdfByCoordinates1(string documentPath, string sinaturePath, string outputDirectory, string fileName)
