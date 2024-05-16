@@ -89,19 +89,30 @@ public static class PDFConversation
         // Get the first page of the document
         PdfPage page = document.Pages[0];
 
+        double leftInPoints = ConvertPixelsToPoints(292);
+        double topInPoints = ConvertPixelsToPoints(106);
+
         // Define the coordinate where you want to add the signature
-        XPoint signaturePosition = new XPoint(100, 100); // Adjust coordinates as needed
+        //XPoint signaturePosition = new XPoint(leftInPoints, topInPoints); // Adjust coordinates as needed
 
         // Load the signature image
         XImage signatureImage = XImage.FromFile(sinaturePath);
 
         // Draw the signature image onto the page
         XGraphics gfx = XGraphics.FromPdfPage(page);
-        gfx.DrawImage(signatureImage, signaturePosition.X, signaturePosition.Y, signatureImage.PixelWidth, signatureImage.PixelHeight);
+        gfx.DrawImage(signatureImage, leftInPoints, topInPoints);
 
         // Save the modified document
         document.Save($"{outputDirectory}/{fileName}");
         document.Close();
+    }
+
+    // Function to convert pixels to points
+    private static double ConvertPixelsToPoints(double pixels)
+    {
+        // Conversion factor from pixels to points
+        const double PixelsPerPoint = 0.75;
+        return pixels;// / PixelsPerPoint;
     }
 
     public static void SignedPdfByCoordinates(string documentPath, string sinaturePath, string outputDirectory, string fileName)
@@ -118,9 +129,7 @@ public static class PDFConversation
                 ]
             }
         ]";
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
         List<Pages>? pDFCoordinates = JsonConvert.DeserializeObject<List<Pages>>(coordinatesObject);
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
 
         if (!Directory.Exists(outputDirectory))
         {
@@ -167,4 +176,54 @@ public static class PDFConversation
 
     }
 
+    public static void SignedPdfByCoordinates1(string documentPath, string sinaturePath, string outputDirectory, string fileName)
+    {
+        int x = 572;
+        int y = 19;
+
+        if (!Directory.Exists(outputDirectory))
+        {
+            Directory.CreateDirectory(outputDirectory);
+        }
+
+        // Load the PDF document
+        PdfDocument document = PdfReader.Open(documentPath, PdfDocumentOpenMode.Modify);
+
+        // Assuming we want to add signature to the first page
+        PdfPage page = document.Pages[0];
+
+        // Load the signature image
+        XImage signatureImage = XImage.FromFile(sinaturePath);
+
+        // Define the position for the signature
+        XPoint signaturePosition = new XPoint(ConvertToPdfXCoordinate(x), ConvertToPdfYCoordinate(page, y));
+
+        // Create a graphics object to draw on the page
+        XGraphics gfx = XGraphics.FromPdfPage(page);
+
+        // Draw the signature image at the specified position
+        gfx.DrawImage(signatureImage, signaturePosition.X, signaturePosition.Y, signatureImage.PixelWidth, signatureImage.PixelHeight);
+
+
+        // Save the changes to the PDF document
+        document.Save($"{outputDirectory}/{fileName}");
+
+
+    }
+
+    // Function to convert Angular X coordinate to PDF X coordinate
+    private static double ConvertToPdfXCoordinate(int angularX)
+    {
+        // Adjust as necessary based on the differences in coordinate systems
+        // You may need to consider scaling, margins, or any offsets
+        return angularX; // Placeholder, replace with actual conversion logic
+    }
+
+    // Function to convert Angular Y coordinate to PDF Y coordinate
+    private static double ConvertToPdfYCoordinate(PdfPage page, int angularY)
+    {
+        // Adjust as necessary based on the differences in coordinate systems
+        // PDF coordinate system has origin at bottom-left corner of the page
+        return page.Height.Point - angularY; // Invert Y coordinate and adjust for page height
+    }
 }

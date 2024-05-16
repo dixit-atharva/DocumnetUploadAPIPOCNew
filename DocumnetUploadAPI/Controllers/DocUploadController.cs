@@ -194,7 +194,7 @@ namespace DocumnetUploadAPI.Controllers
                     Directory.CreateDirectory(fileDirectory);
                 }
 
-                System.IO.File.Copy(pdfFile, Path.Combine($"{_uploadFolder}/{fileFolderName}/{fileName}"));
+                System.IO.File.Copy(pdfFile, Path.Combine($"{_uploadFolder}/{fileFolderName}/{fileName}"),true);
 
                 string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/{fileFolderName}/SIGNED");
 
@@ -206,7 +206,8 @@ namespace DocumnetUploadAPI.Controllers
 
                 //PDFUtility.ItextSharpPDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
 
-                PDFUtility.PDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf");
+                //PDFUtility.PDFConversation.SignedPdf(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf");
+                PDFUtility.ItextSharpPDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
 
                 return Ok();
             }
