@@ -97,42 +97,42 @@ namespace DocumnetUploadAPI.Controllers
 
                 fileStream.Close();
 
-                byte[] pdfBytes = System.IO.File.ReadAllBytes(origionalPath);
+                //byte[] pdfBytes = System.IO.File.ReadAllBytes(origionalPath);
 
-                // Convert PDF bytes to base64 string
-                string base64String = Convert.ToBase64String(pdfBytes);
+                //// Convert PDF bytes to base64 string
+                //string base64String = Convert.ToBase64String(pdfBytes);
 
-                int i = 1;
-                await foreach (var image in PDFUtility.Conversion.ToImagesAsync(base64String))
-                {
-                    using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
-                    using (var stream = System.IO.File.OpenWrite(Path.Combine(fileImagesDirectory, $"{i}.png")))
-                    {
-                        data.SaveTo(stream);
-                        i++;
-                    }
-                }
+                //int i = 1;
+                //await foreach (var image in PDFUtility.Conversion.ToImagesAsync(base64String))
+                //{
+                //    using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
+                //    using (var stream = System.IO.File.OpenWrite(Path.Combine(fileImagesDirectory, $"{i}.png")))
+                //    {
+                //        data.SaveTo(stream);
+                //        i++;
+                //    }
+                //}
 
-                string[] filePaths = Directory.GetFiles(fileImagesDirectory);
+                //string[] filePaths = Directory.GetFiles(fileImagesDirectory);
 
-                var base64Images = new List<string>();
+                //var base64Images = new List<string>();
 
-                foreach (var item in filePaths)
-                {
-                    base64Images.Add(await ImageToBase64(item));
-                }
+                //foreach (var item in filePaths)
+                //{
+                //    base64Images.Add(await ImageToBase64(item));
+                //}
 
-                string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/{fileFolderName}/SIGNED");
+                //string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/{fileFolderName}/SIGNED");
 
                 // PDFUtility.PDFConversation.CreatePdf(fileImagesDirectory, PDFCombinedDirectory, fileName);
 
-                string signaturePath = Path.Combine($"{_uploadFolder}/RP_Signature.jpg");
+                //string signaturePath = Path.Combine($"{_uploadFolder}/RP_Signature.jpg");
 
                 //PDFUtility.PDFConversation.SignedPdf(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf");
 
-                PDFUtility.ItextSharpPDFConversation.SignedPdf(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
+                //PDFUtility.ItextSharpPDFConversation.SignedPdf(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
 
-                return Ok(base64Images);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -180,7 +180,7 @@ namespace DocumnetUploadAPI.Controllers
 
             try
             {
-                string pdfFile = $"{_uploadFolder}/CV.pdf";
+                string pdfFile = $"{_uploadFolder}/{pDFCoordinates.FileName}";
 
                 var fileName = Path.GetFileName(pdfFile);
 

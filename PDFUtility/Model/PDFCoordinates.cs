@@ -4,6 +4,7 @@ namespace PDFtoImage.Model
 {
     public class PDFCoordinates
     {
+        public string FileName { get; set; } = string.Empty;
         public List<Pages> Pages { get; set; } = new List<Pages>();
     }
 

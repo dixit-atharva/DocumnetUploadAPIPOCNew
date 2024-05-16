@@ -1,7 +1,9 @@
-﻿namespace DocumnetUploadAPI.Controllers
+﻿using PDFtoImage.Model;
+
+namespace DocumnetUploadAPI.Controllers
 {
     public class SignObject
     {
-        public string SignObjectJson { get; set; } = string.Empty;
+        public PDFCoordinates pdfCoordinates { get; set; } 
     }
 }
