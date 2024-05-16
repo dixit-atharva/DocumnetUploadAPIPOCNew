@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Renderer2 } from '@angular/core';
 import interact from 'interactjs';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
@@ -5,7 +6,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 @Component({
   selector: 'app-pdf-viewer-custom',
   standalone: true,
-  imports: [PdfViewerModule],
+  imports: [PdfViewerModule, CommonModule],
   templateUrl: './pdf-viewer-custom.component.html',
   styleUrl: './pdf-viewer-custom.component.css',
 })
@@ -19,7 +20,6 @@ export class PdfViewerCustomComponent {
     this.isSignSelected = true;
   }
   AddSignatueOnPageLoad(event: any) {
-    debugger;
     const viewerContainer = document.querySelector('.ng2-pdf-viewer-container');
 
     if (!viewerContainer) {
@@ -38,7 +38,6 @@ export class PdfViewerCustomComponent {
 
     const pages = pdfViewer.querySelectorAll('.page');
     if (event && this.isSignSelected) {
-      debugger;
       var mouseEvent = event as MouseEvent;
       const mouseX = mouseEvent.clientX; // Mouse X coordinate
       const mouseY = mouseEvent.clientY;
@@ -65,7 +64,6 @@ export class PdfViewerCustomComponent {
         addSignatureDiv.style.cursor = 'text';
         addSignatureDiv.innerText = 'Dixit Gajjar';
         addSignatureDiv.style.position = 'absolute';
-        debugger;
 
         addSignatureDiv.style.left =
           mouseX - element.getBoundingClientRect().x + 'px';
@@ -126,7 +124,6 @@ export class PdfViewerCustomComponent {
         this.isSignSelected = false;
       });
     } else {
-      debugger;
       if (!event) {
         pages.forEach((element) => {
           const scale =
@@ -289,36 +286,76 @@ export class PdfViewerCustomComponent {
     target.setAttribute('data-y', y);
   }
 
-  // onEnd(event: any): void {
-  //   debugger;
+  ObjCordinates = {
+    Pages: [] as PageCoordinate[],
+    base64ToFix: null,
+  };
 
-  //   const target = event.target;
-  //   const parentRect = target.parentElement.getBoundingClientRect();
-  //   const rect = target.getBoundingClientRect();
+  SaveCordinates() {
+    this.ObjCordinates.Pages = [];
+    this.ObjCordinates.base64ToFix = null;
+    const pdfViewer = document.querySelector('.pdfViewer');
+    if (!pdfViewer) {
+      return;
+    }
 
-  //   if (rect.left < parentRect.left) {
-  //     target.style.transform = `translate(${30}px, ${rect.bottom}px)`;
-  //   }
-  //   // Calculate the desired left and bottom positions
-  //   // const desiredLeft = 30; // 30px from the left
-  //   // const desiredBottom = 30; // 30px from the bottom
+    const pages = pdfViewer.querySelectorAll('.page');
+    if (!pages) {
+      return;
+    }
 
-  //   // // Calculate the actual left and bottom positions considering parent's boundaries
-  //   // let actualLeft = rect.left - parentRect.left;
-  //   // let actualBottom = parentRect.bottom - rect.bottom;
+    pages.forEach((element) => {
+      const getSignBox = element.querySelectorAll('.digital-signature--remove');
 
-  //   // // Calculate the horizontal and vertical translations needed
-  //   // const translateX = Math.max(desiredLeft - actualLeft, 0);
-  //   // const translateY = Math.max(desiredBottom - actualBottom, 0);
+      if (!getSignBox) {
+        return;
+      }
+      var pageCordinates: any = [];
+      getSignBox.forEach((sign: any) => {
+        debugger;
+        pageCordinates.push({
+          top: sign.offsetTop,
+          height: sign.offsetHeight,
+          left: sign.offsetLeft,
+          width: sign.offsetWidth,
+        });
+      });
 
-  //   // // Check if the translation has already been applied
-  //   // if (
-  //   //   target.style.transform !== `translate(${translateX}px, ${translateY}px)`
-  //   // ) {
-  //   //   // Apply the translation using transform property
-  //   //   target.style.transform = `translate(${translateX}px, ${translateY}px)`;
-  //   // }
-  // }
+      if (pageCordinates.length > 0) {
+        this.ObjCordinates.Pages.push({
+          pageNumber: element.getAttribute('data-page-number'),
+          cordinate: pageCordinates,
+        });
+      }
+    });
+  }
+
+  convertToPDFCoordinates(
+    value: string | number | undefined,
+    maxValue: number,
+    defaultValue: number,
+    imageMaxValue: number
+  ): number {
+    if (!value) {
+      return defaultValue;
+    }
+    if (typeof value === 'string') {
+      if (value.endsWith('%')) {
+        return (parseInt(value, 10) / 100) * maxValue;
+      } else if (value.endsWith('px')) {
+        return parseInt(value, 10) * (maxValue / imageMaxValue);
+      } else {
+        return parseInt(value, 10);
+      }
+    } else {
+      return value;
+    }
+  }
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}
+}
+
+interface PageCoordinate {
+  pageNumber: string | null;
+  cordinate: any; // Replace 'any' with the actual type
 }
