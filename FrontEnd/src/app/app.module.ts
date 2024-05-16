@@ -20,7 +20,6 @@ import { NgxExtendedPdfViewerComponentTest } from './Pages/ngx-extended-pdf-view
 @NgModule({
   declarations: [
     AppComponent,
-    DocUploadComponent,
     DocUploadPOCComponent,
     DocUploadPOCComponent,
     MainPOCComponent,

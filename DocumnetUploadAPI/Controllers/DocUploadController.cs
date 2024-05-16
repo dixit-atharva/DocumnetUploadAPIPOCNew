@@ -171,6 +171,53 @@ namespace DocumnetUploadAPI.Controllers
             }
         }
 
+
+        [HttpPost("pdfsigned")]
+        public async Task<IActionResult> PDFSigned()
+        {
+            _logger.LogInformation($"Upload Started at {_uploadFolder}");
+
+            try
+            {
+                string pdfFile = $"{_uploadFolder}/CV.pdf";
+
+                var fileName = Path.GetFileName(pdfFile);
+
+                string fileFolderName = GetFolderNameFromFile(fileName);
+
+                var origionalPath = Path.Combine($"{_uploadFolder}/{fileFolderName}/{fileName}");
+
+                string fileDirectory = Path.Combine($"{_uploadFolder}/{fileFolderName}"); ;
+
+                if (!Directory.Exists(fileDirectory))
+                {
+                    Directory.CreateDirectory(fileDirectory);
+                }
+
+                System.IO.File.Copy(pdfFile, Path.Combine($"{_uploadFolder}/{fileFolderName}/{fileName}"));
+
+                string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/{fileFolderName}/SIGNED");
+
+                // PDFUtility.PDFConversation.CreatePdf(fileImagesDirectory, PDFCombinedDirectory, fileName);
+
+                string signaturePath = Path.Combine($"{_uploadFolder}/RP_Signature.jpg");
+
+                //PDFUtility.PDFConversation.SignedPdf(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf");
+
+                //PDFUtility.ItextSharpPDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
+
+                PDFUtility.PDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf");
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"Upload Failed  {ex.Message} :: {ex.InnerException}");
+                return Ok("File uploaded Failed!");
+            }
+
+        }
+
         private async Task<string> ImageToBase64(string imagePath)
         {
             byte[] imageBytes = await System.IO.File.ReadAllBytesAsync(imagePath);

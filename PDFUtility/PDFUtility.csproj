@@ -38,6 +38,7 @@
 	<!-- SourceLink build steps and NuGet packages -->
 	<ItemGroup>
 		<PackageReference Include="iTextSharp" Version="5.5.13.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="PdfSharpCore" Version="1.3.63" />
 		<PackageReference Include="SkiaSharp" Version="2.88.7" PrivateAssets="analyzers" />
 		<PackageReference Include="System.Drawing.Common" Version="8.0.4" />

@@ -1,7 +1,10 @@
-﻿using PdfSharpCore.Drawing;
+﻿using Newtonsoft.Json;
+using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Pdf.IO;
+using PDFtoImage.Model;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
@@ -99,6 +102,69 @@ public static class PDFConversation
         // Save the modified document
         document.Save($"{outputDirectory}/{fileName}");
         document.Close();
+    }
+
+    public static void SignedPdfByCoordinates(string documentPath, string sinaturePath, string outputDirectory, string fileName)
+    {
+        string coordinatesObject = @"
+        [
+            {
+                ""pageNumber"": ""1"",
+                ""cordinate"": [
+                    {
+                        ""posX"": 34,
+                        ""posY"": 67
+                    }
+                ]
+            }
+        ]";
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+        List<Pages>? pDFCoordinates = JsonConvert.DeserializeObject<List<Pages>>(coordinatesObject);
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
+
+        if (!Directory.Exists(outputDirectory))
+        {
+            Directory.CreateDirectory(outputDirectory);
+        }
+
+        // Input PDF file
+        string inputFile = documentPath;
+        // Output PDF file
+        string outputFile = $"{outputDirectory}/{fileName}";
+
+        // Image file to be added
+        string imagePath = sinaturePath;
+
+
+        if (pDFCoordinates != null)
+        {
+            PdfDocument document = PdfReader.Open(documentPath, PdfDocumentOpenMode.Modify);
+            document.Info.Title = "Created with PDFsharp";
+
+            foreach (var item in pDFCoordinates)
+            {
+                // Create an empty page
+                PdfPage page = document.Pages[item.PageNumber - 1];
+                // Get an XGraphics object for drawing
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+                // Define the coordinates and dimensions from the provided data
+                double left = 30;
+                double top = 966;
+                double width = 200;
+                double height = 60;
+                // Load the image
+                XRect rect = new XRect(left, top, width, height);
+                XImage image = XImage.FromFile(imagePath);
+                // Draw the image on the page
+                gfx.DrawImage(image, rect);
+            }
+
+            // Save the modified document
+            document.Save($"{outputDirectory}/{fileName}");
+            document.Close();
+        }
+
+
     }
 
 }

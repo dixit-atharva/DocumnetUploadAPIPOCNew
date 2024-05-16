@@ -1,17 +1,16 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Newtonsoft.Json;
+using PDFtoImage.Model;
+using System.Collections.Generic;
 using System.IO;
 
 namespace PDFUtility;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 public static class ItextSharpPDFConversation
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 {
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static void SignedPdf(string documentPath, string sinaturePath, string outputDirectory, string fileName)
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         if (!Directory.Exists(outputDirectory))
         {
@@ -66,5 +65,70 @@ public static class ItextSharpPDFConversation
             // Close the PdfReader
             reader.Close();
         }
+    }
+
+    public static void SignedPdfByCoordinates(string documentPath, string sinaturePath, string outputDirectory, string fileName)
+    {
+        string coordinatesObject = @"
+        [
+            {
+                ""pageNumber"": ""1"",
+                ""cordinate"": [
+                    {
+                        ""posX"": 34,
+                        ""posY"": 67
+                    }
+                ]
+            }
+        ]";
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+        List<Pages>? pDFCoordinates = JsonConvert.DeserializeObject<List<Pages>>(coordinatesObject);
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
+
+        if (!Directory.Exists(outputDirectory))
+        {
+            Directory.CreateDirectory(outputDirectory);
+        }
+
+        // Input PDF file
+        string inputFile = documentPath;
+        // Output PDF file
+        string outputFile = $"{outputDirectory}/{fileName}";
+
+        // Image file to be added
+        string imagePath = sinaturePath;
+        
+
+        if (pDFCoordinates != null)
+        {
+            using (FileStream fs = new FileStream(outputFile, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                // Create a PdfReader object
+                PdfReader reader = new PdfReader(inputFile);
+                // Create a PdfStamper object to modify the PDF
+                PdfStamper stamper = new PdfStamper(reader, fs);
+
+                foreach (var item in pDFCoordinates)
+                {
+                    // Get the PdfContentByte object
+                    PdfContentByte cb = stamper.GetOverContent(item.PageNumber); // First page
+
+                    foreach (var itemcoordinate in item.cordinate)
+                    {
+                        // Add image to the first page
+                        Image image = Image.GetInstance(imagePath);
+                        image.SetAbsolutePosition(itemcoordinate.Left, itemcoordinate.Top);
+                        cb.AddImage(image);
+                    }
+                }
+
+                // Close the PdfStamper
+                stamper.Close();
+                // Close the PdfReader
+                reader.Close();
+            }
+        }
+
+       
     }
 }
