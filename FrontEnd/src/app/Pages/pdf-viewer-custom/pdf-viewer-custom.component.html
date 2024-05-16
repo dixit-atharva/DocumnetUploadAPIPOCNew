@@ -15,7 +15,17 @@
         </button>
       </div>
       <!-- .btn-group -->
-      <ul class="nav flex-column"></ul>
+      <ul class="nav flex-column">
+        <li>
+          <div class="signature-box" (click)="onSignSelect()">
+            Select Sign Here
+          </div>
+          <br />
+          <div class="signature-box" (click)="AddSignatueOnPageLoad(null)">
+            Add Signature
+          </div>
+        </li>
+      </ul>
       <!-- .nav -->
     </div>
     <!-- .sidebar-nav -->
@@ -34,8 +44,7 @@
             >
               <pdf-viewer
                 [src]="pdfData"
-                [render-text]="false"
-                [original-size]="true"
+                [render-text]="true"
                 style="
                   max-width: 800px;
                   width: 100%;
@@ -44,6 +53,8 @@
                 "
                 [zoom]="1"
                 [zoom-scale]="'page-width'"
+                [original-size]="true"
+                (click)="AddSignatueOnPageLoad($event)"
               ></pdf-viewer>
             </div>
             <!-- .document-render -->
