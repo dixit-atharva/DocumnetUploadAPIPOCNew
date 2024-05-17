@@ -6,7 +6,16 @@ using PDFtoImage.Model;
 using iText.Html2pdf;
 using System.IO;
 using System;
+using iText.Layout.Element;
+using iText.Layout;
 using System.Text.RegularExpressions;
+using iText.Layout.Borders;
+using iText.Kernel.Font;
+using PdfSharpCore.Pdf.Advanced;
+using iText.Kernel.Colors;
+using iText.Layout.Properties;
+
+
 
 namespace PDFUtility;
 
@@ -32,34 +41,72 @@ public static class ItextSharpPDFConversation
             using (var pdfWriter = new PdfWriter(outputFile))
             using (var pdfDocument = new PdfDocument(pdfReader, pdfWriter))
             {
+                // Load the signature image
+
+
                 foreach (var item in pDFCoordinates.Pages)
                 {
                     if (!string.IsNullOrWhiteSpace(item.ImageBase64))
                     {
+
+
                         byte[] imageBytes = Convert.FromBase64String(Regex.Replace(item.ImageBase64, @"^data:image\/[a-zA-Z]+;base64,", string.Empty));
 
-                        // Load the signature image
                         ImageData imageData = ImageDataFactory.Create(imageBytes);
-
                         // Add the signature image to the specified page
                         PdfPage pdfPage = pdfDocument.GetPage(item.PageNumber);
                         PdfCanvas pdfCanvas = new PdfCanvas(pdfPage.NewContentStreamAfter(), pdfPage.GetResources(), pdfDocument);
 
-                        iText.Kernel.Geom.Rectangle mediaBox = pdfPage.GetMediaBox();
+
 
                         foreach (var itemcordinate in item.cordinate)
                         {
-                            // Adjust Y-coordinate
-                            float y = mediaBox.GetHeight() - itemcordinate.Top;
+                            Image img = new Image(imageData);
 
-                            pdfCanvas.AddImageAt(imageData, itemcordinate.Left, y, false);
+                            img.ScaleToFit(itemcordinate.Width, itemcordinate.Height);
+
+
+
+                            // Adjust Y-coordinate
+                            float y = pdfPage.GetMediaBox().GetTop() - itemcordinate.Top - itemcordinate.Height;
+
+                            img.SetFixedPosition(itemcordinate.Left, y);
+
+                            new Canvas(pdfCanvas, pdfPage.GetMediaBox()).Add(img);
+
+
+                            // Adding text below the image
+                            // Define the text and its properties
+                            Paragraph p = new Paragraph("GoDigitel Esigned")
+                                .SetFontSize(12)
+                                .SetFontColor(iText.Kernel.Colors.ColorConstants.BLACK)
+                                .SetBorder(Border.NO_BORDER);
+
+                            // Calculate the y-coordinate for the text (below the image)
+                            float yText = y-10 ; // Adjust 20 points for the gap between image and text
+
+                            
+
+                            // Add the text to the canvas
+                            new Canvas(pdfCanvas, pdfPage.GetMediaBox())
+
+                                .Add(p.SetFixedPosition(itemcordinate.Left, yText, itemcordinate.Width));
+
+
+                                
                         }
                     }
-                    if (!string.IsNullOrWhiteSpace(item.SignText))
-                    {
-                    }
-                        
                 }
+
+                //// Load the signature image
+                //ImageData imageData = ImageDataFactory.Create(sinaturePath);
+
+                //foreach (var item in pDFCoordinates.Pages)
+                //{
+                //    // Add the signature image to the specified page
+                //    PdfPage pdfPage = pdfDocument.GetPage(item.PageNumber);
+                //    PdfCanvas pdfCanvas = new PdfCanvas(pdfPage.NewContentStreamAfter(), pdfPage.GetResources(), pdfDocument);
+                //    iText.Kernel.Geom.Rectangle mediaBox = pdfPage.GetMediaBox();
 
                 pdfDocument.Close();
             }
