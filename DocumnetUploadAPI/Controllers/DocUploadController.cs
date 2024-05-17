@@ -269,13 +269,13 @@ namespace DocumnetUploadAPI.Controllers
 
             try
             {
-                var origionalfileName = "dashboard.html";
+                var origionalfileName = "email.html";
 
                 string htmlContent = System.IO.File.ReadAllText(Path.Combine($"{_uploadFolder}/{origionalfileName}"));
 
                 string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/HTML");
 
-                //PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", htmlContent);
+                PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", htmlContent);
                 PDFUtility.ItextSharpPDFConversation.GenearteHTML(PDFCombinedDirectory, "iTextSharp.pdf", htmlContent);
 
                 return Ok();

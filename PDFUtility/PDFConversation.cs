@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HtmlRendererCore.PdfSharp;
+using Newtonsoft.Json;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Pdf.IO;
@@ -343,14 +344,11 @@ public static class PDFConversation
 
         var filePath = $"{outputDirectory}/{fileName}";
 
-        using (var stream = new MemoryStream())
-        {
-           // var pdf = PdfGenerator.GeneratePdf(htmlContent, PdfSharpCore.PageSize.A4);
 
-           // pdf.Save(stream);
+        // Act
+        var result = PdfGenerator.GeneratePdf(htmlContent, PdfSharpCore.PageSize.A4);
 
-           //var result = Convert.ToBase64String(stream.ToArray());
-        }
+        result.Save(filePath);
 
     }
 
