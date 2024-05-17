@@ -117,20 +117,6 @@ public static class PDFConversation
 
     public static void SignedPdfByCoordinates(string documentPath, string sinaturePath, string outputDirectory, string fileName, PDFCoordinates pDFCoordinates)
     {
-        //string coordinatesObject = @"
-        //[
-        //    {
-        //        ""pageNumber"": ""1"",
-        //        ""cordinate"": [
-        //            {
-        //                ""posX"": 34,
-        //                ""posY"": 67
-        //            }
-        //        ]
-        //    }
-        //]";
-        //List<Pages>? pDFCoordinates = JsonConvert.DeserializeObject<List<Pages>>(SignObjectJson);
-
         if (!Directory.Exists(outputDirectory))
         {
             Directory.CreateDirectory(outputDirectory);
