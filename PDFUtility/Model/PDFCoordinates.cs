@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SixLabors.ImageSharp.ColorSpaces.Companding;
+using System.Collections.Generic;
 
 namespace PDFtoImage.Model
 {
@@ -11,6 +12,12 @@ namespace PDFtoImage.Model
     public class Pages
     {
         public int PageNumber { get; set; }
+
+        public string? ImageBase64 { get; set; }
+
+        public string? SignText { get; set; }
+
+        public string? SignTextFont { get; set; }
 
         public List<Cordinates> cordinate { get; set; } = new List<Cordinates>();
     }

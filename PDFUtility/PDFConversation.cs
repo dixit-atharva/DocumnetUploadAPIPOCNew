@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using iTextSharp.text.pdf.parser;
+using Newtonsoft.Json;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Pdf.IO;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace PDFUtility;
 
@@ -157,19 +159,144 @@ public static class PDFConversation
                 PdfPage page = document.Pages[item.PageNumber - 1];
                 // Get an XGraphics object for drawing
                 XGraphics gfx = XGraphics.FromPdfPage(page);
-
-                foreach (var itemcordinate in item.cordinate)
+                if (!string.IsNullOrWhiteSpace(item.ImageBase64))
                 {
-                    // Define the coordinates and dimensions from the provided data
-                    double left = itemcordinate.Left ;
-                    double top = itemcordinate.Top ;
-                    double width = itemcordinate.Width;
-                    double height = itemcordinate.Height;
-                    // Load the image
+                    byte[] imageBytes = Convert.FromBase64String(Regex.Replace(item.ImageBase64, @"^data:image\/[a-zA-Z]+;base64,", string.Empty));
+                    foreach (var itemcordinate in item.cordinate)
+                    {
+                        // Define the coordinates and dimensions from the provided data
+                        double left = itemcordinate.Left;
+                        double top = itemcordinate.Top;
+                        double width = itemcordinate.Width;
+                        double height = itemcordinate.Height;
+                        // Load the image
+                        if (imageBytes != null && imageBytes.Length > 0)
+                        {
+                            using (MemoryStream ms = new MemoryStream(imageBytes))
+                            {
+                                // Create an XImage from the memory stream
+                                XImage image = XImage.FromStream(() => ms);
 
-                    XImage image = XImage.FromFile(imagePath);
+                                // Now you can use 'imageXObject' as your XImage object in PDFsharp
+                                // For example, you can add it to a PDF document
+                                gfx.DrawImage(image, left, top, width, height);
 
-                    gfx.DrawImage(image, left, top, width, height);
+
+                                
+                                string text = "GoDigitel Esigned";
+                                XFont font = new XFont("Arial", 12); // Font for the text
+                                XBrush brush = XBrushes.Black; // Brush for the text color
+
+                                // Calculate the width of the text
+                                double textWidth = gfx.MeasureString(text, font).Width;
+
+                                // Calculate the X coordinate to center the text below the image
+                                double textX = left + (width - textWidth) / 2; // Centering the text horizontally
+
+                                // Y coordinate below the image
+                                double textY = top + height+15; // Adjust as needed
+
+                                // Draw the text
+                                gfx.DrawString(text, font, brush, textX, textY);
+
+
+
+                                
+                                string text1 = "IP Address";
+                                XFont font1 = new XFont("Arial", 12); // Font for the text
+                                XBrush brush1 = XBrushes.Black; // Brush for the text color
+
+                                // Calculate the width of the text
+                                double textWidth1 = gfx.MeasureString(text1, font1).Width;
+
+                                // Calculate the X coordinate to center the text below the image
+                                double textX1 = left-5  ; // Centering the text horizontally
+
+                                // Y coordinate below the image
+                                double textY1 = top ; // Adjust as needed
+
+                                // Rotate the graphics context 90 degrees clockwise around the text position
+                                gfx.RotateAtTransform(90, new XPoint(textX1, textY1));
+
+                                // Draw the rotated text
+                                gfx.DrawString(text1, font1, brush1, textX1, textY1);
+
+                                gfx.RotateAtTransform(-90, new XPoint(textX1, textY1));
+
+
+                                // Reset the transformation to avoid affecting subsequent drawing operations
+
+                            }
+                        }
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(item.SignText))
+                {
+
+                    foreach (var itemcordinate in item.cordinate)
+                    {
+                        // Define the coordinates and dimensions from the provided data
+                        double left = itemcordinate.Left;
+                        double top = itemcordinate.Top;
+                        double width = itemcordinate.Width;
+                        double height = itemcordinate.Height;
+                        // Load the image
+
+
+
+                        // Add text below and to the left of the image
+                        
+                        XFont font2 = new XFont(item.SignTextFont, 15); // Font for the text
+                        double textWidthMain = gfx.MeasureString(item.SignText, font2).Width;
+                        double textHeightMain = gfx.MeasureString(item.SignText, font2).Height;
+                        XBrush brush11 = XBrushes.Black; // Brush for the text color
+                        double textX2 = left + (width - textWidthMain) / 2; ; // X coordinate of the text (same as image)
+                        double textY2 = top + (height - textHeightMain) / 2; // Y coordinate below the image
+                        gfx.DrawString(item.SignText, font2, brush11, textX2, textY2);
+
+
+
+                        string text = "GoDigitel Esigned";
+                        XFont font = new XFont("Arial", 12); // Font for the text
+                        XBrush brush = XBrushes.Black; // Brush for the text color
+
+                        // Calculate the width of the text
+                        double textWidth = gfx.MeasureString(text, font).Width;
+
+                        // Calculate the X coordinate to center the text below the image
+                        double textX = left + (width - textWidth) / 2; // Centering the text horizontally
+
+                        // Y coordinate below the image
+                        double textY = top + height + 15; // Adjust as needed
+
+                        // Draw the text
+                        gfx.DrawString(text, font, brush, textX, textY);
+
+
+
+
+                        string text1 = "IP Address";
+                        XFont font1 = new XFont("Arial", 12); // Font for the text
+                        XBrush brush1 = XBrushes.Black; // Brush for the text color
+
+                        // Calculate the width of the text
+                        double textWidth1 = gfx.MeasureString(text1, font1).Width;
+
+                        // Calculate the X coordinate to center the text below the image
+                        double textX1 = left - 5; // Centering the text horizontally
+
+                        // Y coordinate below the image
+                        double textY1 = top; // Adjust as needed
+
+                        // Rotate the graphics context 90 degrees clockwise around the text position
+                        gfx.RotateAtTransform(90, new XPoint(textX1, textY1));
+
+                        // Draw the rotated text
+                        gfx.DrawString(text1, font1, brush1, textX1, textY1);
+
+                        gfx.RotateAtTransform(-90, new XPoint(textX1, textY1));
+
+                    }
                 }
             }
 
@@ -183,10 +310,10 @@ public static class PDFConversation
 
     public static double ConvertToPDFCoordinates(double value, double maxValue, double defaultValue, double imageMaxValue)
     {
-       
-            return Convert.ToDouble(value) * (maxValue / imageMaxValue);
-        
-       
+
+        return Convert.ToDouble(value) * (maxValue / imageMaxValue);
+
+
     }
 
     public static void SignedPdfByCoordinates1(string documentPath, string sinaturePath, string outputDirectory, string fileName)

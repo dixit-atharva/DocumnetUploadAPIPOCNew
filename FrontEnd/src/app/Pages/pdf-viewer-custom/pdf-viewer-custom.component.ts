@@ -1,6 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import interact from 'interactjs';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { environment } from 'src/environments/environment';
@@ -8,17 +16,53 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-pdf-viewer-custom',
   standalone: true,
-  imports: [PdfViewerModule, CommonModule],
+  imports: [PdfViewerModule, CommonModule, FormsModule],
   templateUrl: './pdf-viewer-custom.component.html',
   styleUrl: './pdf-viewer-custom.component.css',
 })
 export class PdfViewerCustomComponent implements OnInit {
-  pdfData =
-    `data:application/pdf;base64,`;
+  @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
+  canvasBase64: string | null = null;
+  textSignText: string | null = null;
+  ctx: CanvasRenderingContext2D | null = null;
+  isDrawing = false;
+  prevX = 0;
+  prevY = 0;
+  currentColor = 'black';
 
-    ngOnInit(): void {
-      this.pdfData = `data:application/pdf;base64,${localStorage.getItem('pdfSrc')}`
-    }
+  activeTab: string = 'Canvas';
+
+  textInput: string = '';
+  strokeHistory: {
+    startX: number;
+    startY: number;
+    endX: number;
+    endY: number;
+    color: string;
+  }[] = [];
+  selectedColor: string = 'black';
+  fonts: string[] = [
+    'Pacifico',
+    'Kaushan Script',
+    //Dancing Script',
+    'Cursive',
+    //'Shadows Into Light',
+    //'Sacramento',
+    //'Satisfy',
+  ];
+
+  pdfData = `data:application/pdf;base64,`;
+
+  ngOnInit(): void {
+    this.ctx = this.canvas.nativeElement.getContext('2d');
+    // Bind event listeners
+
+    this.redrawStrokes();
+
+    this.pdfData = `data:application/pdf;base64,${localStorage.getItem(
+      'pdfSrc'
+    )}`;
+  }
 
   isSignSelected = false;
 
@@ -152,7 +196,7 @@ export class PdfViewerCustomComponent implements OnInit {
           addSignatureDiv.innerText = 'Dixit Gajjar';
           addSignatureDiv.style.position = 'absolute';
           addSignatureDiv.style.left = '27pt';
-          addSignatureDiv.style.top = `735pt`;
+          addSignatureDiv.style.top = `720pt`;
 
           addSignatureDiv.style.resize = 'both';
 
@@ -174,7 +218,7 @@ export class PdfViewerCustomComponent implements OnInit {
           addSignatureDivRight.innerText = 'Dixit Gajjar';
           addSignatureDivRight.style.position = 'absolute';
           addSignatureDivRight.style.left = '436.5pt';
-          addSignatureDivRight.style.top = `734.25pt`;
+          addSignatureDivRight.style.top = `720pt`;
 
           element.appendChild(addSignatureDiv);
           element.appendChild(addSignatureDivRight);
@@ -298,16 +342,14 @@ export class PdfViewerCustomComponent implements OnInit {
   ObjCordinates = {
     Pages: [] as PageCoordinate[],
     base64ToFix: null,
-    fileName : ''
+    fileName: '',
   };
 
   SaveCordinates() {
     this.ObjCordinates.Pages = [];
     this.ObjCordinates.base64ToFix = null;
     const pdfViewer = document.querySelector('.pdfViewer');
-    const viewerContainer = document.querySelector('.ng2-pdf-viewer-container');
-    const documentcontainer = document.querySelector('.document-container');
-    const documentrender = document.querySelector('.document-render');
+
     if (!pdfViewer) {
       return;
     }
@@ -324,7 +366,7 @@ export class PdfViewerCustomComponent implements OnInit {
         return;
       }
       var pageCordinates: any = [];
-      debugger;
+
       getSignBox.forEach((sign: any) => {
         console.log(sign.getBoundingClientRect());
         pageCordinates.push({
@@ -339,18 +381,45 @@ export class PdfViewerCustomComponent implements OnInit {
         this.ObjCordinates.Pages.push({
           pageNumber: element.getAttribute('data-page-number'),
           cordinate: pageCordinates,
+          ImageBase64: null,
+          SignText: null,
+          SignTextFont: null,
         });
+
+        if (this.activeTab == 'Canvas' && this.canvasBase64) {
+          for (
+            let index = 0;
+            index < this.ObjCordinates.Pages.length;
+            index++
+          ) {
+            this.ObjCordinates.Pages[index].ImageBase64 = this.canvasBase64;
+          }
+        }
+        if (this.activeTab == 'Tab2' && this.textInput) {
+          for (
+            let index = 0;
+            index < this.ObjCordinates.Pages.length;
+            index++
+          ) {
+            this.ObjCordinates.Pages[index].SignText = this.textInput;
+            this.ObjCordinates.Pages[index].SignTextFont = 'Cursive';
+          }
+        }
       }
     });
 
-    if(this.selectedFile){
+    if (
+      this.selectedFile &&
+      this.ObjCordinates.Pages.length > 0 &&
+      (this.canvasBase64 || this.textInput)
+    ) {
       this.ObjCordinates.fileName = this.selectedFile.name;
       const uploadReq = this.http.post<string[]>(
         `${this.apiUrl}/DocUpload/pdfsigned`,
         this.ObjCordinates,
         { reportProgress: true }
       );
-  
+
       uploadReq.subscribe(
         () => {
           // Handle the response here
@@ -362,9 +431,9 @@ export class PdfViewerCustomComponent implements OnInit {
           // Handle error
         }
       );
+    } else {
+      alert('Pdf file & signature is required to sign document');
     }
-
-   
   }
 
   public apiUrl: string = environment.apiUrl;
@@ -396,7 +465,6 @@ export class PdfViewerCustomComponent implements OnInit {
     private renderer: Renderer2,
     private http: HttpClient
   ) {}
-  
 
   convertToPoint(value: any) {
     return (value * 3) / 4 + 'pt';
@@ -425,17 +493,15 @@ export class PdfViewerCustomComponent implements OnInit {
           // Handle the response here
           // Do something with the array of strings
 
-          if(this.selectedFile){
+          if (this.selectedFile) {
             this.convertToBase64(this.selectedFile);
           }
-
         },
         (error) => {
           console.error('Error:', error);
           // Handle error
         }
-      )
-      
+      );
     } else {
       //this.uploadMessage = 'Please select a file to upload.';
     }
@@ -459,11 +525,123 @@ export class PdfViewerCustomComponent implements OnInit {
     this.pdfData = URL.createObjectURL(file);
   }
 
+  selectTab(tab: string) {
+    this.activeTab = tab;
+  }
+  setColor(color: string) {
+    if (this.activeTab === 'Canvas') {
+      this.currentColor = color;
+      this.redrawStrokes();
+    }
+  }
+
+  redrawStrokes() {
+    if (this.activeTab === 'Canvas' && this.ctx) {
+      this.ctx.clearRect(
+        0,
+        0,
+        this.canvas.nativeElement.width,
+        this.canvas.nativeElement.height
+      );
+      for (const line of this.strokeHistory) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(line.startX, line.startY);
+        this.ctx.lineTo(line.endX, line.endY);
+        this.ctx.strokeStyle = this.currentColor;
+        this.ctx.lineWidth = 2;
+        this.ctx.stroke();
+      }
+    }
+  }
+
+  clearCanvas() {
+    if (this.activeTab === 'Canvas' && this.ctx) {
+      this.ctx.clearRect(
+        0,
+        0,
+        this.canvas.nativeElement.width,
+        this.canvas.nativeElement.height
+      );
+      this.strokeHistory = [];
+      this.currentColor = 'black';
+    }
+  }
+
+  mousedown(event: MouseEvent) {
+    if (this.activeTab === 'Canvas') {
+      // this.isDrawing = true;
+      // this.prevX = event.clientX - this.canvas.nativeElement.offsetLeft;
+      // this.prevY = event.clientY - this.canvas.nativeElement.offsetTop;
+
+      this.isDrawing = true;
+      // Capture starting coordinates
+      this.prevX = event.offsetX;
+      this.prevY = event.offsetY;
+    }
+  }
+
+  mouseup() {
+    this.isDrawing = false;
+    this.updateCanvasBase64();
+  }
+
+  mousemove(event: MouseEvent) {
+    if (this.activeTab === 'Canvas' && this.isDrawing) {
+      // const currentX = event.clientX - this.canvas.nativeElement.offsetLeft;
+      // const currentY = event.clientY - this.canvas.nativeElement.offsetTop;
+      // this.draw(this.prevX, this.prevY, currentX, currentY);
+      // this.prevX = currentX;
+      // this.prevY = currentY;
+
+      const currentX = event.offsetX;
+      const currentY = event.offsetY;
+      // Draw line from previous coordinates to current coordinates
+      this.draw(this.prevX, this.prevY, currentX, currentY);
+      // Update previous coordinates
+      this.prevX = currentX;
+      this.prevY = currentY;
+    }
+  }
+
+  draw(startX: number, startY: number, endX: number, endY: number) {
+    if (this.ctx) {
+      this.ctx.beginPath();
+      this.ctx.moveTo(startX, startY);
+      this.ctx.lineTo(endX, endY);
+      this.ctx.strokeStyle = this.currentColor;
+      this.ctx.lineWidth = 2;
+      this.ctx.stroke();
+      this.strokeHistory.push({
+        startX,
+        startY,
+        endX,
+        endY,
+        color: this.currentColor,
+      });
+    }
+  }
+
+  setColor1(color: string) {
+    this.selectedColor = color;
+  }
+
+  updateCanvasBase64() {
+    ///debugger;
+    if (!this.ctx) return;
+
+    this.canvasBase64 = this.canvas.nativeElement.toDataURL();
+  }
+
+  getIpAddress() {
+    // Replace 'http://example.com/api/ip' with your server-side endpoint URL
+    return this.http.get<string>('http://example.com/api/ip');
+  }
 }
 
 interface PageCoordinate {
   pageNumber: string | null;
+  ImageBase64: string | null;
+  SignText: string | null;
+  SignTextFont: string | null;
   cordinate: any; // Replace 'any' with the actual type
 }
-
-
