@@ -1,98 +1,23 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Newtonsoft.Json;
+﻿using iText.IO.Image;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
 using PDFtoImage.Model;
-using System.Collections.Generic;
+using iText.Html2pdf;
 using System.IO;
-using static iTextSharp.text.pdf.AcroFields;
+using System;
 
 namespace PDFUtility;
 
 public static class ItextSharpPDFConversation
 {
-
-    public static void SignedPdf(string documentPath, string sinaturePath, string outputDirectory, string fileName)
+    public static void SignedPdfByCoordinates(string documentPath, string sinaturePath, string outputDirectory, string fileName, PDFCoordinates pDFCoordinates)
     {
         if (!Directory.Exists(outputDirectory))
         {
             Directory.CreateDirectory(outputDirectory);
         }
 
-        // Input PDF file
-        string inputFile = documentPath;
-        // Output PDF file
-        string outputFile = $"{outputDirectory}/{fileName}";
-
-        // Image file to be added
-        string imagePath = sinaturePath;
-        // Text to be added
-        string text = "This is the text to be added.";
-
-        // Position for image (x, y coordinates)
-        float imageX = 100f;
-        float imageY = 100f;
-
-        // Position for text (x, y coordinates)
-        float textX = 100f;
-        float textY = 100f;
-
-        using (FileStream fs = new FileStream(outputFile, FileMode.Create, FileAccess.Write, FileShare.None))
-        {
-            // Create a PdfReader object
-            PdfReader reader = new PdfReader(inputFile);
-            // Create a PdfStamper object to modify the PDF
-            PdfStamper stamper = new PdfStamper(reader, fs);
-            // Get the PdfContentByte object
-            PdfContentByte cb = stamper.GetOverContent(1); // First page
-
-            // Add image to the first page
-            Image image = Image.GetInstance(imagePath);
-            image.SetAbsolutePosition(imageX, imageY);
-            cb.AddImage(image);
-
-            // Go to the second page
-            cb = stamper.GetOverContent(2); // Second page
-
-            // Add text to the second page
-            cb.BeginText();
-            cb.SetFontAndSize(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 20);
-            cb.SetColorFill(BaseColor.RED);
-            cb.SetTextMatrix(textX, textY);
-            cb.ShowText(text);
-            cb.EndText();
-
-            // Close the PdfStamper
-            stamper.Close();
-            // Close the PdfReader
-            reader.Close();
-        }
-    }
-
-    public static void SignedPdfByCoordinates(string documentPath, string sinaturePath, string outputDirectory, string fileName)
-    {
-        string coordinatesObject = @"
-        [
-            {
-                ""pageNumber"": ""1"",
-                ""cordinate"": [
-                    {
-                        ""posX"": 34,
-                        ""posY"": 67
-                    }
-                ]
-            }
-        ]";
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
-        List<Pages>? pDFCoordinates = JsonConvert.DeserializeObject<List<Pages>>(coordinatesObject);
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
-
-        if (!Directory.Exists(outputDirectory))
-        {
-            Directory.CreateDirectory(outputDirectory);
-        }
-
-        // Input PDF file
-        string inputFile = documentPath;
         // Output PDF file
         string outputFile = $"{outputDirectory}/{fileName}";
 
@@ -102,74 +27,81 @@ public static class ItextSharpPDFConversation
 
         if (pDFCoordinates != null)
         {
-            using (FileStream fs = new FileStream(outputFile, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var pdfReader = new PdfReader(documentPath))
+            using (var pdfWriter = new PdfWriter(outputFile))
+            using (var pdfDocument = new PdfDocument(pdfReader, pdfWriter))
             {
-                // Create a PdfReader object
-                PdfReader reader = new PdfReader(inputFile);
-                // Create a PdfStamper object to modify the PDF
-                PdfStamper stamper = new PdfStamper(reader, fs);
+                // Load the signature image
+                ImageData imageData = ImageDataFactory.Create(sinaturePath);
 
-                foreach (var item in pDFCoordinates)
+                foreach (var item in pDFCoordinates.Pages)
                 {
-                    // Get the PdfContentByte object
-                    PdfContentByte cb = stamper.GetOverContent(item.PageNumber); // First page
+                    // Add the signature image to the specified page
+                    PdfPage pdfPage = pdfDocument.GetPage(item.PageNumber);
+                    PdfCanvas pdfCanvas = new PdfCanvas(pdfPage.NewContentStreamAfter(), pdfPage.GetResources(), pdfDocument);
 
-                    foreach (var itemcoordinate in item.cordinate)
+                    iText.Kernel.Geom.Rectangle mediaBox = pdfPage.GetMediaBox();
+
+                    foreach (var itemcordinate in item.cordinate)
                     {
-                        // Add image to the first page
-                        Image image = Image.GetInstance(imagePath);
-                        image.SetAbsolutePosition(itemcoordinate.Left, itemcoordinate.Top);
-                        cb.AddImage(image);
+                        // Adjust Y-coordinate
+                        float y = mediaBox.GetHeight() - itemcordinate.Top;
+
+                        pdfCanvas.AddImageAt(imageData, itemcordinate.Left, y, false);
                     }
                 }
 
-                // Close the PdfStamper
-                stamper.Close();
-                // Close the PdfReader
-                reader.Close();
+                //// Load the signature image
+                //ImageData imageData = ImageDataFactory.Create(sinaturePath);
+
+                //foreach (var item in pDFCoordinates.Pages)
+                //{
+                //    // Add the signature image to the specified page
+                //    PdfPage pdfPage = pdfDocument.GetPage(item.PageNumber);
+                //    PdfCanvas pdfCanvas = new PdfCanvas(pdfPage.NewContentStreamAfter(), pdfPage.GetResources(), pdfDocument);
+                //    iText.Kernel.Geom.Rectangle mediaBox = pdfPage.GetMediaBox();
+
+                //    foreach (var itemcordinate in item.cordinate)
+                //    {
+                //        // Calculate scaling factors to maintain aspect ratio
+                //        float widthScale = itemcordinate.Width / imageData.GetWidth();
+                //        float heightScale = itemcordinate.Height / imageData.GetHeight();
+
+                //        // Adjust Y-coordinate
+                //        float y = mediaBox.GetHeight() - itemcordinate.Top;
+
+                //        // Apply scaling using transformation matrix
+                //        pdfCanvas.SaveState();
+                //        pdfCanvas.ConcatMatrix(AffineTransform.GetScaleInstance(widthScale, heightScale));
+
+                //        // Add the image
+                //        pdfCanvas.AddImageAt(imageData, 0, 0, false);
+
+                //        // Restore canvas state
+                //        pdfCanvas.RestoreState();
+
+                //        // Translate the image to the correct position
+                //        pdfCanvas.MoveTo(itemcordinate.Left, y);
+                //    }
+                //}
+                pdfDocument.Close();
             }
         }
-
-
     }
 
-    public static void SignedPdfByCoordinates1(string documentPath, string sinaturePath, string outputDirectory, string fileName)
+    public static void GenearteHTML(string outputDirectory, string fileName, string htmlContent)
     {
-
         if (!Directory.Exists(outputDirectory))
         {
             Directory.CreateDirectory(outputDirectory);
         }
 
-        // Input PDF file
-        string inputFile = documentPath;
-        // Output PDF file
-        string outputFile = $"{outputDirectory}/{fileName}";
+        var filePath = $"{outputDirectory}/{fileName}";
+        // Create a PDF document
 
-        // Image file to be added
-        string imagePath = sinaturePath;
-
-
-        using (FileStream fs = new FileStream(outputFile, FileMode.Create, FileAccess.Write, FileShare.None))
-        {
-            // Create a PdfReader object
-            PdfReader reader = new PdfReader(inputFile);
-            // Create a PdfStamper object to modify the PDF
-            PdfStamper stamper = new PdfStamper(reader, fs);
-
-            // Get the PdfContentByte object
-            PdfContentByte cb = stamper.GetOverContent(1); // First page
-
-            // Add image to the first page
-            Image image = Image.GetInstance(imagePath);
-            image.SetAbsolutePosition(113, 0);
-            cb.AddImage(image);
-
-            // Close the PdfStamper
-            stamper.Close();
-            // Close the PdfReader
-            reader.Close();
-        }
+        var converter = new ConverterProperties();
+        // Convert HTML to PDF and save directly to the file path
+        HtmlConverter.ConvertToPdf(htmlContent, new FileStream(filePath, FileMode.Create), converter);
 
 
     }

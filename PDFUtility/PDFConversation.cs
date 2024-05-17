@@ -1,13 +1,10 @@
-﻿using iTextSharp.text.pdf.parser;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Pdf.IO;
 using PDFtoImage.Model;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -350,6 +347,27 @@ public static class PDFConversation
 
 
     }
+
+    public static void GenearteHTML(string outputDirectory, string fileName, string htmlContent)
+    {
+        if (!Directory.Exists(outputDirectory))
+        {
+            Directory.CreateDirectory(outputDirectory);
+        }
+
+        var filePath = $"{outputDirectory}/{fileName}";
+
+        using (var stream = new MemoryStream())
+        {
+           // var pdf = PdfGenerator.GeneratePdf(htmlContent, PdfSharpCore.PageSize.A4);
+
+           // pdf.Save(stream);
+
+           //var result = Convert.ToBase64String(stream.ToArray());
+        }
+
+    }
+
 
     // Function to convert Angular X coordinate to PDF X coordinate
     private static double ConvertToPdfXCoordinate(int angularX)
