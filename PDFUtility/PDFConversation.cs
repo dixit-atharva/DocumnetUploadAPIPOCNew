@@ -224,6 +224,17 @@ public static class PDFConversation
 
     }
 
+    public static void GenearteHTML(string outputDirectory, string fileName)
+    {
+        if (!Directory.Exists(outputDirectory))
+        {
+            Directory.CreateDirectory(outputDirectory);
+        }
+
+
+    }
+
+
     // Function to convert Angular X coordinate to PDF X coordinate
     private static double ConvertToPdfXCoordinate(int angularX)
     {

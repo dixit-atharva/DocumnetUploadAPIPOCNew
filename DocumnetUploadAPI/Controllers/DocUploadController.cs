@@ -1,6 +1,7 @@
 ﻿using DocumnetUploadAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using PDFtoImage;
 using PDFtoImage.Model;
 using SkiaSharp;
 using System.IO;
@@ -208,7 +209,7 @@ namespace DocumnetUploadAPI.Controllers
                 //PDFUtility.ItextSharpPDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
 
                 PDFUtility.PDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf", pDFCoordinates);
-                //PDFUtility.ItextSharpPDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf");
+                PDFUtility.ItextSharpPDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf", pDFCoordinates);
 
                 return Ok();
             }
@@ -226,6 +227,51 @@ namespace DocumnetUploadAPI.Controllers
             return Convert.ToBase64String(imageBytes);
         }
 
+        [HttpGet("compare")]
+        public async Task<IActionResult> DocumentCompare()
+        {
+            _logger.LogInformation($"DocumentCompare Started at {_uploadFolder}");
 
+            try
+            {
+                var origionalfileName = "CV.pdf";
+
+                string fileFolderName = GetFolderNameFromFile(origionalfileName);
+
+                var origionalPath = Path.Combine($"{_uploadFolder}/{fileFolderName}/{origionalfileName}");
+
+                var modifiedPath = Path.Combine($"{_uploadFolder}/{fileFolderName}/SIGNED/PdfSharpCore.pdf");
+
+                var origionalFileBytes = GetFileBytes(origionalPath);
+
+                var modifiedFileBytes = GetFileBytes(modifiedPath);
+
+                var origionalFileHash = PdfHashingService.ComputeHash(origionalFileBytes);
+
+                var modifiedFileHash = PdfHashingService.ComputeHash(modifiedFileBytes);
+
+                var isSame = PdfHashingService.CompareHashes(origionalFileHash, modifiedFileHash);
+
+                return Ok(isSame);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"Upload Failed  {ex.Message} :: {ex.InnerException}");
+                return Ok("File compare Failed!");
+            }
+
+        }
+
+        private byte[] GetFileBytes(string filePath)
+        {
+            if (System.IO.File.Exists(filePath))
+            {
+                return System.IO.File.ReadAllBytes(filePath);
+            }
+            else
+            {
+                throw new FileNotFoundException("File not found.", filePath);
+            }
+        }
     }
 }
