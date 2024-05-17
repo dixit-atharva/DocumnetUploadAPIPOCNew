@@ -108,29 +108,6 @@ public static class ItextSharpPDFConversation
                 //    PdfCanvas pdfCanvas = new PdfCanvas(pdfPage.NewContentStreamAfter(), pdfPage.GetResources(), pdfDocument);
                 //    iText.Kernel.Geom.Rectangle mediaBox = pdfPage.GetMediaBox();
 
-                //    foreach (var itemcordinate in item.cordinate)
-                //    {
-                //        // Calculate scaling factors to maintain aspect ratio
-                //        float widthScale = itemcordinate.Width / imageData.GetWidth();
-                //        float heightScale = itemcordinate.Height / imageData.GetHeight();
-
-                //        // Adjust Y-coordinate
-                //        float y = mediaBox.GetHeight() - itemcordinate.Top;
-
-                //        // Apply scaling using transformation matrix
-                //        pdfCanvas.SaveState();
-                //        pdfCanvas.ConcatMatrix(AffineTransform.GetScaleInstance(widthScale, heightScale));
-
-                //        // Add the image
-                //        pdfCanvas.AddImageAt(imageData, 0, 0, false);
-
-                //        // Restore canvas state
-                //        pdfCanvas.RestoreState();
-
-                //        // Translate the image to the correct position
-                //        pdfCanvas.MoveTo(itemcordinate.Left, y);
-                //    }
-                //}
                 pdfDocument.Close();
             }
         }
