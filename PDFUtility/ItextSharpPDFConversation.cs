@@ -65,8 +65,6 @@ public static class ItextSharpPDFConversation
 
                             img.ScaleToFit(itemcordinate.Width, itemcordinate.Height);
 
-
-
                             // Adjust Y-coordinate
                             float y = pdfPage.GetMediaBox().GetTop() - itemcordinate.Top - itemcordinate.Height;
 
@@ -85,15 +83,25 @@ public static class ItextSharpPDFConversation
                             // Calculate the y-coordinate for the text (below the image)
                             float yText = y-10 ; // Adjust 20 points for the gap between image and text
 
-                            
-
                             // Add the text to the canvas
                             new Canvas(pdfCanvas, pdfPage.GetMediaBox())
 
-                                .Add(p.SetFixedPosition(itemcordinate.Left, yText, itemcordinate.Width));
+                                .Add(p.SetFixedPosition(itemcordinate.Left, yText - 10, itemcordinate.Width));
 
+                            Paragraph p1 = new Paragraph("IP Address")
+                                .SetFontSize(12)
+                                .SetFontColor(ColorConstants.BLACK)
+                                .SetBorder(Border.NO_BORDER)
+                                .SetRotationAngle(Math.PI / 2); // Rotate 90 degrees for vertical alignment
 
-                                
+                            // Calculate the x and y coordinates for vertical text beside the image
+                            float xText = itemcordinate.Left + 5; // Adjust 20 points for the gap between image and text
+                            float yTextVertical = y + (itemcordinate.Height / 10); // Center vertically with the image
+
+                            // Add the vertical text to the canvas
+                            new Canvas(pdfCanvas, pdfPage.GetMediaBox())
+                                .Add(p1.SetFixedPosition(xText, yTextVertical - 15, itemcordinate.Height + 30));
+
                         }
                     }
                 }
