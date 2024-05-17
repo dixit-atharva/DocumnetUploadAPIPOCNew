@@ -1,12 +1,9 @@
-﻿using Newtonsoft.Json;
-using PdfSharpCore.Drawing;
+﻿using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Pdf.IO;
 using PDFtoImage.Model;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 
 namespace PDFUtility;
@@ -161,8 +158,8 @@ public static class PDFConversation
                 foreach (var itemcordinate in item.cordinate)
                 {
                     // Define the coordinates and dimensions from the provided data
-                    double left = itemcordinate.Left ;
-                    double top = itemcordinate.Top ;
+                    double left = itemcordinate.Left;
+                    double top = itemcordinate.Top;
                     double width = itemcordinate.Width;
                     double height = itemcordinate.Height;
                     // Load the image
@@ -183,10 +180,10 @@ public static class PDFConversation
 
     public static double ConvertToPDFCoordinates(double value, double maxValue, double defaultValue, double imageMaxValue)
     {
-       
-            return Convert.ToDouble(value) * (maxValue / imageMaxValue);
-        
-       
+
+        return Convert.ToDouble(value) * (maxValue / imageMaxValue);
+
+
     }
 
     public static void SignedPdfByCoordinates1(string documentPath, string sinaturePath, string outputDirectory, string fileName)
@@ -224,13 +221,23 @@ public static class PDFConversation
 
     }
 
-    public static void GenearteHTML(string outputDirectory, string fileName)
+    public static void GenearteHTML(string outputDirectory, string fileName, string htmlContent)
     {
         if (!Directory.Exists(outputDirectory))
         {
             Directory.CreateDirectory(outputDirectory);
         }
 
+        var filePath = $"{outputDirectory}/{fileName}";
+
+        using (var stream = new MemoryStream())
+        {
+           // var pdf = PdfGenerator.GeneratePdf(htmlContent, PdfSharpCore.PageSize.A4);
+
+           // pdf.Save(stream);
+
+           //var result = Convert.ToBase64String(stream.ToArray());
+        }
 
     }
 

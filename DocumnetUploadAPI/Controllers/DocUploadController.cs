@@ -262,6 +262,32 @@ namespace DocumnetUploadAPI.Controllers
 
         }
 
+        [HttpGet("converttohtml")]
+        public async Task<IActionResult> ConvertToHTML()
+        {
+            _logger.LogInformation($"ConvertToHTML Started at {_uploadFolder}");
+
+            try
+            {
+                var origionalfileName = "dashboard.html";
+
+                string htmlContent = System.IO.File.ReadAllText(Path.Combine($"{_uploadFolder}/{origionalfileName}"));
+
+                string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/HTML");
+
+                //PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", htmlContent);
+                PDFUtility.ItextSharpPDFConversation.GenearteHTML(PDFCombinedDirectory, "iTextSharp.pdf", htmlContent);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"ConvertToHTML Failed  {ex.Message} :: {ex.InnerException}");
+                return Ok();
+            }
+
+        }
+
         private byte[] GetFileBytes(string filePath)
         {
             if (System.IO.File.Exists(filePath))

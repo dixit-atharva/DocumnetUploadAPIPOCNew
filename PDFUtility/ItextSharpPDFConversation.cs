@@ -3,7 +3,9 @@ using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using PDFtoImage.Model;
+using iText.Html2pdf;
 using System.IO;
+using System;
 
 namespace PDFUtility;
 
@@ -37,7 +39,7 @@ public static class ItextSharpPDFConversation
                     // Add the signature image to the specified page
                     PdfPage pdfPage = pdfDocument.GetPage(item.PageNumber);
                     PdfCanvas pdfCanvas = new PdfCanvas(pdfPage.NewContentStreamAfter(), pdfPage.GetResources(), pdfDocument);
-                   
+
                     iText.Kernel.Geom.Rectangle mediaBox = pdfPage.GetMediaBox();
 
                     foreach (var itemcordinate in item.cordinate)
@@ -87,4 +89,20 @@ public static class ItextSharpPDFConversation
         }
     }
 
+    public static void GenearteHTML(string outputDirectory, string fileName, string htmlContent)
+    {
+        if (!Directory.Exists(outputDirectory))
+        {
+            Directory.CreateDirectory(outputDirectory);
+        }
+
+        var filePath = $"{outputDirectory}/{fileName}";
+        // Create a PDF document
+
+        var converter = new ConverterProperties();
+        // Convert HTML to PDF and save directly to the file path
+        HtmlConverter.ConvertToPdf(htmlContent, new FileStream(filePath, FileMode.Create), converter);
+
+
+    }
 }
