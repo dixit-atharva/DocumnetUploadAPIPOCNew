@@ -89,30 +89,30 @@ export class DocUploadComponent implements OnInit, AfterViewInit {
         { reportProgress: true }
       );
 
-      uploadReq.subscribe(
-        () => {
-          this.router.navigate(['/pdf-viewer-custom']);
-          // Handle the response here
-          // Do something with the array of strings
-        },
-        (error) => {
-          console.error('Error:', error);
-          // Handle error
-        }
-      )
-
       // uploadReq.subscribe(
-      //   (images: string[]) => {
-      //     this.files = images;
+      //   () => {
+      //     //this.router.navigate(['/pdf-viewer-custom']);
       //     // Handle the response here
-      //     console.log('Response:', images);
       //     // Do something with the array of strings
       //   },
       //   (error) => {
       //     console.error('Error:', error);
       //     // Handle error
       //   }
-      // );
+      // )
+
+      uploadReq.subscribe(
+        (images: string[]) => {
+          this.files = images;
+          // Handle the response here
+          console.log('Response:', images);
+          // Do something with the array of strings
+        },
+        (error) => {
+          console.error('Error:', error);
+          // Handle error
+        }
+      );
       // .subscribe((event) => {
       //   this.getFileList(this.selectedFile?.name);
       //   if (event.type === HttpEventType.UploadProgress) {
@@ -166,7 +166,7 @@ export class DocUploadComponent implements OnInit, AfterViewInit {
 
   onView() {
     if(this.selectedFile){
-      localStorage.setItem('fileNme', this.selectedFile.name);
+      // localStorage.setItem('fileNme', this.selectedFile.name);
       this.convertToBase64(this.selectedFile);
     }
     
@@ -187,9 +187,9 @@ export class DocUploadComponent implements OnInit, AfterViewInit {
   byteArrayToString(arrayBuffer: ArrayBuffer) {
     const bytes = new Uint8Array(arrayBuffer);
     const file = new Blob([bytes], { type: 'application/pdf' });
-    //this.pdfSrc = URL.createObjectURL(file);
-    localStorage.setItem('pdfSrc', URL.createObjectURL(file));
-    this.onUpload();
+    this.pdfSrc = URL.createObjectURL(file);
+    // localStorage.setItem('pdfSrc', URL.createObjectURL(file));
+    //this.onUpload();
   }
 
   onMouseDown(event: MouseEvent) {

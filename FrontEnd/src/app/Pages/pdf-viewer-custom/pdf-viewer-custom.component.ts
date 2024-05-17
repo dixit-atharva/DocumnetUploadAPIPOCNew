@@ -298,7 +298,7 @@ export class PdfViewerCustomComponent implements OnInit {
   ObjCordinates = {
     Pages: [] as PageCoordinate[],
     base64ToFix: null,
-    fileName : localStorage.getItem('fileName')
+    fileName : ''
   };
 
   SaveCordinates() {
@@ -343,23 +343,28 @@ export class PdfViewerCustomComponent implements OnInit {
       }
     });
 
-    const uploadReq = this.http.post<string[]>(
-      `${this.apiUrl}/DocUpload/pdfsigned`,
-      this.ObjCordinates,
-      { reportProgress: true }
-    );
+    if(this.selectedFile){
+      this.ObjCordinates.fileName = this.selectedFile.name;
+      const uploadReq = this.http.post<string[]>(
+        `${this.apiUrl}/DocUpload/pdfsigned`,
+        this.ObjCordinates,
+        { reportProgress: true }
+      );
+  
+      uploadReq.subscribe(
+        () => {
+          // Handle the response here
+          console.log('Response:');
+          // Do something with the array of strings
+        },
+        (error) => {
+          console.error('Error:', error);
+          // Handle error
+        }
+      );
+    }
 
-    uploadReq.subscribe(
-      () => {
-        // Handle the response here
-        console.log('Response:');
-        // Do something with the array of strings
-      },
-      (error) => {
-        console.error('Error:', error);
-        // Handle error
-      }
-    );
+   
   }
 
   public apiUrl: string = environment.apiUrl;
@@ -396,9 +401,69 @@ export class PdfViewerCustomComponent implements OnInit {
   convertToPoint(value: any) {
     return (value * 3) / 4 + 'pt';
   }
+
+  selectedFile: File | null = null;
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  onView() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+
+      const uploadReq = this.http.post<string[]>(
+        `${this.apiUrl}/DocUpload`,
+        formData,
+        { reportProgress: true }
+      );
+
+      uploadReq.subscribe(
+        () => {
+          //this.router.navigate(['/pdf-viewer-custom']);
+          // Handle the response here
+          // Do something with the array of strings
+
+          if(this.selectedFile){
+            this.convertToBase64(this.selectedFile);
+          }
+
+        },
+        (error) => {
+          console.error('Error:', error);
+          // Handle error
+        }
+      )
+      
+    } else {
+      //this.uploadMessage = 'Please select a file to upload.';
+    }
+  }
+
+  // Convert the selected file to base64
+  convertToBase64(file: File | null) {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const arrayBuffer = e.target.result;
+        this.byteArrayToString(arrayBuffer);
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  }
+
+  byteArrayToString(arrayBuffer: ArrayBuffer) {
+    const bytes = new Uint8Array(arrayBuffer);
+    const file = new Blob([bytes], { type: 'application/pdf' });
+    this.pdfData = URL.createObjectURL(file);
+  }
+
 }
 
 interface PageCoordinate {
   pageNumber: string | null;
   cordinate: any; // Replace 'any' with the actual type
 }
+
+

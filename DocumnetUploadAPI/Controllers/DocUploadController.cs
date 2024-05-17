@@ -180,11 +180,11 @@ namespace DocumnetUploadAPI.Controllers
 
             try
             {
-                string pdfFile = $"{_uploadFolder}/{pDFCoordinates.FileName}";
-
-                var fileName = Path.GetFileName(pdfFile);
+                var fileName = Path.GetFileName(pDFCoordinates.FileName);
 
                 string fileFolderName = GetFolderNameFromFile(fileName);
+
+                string pdfFile = $"{_uploadFolder}/{fileFolderName}/{pDFCoordinates.FileName}";
 
                 var origionalPath = Path.Combine($"{_uploadFolder}/{fileFolderName}/{fileName}");
 
@@ -195,7 +195,7 @@ namespace DocumnetUploadAPI.Controllers
                     Directory.CreateDirectory(fileDirectory);
                 }
 
-                System.IO.File.Copy(pdfFile, Path.Combine($"{_uploadFolder}/{fileFolderName}/{fileName}"),true);
+                //System.IO.File.Copy(pdfFile, Path.Combine($"{_uploadFolder}/{fileFolderName}/{fileName}"),true);
 
                 string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/{fileFolderName}/SIGNED");
 
