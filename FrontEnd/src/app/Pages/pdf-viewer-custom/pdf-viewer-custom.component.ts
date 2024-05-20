@@ -452,7 +452,7 @@ export class PdfViewerCustomComponent implements OnInit {
             index++
           ) {
             this.ObjCordinates.Pages[index].SignText = this.textInput;
-            this.ObjCordinates.Pages[index].SignTextFont = 'Cursive';
+            this.ObjCordinates.Pages[index].SignTextFont = 'Kaushan Script';
           }
         }
       }
