@@ -231,12 +231,26 @@ public static class PDFConversation
                         // Add text below and to the left of the image
                         
                         XFont font2 = new XFont(item.SignTextFont, 15); // Font for the text
-                        double textWidthMain = gfx.MeasureString(item.SignText, font2).Width;
-                        double textHeightMain = gfx.MeasureString(item.SignText, font2).Height;
+                        XSize textSize = gfx.MeasureString(item.SignText, font2);
+                        double textWidthMain = textSize.Width;
+                        double textHeightMain = textSize.Height;
                         XBrush brush11 = XBrushes.Black; // Brush for the text color
-                        double textX2 = left + (width - textWidthMain) / 2; ; // X coordinate of the text (same as image)
-                        double textY2 = top + (height - textHeightMain) / 2; // Y coordinate below the image
+
+                        // Calculate the X coordinate for horizontal centering
+                        double textX2 = left + (width - textWidthMain) / 2;
+
+                        // Calculate the Y coordinate for vertical centering
+                        double textY2 = top + (height - textHeightMain) / 2 + textHeightMain;
+
+                        // Draw the string at the calculated position
                         gfx.DrawString(item.SignText, font2, brush11, textX2, textY2);
+
+                        //double textWidthMain = gfx.MeasureString(item.SignText, font2).Width;
+                        //double textHeightMain = gfx.MeasureString(item.SignText, font2).Height;
+                        //XBrush brush11 = XBrushes.Black; // Brush for the text color
+                        //double textX2 = left + (width - textWidthMain) / 2; ; // X coordinate of the text (same as image)
+                        //double textY2 = top + (height - textHeightMain) / 2; // Y coordinate below the image
+                        //gfx.DrawString(item.SignText, font2, brush11, textX2, textY2);
 
 
 

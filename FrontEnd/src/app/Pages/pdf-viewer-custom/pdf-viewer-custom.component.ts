@@ -18,7 +18,7 @@ import { environment } from 'src/environments/environment';
   standalone: true,
   imports: [PdfViewerModule, CommonModule, FormsModule],
   templateUrl: './pdf-viewer-custom.component.html',
-  styleUrl: './pdf-viewer-custom.component.css',
+  styleUrls: ['./pdf-viewer-custom.component.css'],
 })
 export class PdfViewerCustomComponent implements OnInit {
   @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
@@ -74,6 +74,21 @@ export class PdfViewerCustomComponent implements OnInit {
       this.AddSignatueOnPageLoad(event);
     }
   }
+  divId = 1;
+  handleCloseClick(event: Event): void {
+    const clickedElement = event.target as HTMLElement;
+    if (clickedElement.classList.contains('close-icon')) {
+      const parentDivValue = clickedElement.getAttribute('parentDiv');
+      if (parentDivValue) {
+        const divToRemove = document.getElementById(parentDivValue);
+        if (divToRemove) {
+          // Remove the div from the DOM
+          divToRemove.remove();
+        }
+      }
+    }
+  }
+
   AddSignatueOnPageLoad(event: any) {
     const viewerContainer = document.querySelector('.ng2-pdf-viewer-container');
 
@@ -99,10 +114,14 @@ export class PdfViewerCustomComponent implements OnInit {
 
       // const relativeX = mouseX + window.scrollX;
       //const relativeY = mouseY + window.scrollY;
+
       pages.forEach((element) => {
         const scale =
           viewerContainer.clientWidth / element.getBoundingClientRect().width;
         const addSignatureDiv = document.createElement('div');
+        addSignatureDiv.id = `div${this.divId}`;
+        addSignatureDiv.innerHTML = `Signature will be displayed here <span class="close-icon" parentDiv="div${this.divId}">&times;</span>`;
+        this.divId++;
         addSignatureDiv.classList.add('digital-signature--remove');
         addSignatureDiv.style.width = '150pt';
         addSignatureDiv.style.height = '45pt';
@@ -116,7 +135,7 @@ export class PdfViewerCustomComponent implements OnInit {
         addSignatureDiv.style.backgroundColor = '#fff';
         addSignatureDiv.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
         addSignatureDiv.style.cursor = 'text';
-        addSignatureDiv.innerText = 'Signature will be displayed here';
+        // addSignatureDiv.innerText = 'Signature will be displayed here';
         addSignatureDiv.style.textAlign = 'center';
         addSignatureDiv.style.position = 'absolute';
 
@@ -187,6 +206,9 @@ export class PdfViewerCustomComponent implements OnInit {
             viewerContainer.clientWidth / element.getBoundingClientRect().width;
 
           const addSignatureDiv = document.createElement('div');
+          addSignatureDiv.id = `div${this.divId}`;
+          addSignatureDiv.innerHTML = `Signature will be displayed here <span class="close-icon" parentDiv="div${this.divId}">&times;</span>`;
+          this.divId++;
           addSignatureDiv.classList.add('digital-signature--remove');
           addSignatureDiv.style.width = '150pt';
           addSignatureDiv.style.height = '45pt';
@@ -200,7 +222,7 @@ export class PdfViewerCustomComponent implements OnInit {
           addSignatureDiv.style.backgroundColor = '#fff';
           addSignatureDiv.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
           addSignatureDiv.style.cursor = 'text';
-          addSignatureDiv.innerText = 'Signature will be displayed here';
+          //addSignatureDiv.innerText = 'Signature will be displayed here';
           addSignatureDiv.style.position = 'absolute';
           addSignatureDiv.style.left = '27pt';
           addSignatureDiv.style.top = `720pt`;
@@ -208,6 +230,9 @@ export class PdfViewerCustomComponent implements OnInit {
           addSignatureDiv.style.resize = 'both';
 
           const addSignatureDivRight = document.createElement('div');
+          addSignatureDivRight.id = `div${this.divId}`;
+          addSignatureDivRight.innerHTML = `Signature will be displayed here <span class="close-icon" parentDiv="div${this.divId}">&times;</span>`;
+          this.divId++;
           addSignatureDivRight.classList.add('digital-signature--remove');
           addSignatureDivRight.style.width = '150pt';
           addSignatureDivRight.style.height = '45pt';
@@ -222,7 +247,7 @@ export class PdfViewerCustomComponent implements OnInit {
           addSignatureDivRight.style.boxShadow =
             '0 2px 10px rgba(0, 0, 0, 0.1)';
           addSignatureDivRight.style.cursor = 'text';
-          addSignatureDivRight.innerText = 'Signature will be displayed here';
+          // addSignatureDivRight.innerText = 'Signature will be displayed here';
           addSignatureDivRight.style.position = 'absolute';
           addSignatureDivRight.style.left = '436.5pt';
           addSignatureDivRight.style.top = `720pt`;

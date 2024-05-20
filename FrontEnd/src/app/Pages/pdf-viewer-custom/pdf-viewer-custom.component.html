@@ -8,7 +8,7 @@
         role="group"
       >
         <input type="file" (change)="onFileSelected($event)" />
-        <button (click)="onView()" class="btn btn-uppercase">View</button>
+        <button (click)="onView()" class="btn btn-uppercase rahul">View</button>
       </div>
       <!-- .btn-group -->
       <ul class="nav flex-column">
@@ -47,7 +47,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-8">
-          <div class="document-container">
+          <div class="document-container" (click)="handleCloseClick($event)">
             <div
               class="document-render"
               id="documentRender"

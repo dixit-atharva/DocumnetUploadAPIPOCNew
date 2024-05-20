@@ -1,11 +1,29 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 
+# Install dependencies and tools
+RUN apt-get update && apt-get install -y \
+    fontconfig \
+    libfreetype6 \
+    libfontconfig1 \
+    libx11-6 \
+    wget \
+    cabextract \
+    unzip
+
+# Download and install Microsoft Core Fonts (Arial)
+RUN wget https://downloads.sourceforge.net/corefonts/arial32.exe -O /tmp/arial.exe \
+    && cabextract /tmp/arial.exe -d /usr/share/fonts/truetype/msttcorefonts \
+    && fc-cache -f -v
+
+
 USER app
 WORKDIR /app
 
 EXPOSE 8080
 EXPOSE 8081
+
+
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
