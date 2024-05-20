@@ -210,6 +210,7 @@ public static class PDFConversation
 
                                 // Reset the transformation to avoid affecting subsequent drawing operations
 
+                                
                             }
                         }
                     }
@@ -296,6 +297,11 @@ public static class PDFConversation
 
                     }
                 }
+
+                // Add watermark text
+                //AddWatermarkText(gfx, "Testing Only");
+
+                AddWatermarkImage(gfx, sinaturePath);
             }
 
             // Save the modified document
@@ -382,4 +388,77 @@ public static class PDFConversation
         // PDF coordinate system has origin at bottom-left corner of the page
         return page.Height.Point - angularY; // Invert Y coordinate and adjust for page height
     }
+
+    private static void AddWatermarkImage(XGraphics gfx, string watermarkImagePath)
+    {
+        // Load the watermark image
+        XImage image = XImage.FromFile(watermarkImagePath);
+
+        // Calculate position for centering the image on the page
+        double centerX = (gfx.PageSize.Width - image.PixelWidth * 72 / image.HorizontalResolution) / 2;
+        double centerY = (gfx.PageSize.Height - image.PixelHeight * 72 / image.HorizontalResolution) / 2;
+
+        // Draw the image on the page
+        gfx.DrawImage(image, centerX, centerY, image.PixelWidth * 72 / image.HorizontalResolution, image.PixelHeight * 72 / image.HorizontalResolution);
+    }
+
+    private static void AddWatermarkText(XGraphics gfx, string watermarkText)
+    {
+        // Add watermark text
+        //XFont font = new XFont("Arial", 24);
+        //XColor color = XColor.FromKnownColor(XKnownColor.Gray);
+        //color.A = 50; // Set alpha value for transparency
+        //XBrush brush = new XSolidBrush(color);
+        //gfx.DrawString(watermarkText, font, brush,
+        //    new XRect(0, 0, gfx.PageSize.Width, gfx.PageSize.Height),
+        //    XStringFormats.Center);
+
+        // Define font and brush for the watermark text
+        XFont font = new XFont("Arial", 36, XFontStyle.BoldItalic);
+        XBrush brush = new XSolidBrush(XColor.FromArgb(128, XColors.Red));
+
+        // Calculate the width and height of the text
+        XSize textSize = gfx.MeasureString(watermarkText, font);
+
+        // Calculate the position for centering the text on the page
+        double centerX = (gfx.PageSize.Width - textSize.Width) / 2;
+        double centerY = (gfx.PageSize.Height - textSize.Height) / 2;
+
+        // Rotate the graphics context for a fancy effect
+        gfx.RotateAtTransform(360, new XPoint(gfx.PageSize.Width / 2, gfx.PageSize.Height / 2));
+
+        // Draw the watermark text
+        gfx.DrawString(watermarkText, font, brush, new XPoint(centerX, centerY));
+
+    }
+
+    //private static void AddWatermark(XGraphics gfx, string watermarkText)
+    //{
+    //    // Define font and brushes for the watermark text and box
+    //    XFont font = new XFont("Arial", 36, XFontStyle.BoldItalic);
+    //    XBrush textBrush = XBrushes.Black; // Text color
+    //    XPen pen = new XPen(XColors.Black, 2); // Box border color and thickness
+
+    //    // Calculate the width and height of the text
+    //    XSize textSize = gfx.MeasureString(watermarkText, font);
+
+    //    // Calculate the position for centering the text on the page
+    //    double centerX = (gfx.PageSize.Width - textSize.Width) / 2;
+    //    double centerY = (gfx.PageSize.Height - textSize.Height) / 2;
+
+    //    // Calculate the size of the square box around the text
+    //    double boxWidth = textSize.Width + 40; // Add some padding
+    //    double boxHeight = textSize.Height + 20; // Add some padding
+
+    //    // Calculate the position for the square box
+    //    double boxX = centerX - 20; // Adjust for half of the padding
+    //    double boxY = centerY - 40; // Adjust for half of the padding
+
+    //    // Draw the square box
+    //    gfx.DrawRectangle(pen, boxX, boxY, boxWidth, boxHeight);
+
+    //    // Draw the text on top of the square box
+    //    gfx.DrawString(watermarkText, font, textBrush, new XPoint(centerX, centerY));
+
+    //}
 }
