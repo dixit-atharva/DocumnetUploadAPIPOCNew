@@ -69,6 +69,11 @@ export class PdfViewerCustomComponent implements OnInit {
   onSignSelect() {
     this.isSignSelected = true;
   }
+  AddSignatueOnPageLoadOnClick(event: any) {
+    if (this.isSignSelected) {
+      this.AddSignatueOnPageLoad(event);
+    }
+  }
   AddSignatueOnPageLoad(event: any) {
     const viewerContainer = document.querySelector('.ng2-pdf-viewer-container');
 
@@ -111,7 +116,8 @@ export class PdfViewerCustomComponent implements OnInit {
         addSignatureDiv.style.backgroundColor = '#fff';
         addSignatureDiv.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
         addSignatureDiv.style.cursor = 'text';
-        addSignatureDiv.innerText = 'Dixit Gajjar';
+        addSignatureDiv.innerText = 'Signature will be displayed here';
+        addSignatureDiv.style.textAlign = 'center';
         addSignatureDiv.style.position = 'absolute';
 
         addSignatureDiv.style.left = this.convertToPoint(
@@ -120,6 +126,9 @@ export class PdfViewerCustomComponent implements OnInit {
         addSignatureDiv.style.top = this.convertToPoint(
           mouseY + viewerContainer.scrollTop - 40
         );
+
+        addSignatureDiv.setAttribute('data-pt-x', addSignatureDiv.style.left);
+        addSignatureDiv.setAttribute('data-pt-y', addSignatureDiv.style.top);
 
         element.appendChild(addSignatureDiv);
 
@@ -140,9 +149,6 @@ export class PdfViewerCustomComponent implements OnInit {
                 x += (event.deltaRect.left * 3) / 4;
                 y += (event.deltaRect.top * 3) / 4;
 
-                target.style.webkitTransform = target.style.transform =
-                  'translate(' + x + 'pt,' + y + 'pt)';
-
                 target.setAttribute('data-x', x);
                 target.setAttribute('data-y', y);
               },
@@ -159,6 +165,7 @@ export class PdfViewerCustomComponent implements OnInit {
           })
           .draggable({
             inertia: true,
+            autoScroll: true,
             modifiers: [
               interact.modifiers.restrictRect({
                 restriction: 'parent',
@@ -193,11 +200,11 @@ export class PdfViewerCustomComponent implements OnInit {
           addSignatureDiv.style.backgroundColor = '#fff';
           addSignatureDiv.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
           addSignatureDiv.style.cursor = 'text';
-          addSignatureDiv.innerText = 'Dixit Gajjar';
+          addSignatureDiv.innerText = 'Signature will be displayed here';
           addSignatureDiv.style.position = 'absolute';
           addSignatureDiv.style.left = '27pt';
           addSignatureDiv.style.top = `720pt`;
-
+          addSignatureDiv.style.textAlign = 'center';
           addSignatureDiv.style.resize = 'both';
 
           const addSignatureDivRight = document.createElement('div');
@@ -215,10 +222,23 @@ export class PdfViewerCustomComponent implements OnInit {
           addSignatureDivRight.style.boxShadow =
             '0 2px 10px rgba(0, 0, 0, 0.1)';
           addSignatureDivRight.style.cursor = 'text';
-          addSignatureDivRight.innerText = 'Dixit Gajjar';
+          addSignatureDivRight.innerText = 'Signature will be displayed here';
           addSignatureDivRight.style.position = 'absolute';
           addSignatureDivRight.style.left = '436.5pt';
           addSignatureDivRight.style.top = `720pt`;
+          addSignatureDivRight.style.textAlign = 'center';
+
+          addSignatureDiv.setAttribute('data-pt-x', addSignatureDiv.style.left);
+          addSignatureDiv.setAttribute('data-pt-y', addSignatureDiv.style.top);
+
+          addSignatureDivRight.setAttribute(
+            'data-pt-x',
+            addSignatureDivRight.style.left
+          );
+          addSignatureDivRight.setAttribute(
+            'data-pt-y',
+            addSignatureDivRight.style.top
+          );
 
           element.appendChild(addSignatureDiv);
           element.appendChild(addSignatureDivRight);
@@ -239,9 +259,6 @@ export class PdfViewerCustomComponent implements OnInit {
                   // translate when resizing from top or left edges
                   x += (event.deltaRect.left * 3) / 4;
                   y += (event.deltaRect.top * 3) / 4;
-
-                  target.style.webkitTransform = target.style.transform =
-                    'translate(' + x + 'pt,' + y + 'pt)';
 
                   target.setAttribute('data-x', x);
                   target.setAttribute('data-y', y);
@@ -289,9 +306,6 @@ export class PdfViewerCustomComponent implements OnInit {
                   x += (event.deltaRect.left * 3) / 4;
                   y += (event.deltaRect.top * 3) / 4;
 
-                  target.style.webkitTransform = target.style.transform =
-                    'translate(' + x + 'pt,' + y + 'pt)';
-
                   target.setAttribute('data-x', x);
                   target.setAttribute('data-y', y);
                 },
@@ -323,21 +337,32 @@ export class PdfViewerCustomComponent implements OnInit {
       }
     }
   }
+  ptToPx = (pt: any) => pt * 1.333;
+  pxToPt = (px: any) => px / 1.333;
+
   onMove(event: any): void {
-    // const target = event.target;
-
     const target = event.target;
-    const x = this.convertToPoint(
-      (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+    const initialX = this.ptToPx(
+      parseFloat(target.getAttribute('data-pt-x')) || 0
     );
-    const y = this.convertToPoint(
-      (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+    const initialY = this.ptToPx(
+      parseFloat(target.getAttribute('data-pt-y')) || 0
     );
 
-    target.style.transform = `translate(${x}, ${y})`;
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
+    const x = initialX + event.dx;
+    const y = initialY + event.dy;
+
+    const xInPt = x / 1.3333;
+    const yInPt = y / 1.3333;
+
+    target.style.left = `${xInPt}pt`;
+    target.style.top = `${yInPt}pt`;
+
+    target.setAttribute('data-pt-x', xInPt);
+    target.setAttribute('data-pt-y', yInPt);
   }
+
+  onEnd(event: any) {}
 
   ObjCordinates = {
     Pages: [] as PageCoordinate[],
@@ -623,6 +648,7 @@ export class PdfViewerCustomComponent implements OnInit {
 
   setColor1(color: string) {
     this.selectedColor = color;
+    this.updateCanvasBase64;
   }
 
   updateCanvasBase64() {
