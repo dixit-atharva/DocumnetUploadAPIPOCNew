@@ -687,6 +687,40 @@ export class PdfViewerCustomComponent implements OnInit {
     // Replace 'http://example.com/api/ip' with your server-side endpoint URL
     return this.http.get<string>('http://example.com/api/ip');
   }
+
+  private drawing = false;
+
+  onTouchStart(event: TouchEvent) {
+    event.preventDefault();
+    const touch = event.touches[0];
+    const rect = this.canvas.nativeElement.getBoundingClientRect();
+    if(this.ctx){
+    this.ctx.beginPath();
+    this.ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+    this.drawing = true;
+    }
+  }
+
+  onTouchMove(event: TouchEvent) {
+    event.preventDefault();
+    if (!this.drawing) return;
+    if(this.ctx){
+      const touch = event.touches[0];
+      const rect = this.canvas.nativeElement.getBoundingClientRect();
+      this.ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+      this.ctx.stroke();
+    }
+   
+  }
+
+  onTouchEnd(event: TouchEvent) {
+    event.preventDefault();
+    if (!this.drawing) return;
+    if(this.ctx){
+    this.drawing = false;
+    this.ctx.closePath();
+    }
+  }
 }
 
 interface PageCoordinate {

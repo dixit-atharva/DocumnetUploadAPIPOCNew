@@ -133,6 +133,9 @@
                     (mousedown)="mousedown($event)"
                     (mouseup)="mouseup()"
                     (mousemove)="mousemove($event)"
+                    (touchstart)="onTouchStart($event)" 
+                    (touchmove)="onTouchMove($event)"
+                    (touchend)="onTouchEnd($event)" 
                   ></canvas>
                 </div>
               </div>
