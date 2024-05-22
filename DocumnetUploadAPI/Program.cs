@@ -1,4 +1,7 @@
 using DocumnetUploadAPI.Model;
+using GoogleReCaptcha.V3.Interface;
+using GoogleReCaptcha.V3;
+using SixLabors.ImageSharp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +22,12 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader();
     });
 });
+
+// Add reCAPTCHA verification service
+builder.Services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();
+// Bind reCAPTCHA configuration
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

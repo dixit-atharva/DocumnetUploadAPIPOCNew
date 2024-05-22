@@ -1,10 +1,13 @@
 ﻿using DocumnetUploadAPI.Model;
+using GoogleReCaptcha.V3.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using PDFtoImage;
 using PDFtoImage.Model;
 using SkiaSharp;
 using System.IO;
+using System.Net.Http;
 
 namespace DocumnetUploadAPI.Controllers
 {
@@ -16,11 +19,16 @@ namespace DocumnetUploadAPI.Controllers
         private string _uploadFolder = "Documents";
         private readonly ILogger<DocUploadController> _logger;
 
-        public DocUploadController(IOptions<DocumentUpload> documentUpload, ILogger<DocUploadController> logger)
+        private const string SecretKey = "6LfqteQpAAAAACb9LMZ8MV7-zml74BkAdaSWs06I";
+        private const string ReCaptchaVerificationUrl = "https://www.google.com/recaptcha/api/siteverify";
+        private readonly ICaptchaValidator _captchaValidator;
+
+        public DocUploadController(IOptions<DocumentUpload> documentUpload, ILogger<DocUploadController> logger, ICaptchaValidator captchaValidator)
         {
             this.documentUpload = documentUpload.Value;
             _uploadFolder = this.documentUpload.Path;
             _logger = logger;
+            _captchaValidator = captchaValidator;
         }
 
         //[HttpPost]
@@ -288,6 +296,46 @@ namespace DocumnetUploadAPI.Controllers
 
         }
 
+        [HttpPost("verify")]
+        public async Task<IActionResult> Verify(GoogleCaprchaV3Request googleCaprchaV3Request)
+        {
+            //if (string.IsNullOrEmpty(googleCaprchaV3Request.Token))
+            //{
+            //    return BadRequest("Invalid reCAPTCHA token.");
+            //}
+
+            //var client = _httpClientFactory.CreateClient();
+            //var response = await client.PostAsync($"{ReCaptchaVerificationUrl}?secret={SecretKey}&response={token}", null);
+
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    return StatusCode((int)response.StatusCode, "Error verifying reCAPTCHA.");
+            //}
+
+            //var jsonResponse = await response.Content.ReadAsStringAsync();
+            //var reCaptchaResponse = JsonConvert.DeserializeObject<ReCaptchaResponse>(jsonResponse);
+
+            //if (reCaptchaResponse == null || !reCaptchaResponse.Success)
+            //{
+            //    return BadRequest("reCAPTCHA verification failed.");
+            //}
+
+            //return Ok("reCAPTCHA verified successfully.");
+
+            if (string.IsNullOrEmpty(googleCaprchaV3Request.Token))
+            {
+                return BadRequest("Invalid reCAPTCHA token.");
+            }
+
+            var isValid = await _captchaValidator.IsCaptchaPassedAsync(googleCaprchaV3Request.Token);
+
+            if (!isValid)
+            {
+                return BadRequest("reCAPTCHA verification failed.");
+            }
+
+            return Ok("reCAPTCHA verified successfully.");
+        }
         private byte[] GetFileBytes(string filePath)
         {
             if (System.IO.File.Exists(filePath))

@@ -7,6 +7,7 @@ import { Ng2PdfjsViewerComponent } from './Pages/ng2-pdfjs-viewer/ng2-pdfjs-view
 import { NgxExtendedPdfViewerComponentTest } from './Pages/ngx-extended-pdf-viewer/ngx-extended-pdf-viewer.component';
 import { CustomViewerComponent } from './Pages/custom-viewer/custom-viewer.component';
 import { PdfViewerCustomComponent } from './Pages/pdf-viewer-custom/pdf-viewer-custom.component';
+import { GoogleRecaptchaComponent } from './Pages/google-recaptcha/google-recaptcha.component';
 
 const routes: Routes = [
   { path: '', component: DocUploadComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'custom-viewer', component: CustomViewerComponent },
   { path: 'ngx-extended-pdf-viewer', component: NgxExtendedPdfViewerComponentTest },
   { path: 'pdf-viewer-custom', component: PdfViewerCustomComponent },
+  { path: 'google-recaptcha', component: GoogleRecaptchaComponent },
 ];
 
 @NgModule({
