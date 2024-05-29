@@ -219,6 +219,10 @@ namespace DocumnetUploadAPI.Controllers
                 PDFUtility.PDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf", pDFCoordinates);
                 PDFUtility.ItextSharpPDFConversation.SignedPdfByCoordinates(origionalPath, signaturePath, PDFCombinedDirectory, "iTextSharp.pdf", pDFCoordinates);
 
+                //var bytesReturn = PDFUtility.PDFConversation.SignedPdfByCoordinatesByte(origionalPath, signaturePath, PDFCombinedDirectory, "PdfSharpCore.pdf", pDFCoordinates);
+
+                //System.IO.File.WriteAllBytes($"{PDFCombinedDirectory}/PdfSharpCoreByte.pdf", bytesReturn);
+
                 return Ok();
             }
             catch (Exception ex)

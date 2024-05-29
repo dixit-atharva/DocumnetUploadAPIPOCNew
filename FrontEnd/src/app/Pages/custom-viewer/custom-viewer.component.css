@@ -25,3 +25,7 @@
 .container-fluid {
   background-color: #c8dbf3;
 }
+
+.highlight {
+  background-color: yellow;
+}

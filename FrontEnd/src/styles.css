@@ -8627,7 +8627,7 @@ body {
   font-size: 13px;
   line-height: 24px;
   color: #22252A;
-  background-color: #ACABAB;
+  /* background-color: #ACABAB; */
   overflow-x: hidden;
 }
 

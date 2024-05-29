@@ -1,0 +1,9 @@
+<p>docx-preview works!</p>
+<div>
+    <input type="file" (change)="onFileSelected($event)" />
+    <div [innerHTML]="docContent" class="document-container"></div>
+    <div *ngFor="let placeholder of placeholders" 
+         class="placeholder" 
+        >{{placeholder}}</div>
+  </div>
+  

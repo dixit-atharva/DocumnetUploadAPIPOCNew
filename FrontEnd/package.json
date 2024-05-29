@@ -22,6 +22,7 @@
     "@ionic/angular": "^8.1.1",
     "angular-resizable-element": "^7.0.2",
     "bootstrap": "^5.3.3",
+    "docx-preview": "^0.3.2",
     "interactjs": "^1.10.27",
     "ionicons": "^7.4.0",
     "jquery": "^3.7.1",
