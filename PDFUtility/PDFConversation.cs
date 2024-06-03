@@ -515,6 +515,69 @@ public static class PDFConversation
         return signedPDFBytes;
     }
 
+    public static byte[] ConvertImagetoPDFByte(string imageBase64)
+    {
+        byte[] imagePDFBytes = Array.Empty<byte>();
+
+        byte[] imageBytes = Convert.FromBase64String(Regex.Replace(imageBase64, @"^data:image\/[a-zA-Z]+;base64,", string.Empty));
+
+        if (imageBytes != null && imageBytes.Length > 0)
+        {
+            using (var document = new PdfDocument())
+            {
+                PdfPage page = document.AddPage();
+                page.Size = PdfSharpCore.PageSize.A4;
+
+                using (MemoryStream stream = new MemoryStream(imageBytes))
+                {
+                    using (XImage img = XImage.FromStream(() => stream))
+                    {
+                        //// Calculate new height to keep image ratio
+                        //var height = (int)(((double)img.PointWidth / (double)img.PixelWidth) * img.PixelHeight);
+
+                        //// Change PDF Page size to match image
+                        //page.Width = img.PointWidth;
+                        //page.Height = height;
+
+                        //XGraphics gfx = XGraphics.FromPdfPage(page);
+                        //gfx.DrawImage(img, 0, 0, img.PointWidth, height);
+
+                        XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                        double imgWidth = img.PixelWidth;
+                        double imgHeight = img.PixelHeight;
+                        double pageWidth = page.Width;
+                        double pageHeight = page.Height;
+
+                        double ratioX = pageWidth / imgWidth;
+                        double ratioY = pageHeight / imgHeight;
+                        double ratio = Math.Min(ratioX, ratioY);
+
+                        double newWidth = imgWidth * ratio;
+                        double newHeight = imgHeight * ratio;
+
+                        double x = (pageWidth - newWidth) / 2;
+                        double y = (pageHeight - newHeight) / 2;
+
+                        gfx.DrawImage(img, x, y, newWidth, newHeight);
+                    }
+                    // Save the modified document to a MemoryStream
+                    using (MemoryStream outputStream = new MemoryStream())
+                    {
+                        document.Save(outputStream, closeStream: false);
+                        imagePDFBytes = outputStream.ToArray();
+                    }
+
+                    document.Close();
+                }
+            }
+        }
+            
+
+        return imagePDFBytes;
+    }
+
+
     public static double ConvertToPDFCoordinates(double value, double maxValue, double defaultValue, double imageMaxValue)
     {
 

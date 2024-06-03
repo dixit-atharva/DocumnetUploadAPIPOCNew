@@ -29,3 +29,8 @@
 .highlight {
   background-color: yellow;
 }
+
+::ng-deep ngx-extended-pdf-viewer div.textLayer,
+::ng-deep #viewOutline {
+  display :none;
+}

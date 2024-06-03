@@ -233,6 +233,42 @@ namespace DocumnetUploadAPI.Controllers
 
         }
 
+        [HttpPost("converttoPDF")]
+        public async Task<IActionResult> ConvertImageToPDF(ImageUpload imageUpload)
+        {
+            _logger.LogInformation($"Upload Started at {_uploadFolder}");
+
+            try
+            {
+                var fileName = Path.GetFileName(imageUpload.FileName);
+
+                string fileFolderName = GetFolderNameFromFile(fileName);
+
+                string pdfFileName = $"{fileName.Split('.')[0]}.pdf";
+
+                string pdfFile = $"{_uploadFolder}/{fileFolderName}/{pdfFileName}";
+
+                string fileDirectory = Path.Combine($"{_uploadFolder}/{fileFolderName}"); ;
+
+                if (!Directory.Exists(fileDirectory))
+                {
+                    Directory.CreateDirectory(fileDirectory);
+                }
+
+                var bytesReturn = PDFUtility.PDFConversation.ConvertImagetoPDFByte(imageUpload.Data);
+
+                System.IO.File.WriteAllBytes($"{pdfFile}", bytesReturn);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"Upload Failed  {ex.Message} :: {ex.InnerException}");
+                return Ok("File uploaded Failed!");
+            }
+
+        }
+
         private async Task<string> ImageToBase64(string imagePath)
         {
             byte[] imageBytes = await System.IO.File.ReadAllBytesAsync(imagePath);
