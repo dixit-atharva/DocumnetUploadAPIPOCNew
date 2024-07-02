@@ -14,6 +14,8 @@ using iText.Kernel.Font;
 using PdfSharpCore.Pdf.Advanced;
 using iText.Kernel.Colors;
 using iText.Layout.Properties;
+using iText.Kernel.Events;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 
 
@@ -131,10 +133,75 @@ public static class ItextSharpPDFConversation
         var filePath = $"{outputDirectory}/{fileName}";
         // Create a PDF document
 
-        var converter = new ConverterProperties();
-        // Convert HTML to PDF and save directly to the file path
-        HtmlConverter.ConvertToPdf(htmlContent, new FileStream(filePath, FileMode.Create), converter);
+        //var converter = new ConverterProperties();
+        //// Convert HTML to PDF and save directly to the file path
+        //HtmlConverter.ConvertToPdf(htmlContent, new FileStream(filePath, FileMode.Create), converter);
 
 
+        byte[] pdfBytes;
+        using (MemoryStream ms = new MemoryStream())
+        {
+            // Initialize PDF writer
+            PdfWriter writer = new PdfWriter(ms);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            // Add header and footer event handlers
+            pdf.AddEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler());
+            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new FooterEventHandler());
+
+            var converter = new ConverterProperties();
+            // Convert HTML to PDF
+            HtmlConverter.ConvertToPdf(htmlContent, new FileStream(filePath, FileMode.Create), converter);
+
+            // Close the document
+            document.Close();
+            pdfBytes = ms.ToArray();
+        }
+
+    }
+}
+
+// Header event handler
+public class HeaderEventHandler : IEventHandler
+{
+    public void HandleEvent(Event @event)
+    {
+        PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
+        PdfDocument pdf = docEvent.GetDocument();
+        PdfPage page = docEvent.GetPage();
+        int pageNumber = pdf.GetPageNumber(page);
+
+        if (pageNumber == 1)
+        {
+            Rectangle rect = new Rectangle(36, page.GetPageSize().GetTop() - 50, page.GetPageSize().GetWidth() - 72, 20);
+            Canvas canvas = new Canvas(page, rect);
+            canvas.Add(new Paragraph("Header for first page").SetFontSize(12).SetTextAlignment(TextAlignment.CENTER));
+            canvas.Close();
+        }
+        else
+        {
+            Rectangle rect = new Rectangle(36, page.GetPageSize().GetTop() - 20, page.GetPageSize().GetWidth() - 72, 20);
+            Canvas canvas = new Canvas(page, rect);
+            canvas.Add(new Paragraph("Header for other pages").SetFontSize(12).SetTextAlignment(TextAlignment.CENTER));
+            canvas.Close();
+        }
+    }
+}
+
+// Footer event handler
+public class FooterEventHandler : IEventHandler
+{
+    public void HandleEvent(Event @event)
+    {
+        PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
+        PdfDocument pdf = docEvent.GetDocument();
+        PdfPage page = docEvent.GetPage();
+        int pageNumber = pdf.GetPageNumber(page);
+        Rectangle rect = new Rectangle(36, 20, page.GetPageSize().GetWidth() - 72, 20);
+
+        Canvas canvas = new Canvas(page, rect);
+        canvas.Add(new Paragraph($"Page {pageNumber}").SetFontSize(12).SetTextAlignment(TextAlignment.CENTER));
+        canvas.Close();
     }
 }

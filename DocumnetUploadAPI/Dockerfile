@@ -17,11 +17,11 @@ RUN wget https://downloads.sourceforge.net/corefonts/arial32.exe -O /tmp/arial.e
     && fc-cache -f -v
 
 # Copy cursive font from the project directory
-COPY ./DocumnetUploadAPI/Fonts/Cursive.ttf /usr/share/fonts/truetype/
-COPY ./DocumnetUploadAPI/Fonts/KaushanScript-Regular.ttf /usr/share/fonts/truetype/
+#COPY ./DocumnetUploadAPI/Fonts/Cursive.ttf /usr/share/fonts/truetype/
+#COPY ./DocumnetUploadAPI/Fonts/KaushanScript-Regular.ttf /usr/share/fonts/truetype/
 
 # Update font cache
-RUN fc-cache -f -v
+#RUN fc-cache -f -v
 
 USER app
 WORKDIR /app
