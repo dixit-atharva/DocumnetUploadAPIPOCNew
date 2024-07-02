@@ -326,7 +326,7 @@ namespace DocumnetUploadAPI.Controllers
                 //PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", htmlContent);
                 //PDFUtility.ItextSharpPDFConversation.GenearteHTML(PDFCombinedDirectory, "iTextSharp.pdf", htmlContent);
 
-                PdfHeaderFooterHtmlExample.HTMLConvert.Main(PDFCombinedDirectory, "iTextCore.pdf", htmlContent);
+                //PdfHeaderFooterHtmlExample.HTMLConvert.Main(PDFCombinedDirectory, "iTextCore.pdf", htmlContent);
 
                 return Ok();
             }
