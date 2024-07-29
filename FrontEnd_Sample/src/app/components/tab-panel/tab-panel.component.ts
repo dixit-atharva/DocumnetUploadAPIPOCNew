@@ -169,7 +169,20 @@ export class TabPanelComponent implements OnInit, AfterViewInit {
     }
   }
 
+  touchstart(event: TouchEvent) {
+    if (this.activeTab === 'Canvas') {
+      this.isDrawing = true;
+      const touch = event.touches[0];
+      this.prevX = touch.clientX - this.canvas.nativeElement.offsetLeft;
+      this.prevY = touch.clientY - this.canvas.nativeElement.offsetTop;
+    }
+  }
+
   mouseup() {
+    this.isDrawing = false;
+  }
+
+  touchend() {
     this.isDrawing = false;
   }
 
@@ -177,6 +190,17 @@ export class TabPanelComponent implements OnInit, AfterViewInit {
     if (this.activeTab === 'Canvas' && this.isDrawing) {
       const currentX = event.clientX - this.canvas.nativeElement.offsetLeft;
       const currentY = event.clientY - this.canvas.nativeElement.offsetTop;
+      this.draw(this.prevX, this.prevY, currentX, currentY);
+      this.prevX = currentX;
+      this.prevY = currentY;
+    }
+  }
+
+  touchmove(event: TouchEvent) {
+    if (this.activeTab === 'Canvas' && this.isDrawing) {
+      const touch = event.touches[0];
+      const currentX = touch.clientX - this.canvas.nativeElement.offsetLeft;
+      const currentY = touch.clientY - this.canvas.nativeElement.offsetTop;
       this.draw(this.prevX, this.prevY, currentX, currentY);
       this.prevX = currentX;
       this.prevY = currentY;
