@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="editor-container">
+    <ckeditor
+      [(ngModel)]="editorData"
+      [editor]="Editor"
+      [config]="config"
+    ></ckeditor>
+  </div>
+  <div class="draggable-container">
+    @for (tag of tags; track tag) {
+    <div draggable="true" (dragstart)="onDragStart($event, tag)">
+      [[{{ tag.name }}]] - {{ tag.type }}
+      {{
+        tag.type === "Checkbox" || tag.type === "Radio button"
+          ? "(" + tag.label + ")"
+          : ""
+      }}
+      @if (tag.type === 'Dropdown') { @for (option of tag.options; track option)
+      {
+      <div>- {{ option }}</div>
+      } }
+    </div>
+    }
+    <input type="text" [(ngModel)]="newTag" placeholder="Enter tag name" />
+    <select [(ngModel)]="newTagType">
+      <option value="Text box">Text box</option>
+      <option value="Checkbox">Checkbox</option>
+      <option value="Radio button">Radio button</option>
+      <option value="Dropdown">Dropdown</option>
+    </select>
+    @if (newTagType === 'Checkbox' || newTagType === 'Radio button') {
+    <input
+      type="text"
+      [(ngModel)]="newTagLabel"
+      placeholder="Enter label name"
+    />
+    } @if (newTagType === 'Dropdown') {
+    <div>
+      <input
+        type="text"
+        [(ngModel)]="newDropdownOption"
+        placeholder="Enter dropdown option"
+      />
+      <button (click)="addDropdownOption()">Add Option</button>
+      @for (option of newDropdownOptions; track option) {
+      <div>{{ option }}</div>
+      }
+    </div>
+    }
+    <button (click)="addTag()">Add Tag</button>
+  </div>
+</div>
+
+<div class="container">
+  <div>
+    <button (click)="showPreview()">Show Preview</button>
+    <button (click)="convertPdf()">Convert To PDF</button>
+
+    @if (safeEditorData) {
+    <div class="preview-container">
+      <h3>Preview:</h3>
+      <div [innerHTML]="safeEditorData"></div>
+    </div>
+    }
+  </div>
+  <div class="form-container">
+    <h3>Fill in the form:</h3>
+    @for (tag of tags; track tag) { @if (tag.type === 'Text box') {
+    <div>
+      <label>{{ tag.name }}:</label>
+      <input type="text" (input)="handleInputChange($event, tag.name)" />
+    </div>
+    } @if (tag.type === 'Checkbox') {
+    <div>
+      <label>{{ tag.label }}:</label>
+      <input
+        type="checkbox"
+        (change)="handleCheckboxChange($event, tag.name)"
+        value="{{ tag.name }}"
+      />
+    </div>
+    } @if (tag.type === 'Radio button') {
+    <div>
+      <label>{{ tag.label }}:</label>
+      <label>
+        <input
+          type="radio"
+          name="{{ tag.name }}"
+          (change)="handleRadioChange($event, tag.name, tag.name)"
+          value="{{ tag.name }}"
+        />
+      </label>
+    </div>
+    } @if (tag.type === 'Dropdown') {
+    <div>
+      <label>{{ tag.name }}:</label>
+      <select (change)="handleDropdownChange($event, tag.name)">
+        @for (option of tag.options; track option) {
+        <option value="{{ option }}">{{ option }}</option>
+        }
+      </select>
+    </div>
+    } }
+  </div>
+</div>

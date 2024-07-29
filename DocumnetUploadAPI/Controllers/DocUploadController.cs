@@ -3,6 +3,7 @@ using GoogleReCaptcha.V3.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.Ocsp;
 using PDFtoImage;
 using PDFtoImage.Model;
 using SkiaSharp;
@@ -337,6 +338,26 @@ namespace DocumnetUploadAPI.Controllers
             }
 
         }
+
+        [HttpPost("convertHtmlToPdf")]
+        public async Task<IActionResult> ConvertHTMLToPdf(HtmlContentRequest request)
+        {
+            try
+            {
+                string modifiedHtmlContent = request.Content.Replace("[[", "").Replace("]]", "sampletext");
+
+                string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/HTML/ckeditorDemo");
+
+                PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", modifiedHtmlContent);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation($"ConvertToHTML Failed  {ex.Message} :: {ex.InnerException}");
+                return Ok();
+            }
+        }
+
 
         [HttpPost("verify")]
         public async Task<IActionResult> Verify(GoogleCaprchaV3Request googleCaprchaV3Request)

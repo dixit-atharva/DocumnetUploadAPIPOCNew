@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDFUtility", "PDFUtility\PDFUtility.csproj", "{A6F86FA0-87FE-406E-BA86-5A128D59DA12}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "FrontEnd_Sample", "FrontEnd_Sample\FrontEnd_Sample.esproj", "{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,15 @@ Global
 		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.ReleaseSigned|Any CPU.ActiveCfg = ReleaseSigned|Any CPU
 		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.ReleaseSigned|Any CPU.Build.0 = ReleaseSigned|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.ReleaseSigned|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
