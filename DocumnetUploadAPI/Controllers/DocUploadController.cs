@@ -9,6 +9,8 @@ using PDFtoImage.Model;
 using SkiaSharp;
 using System.IO;
 using System.Net.Http;
+using System.Reflection.PortableExecutable;
+using System.Text.RegularExpressions;
 
 namespace DocumnetUploadAPI.Controllers
 {
@@ -344,18 +346,64 @@ namespace DocumnetUploadAPI.Controllers
         {
             try
             {
-                string modifiedHtmlContent = request.Content.Replace("[[", "").Replace("]]", "sampletext");
+                string csvFilePath = Path.Combine($"{_uploadFolder}/sample.csv"); 
+                var csvData = ReadCsv(csvFilePath);
 
-                string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/HTML/ckeditorDemo");
+                if (csvData.Count > 0)
+                {
+                    var firstRow = csvData[0];
+                    string pattern = @"\[\[([^\]]+)\]\]";
+                    string result = Regex.Replace(request.Content, pattern, match =>
+                    {
+                        string key = match.Groups[1].Value;
+                        return firstRow.ContainsKey(key) ? firstRow[key] : match.Value;
+                    });
+                    Console.WriteLine(result);
+                    string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/HTML/ckeditorDemo");
 
-                PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", modifiedHtmlContent);
-                return Ok();
+                    PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", result);
+                    return Ok();
+                }
+                else
+                {
+                    Console.WriteLine("The CSV file is empty or could not be read.");
+                    return Ok();
+                }
+
+                //string replacement = "sample_text"; 
+                //string pattern = @"\[\[([^\]]+)\]\]";
+                //string result = Regex.Replace(request.Content, pattern, replacement);
+                //string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/HTML/ckeditorDemo");
+
+                //PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", result);
+                //return Ok();
             }
             catch (Exception ex)
             {
                 _logger.LogInformation($"ConvertToHTML Failed  {ex.Message} :: {ex.InnerException}");
                 return Ok();
             }
+
+        }
+
+        static List<Dictionary<string, string>> ReadCsv(string filePath)
+        {
+            var csvData = new List<Dictionary<string, string>>();
+            using (var reader = new StreamReader(filePath))
+            {
+                var headers = reader.ReadLine().Split(',');
+                while (!reader.EndOfStream)
+                {
+                    var values = reader.ReadLine().Split(',');
+                    var row = new Dictionary<string, string>();
+                    for (int i = 0; i < headers.Length; i++)
+                    {
+                        row[headers[i]] = values[i];
+                    }
+                    csvData.Add(row);
+                }
+            }
+            return csvData;
         }
 
 
