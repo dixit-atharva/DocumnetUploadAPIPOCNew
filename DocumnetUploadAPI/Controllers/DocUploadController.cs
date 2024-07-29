@@ -346,22 +346,28 @@ namespace DocumnetUploadAPI.Controllers
         {
             try
             {
-                string csvFilePath = Path.Combine($"{_uploadFolder}/sample.csv"); 
+                string csvFilePath = Path.Combine($"{_uploadFolder}/sample.csv");
                 var csvData = ReadCsv(csvFilePath);
 
                 if (csvData.Count > 0)
                 {
-                    var firstRow = csvData[0];
                     string pattern = @"\[\[([^\]]+)\]\]";
-                    string result = Regex.Replace(request.Content, pattern, match =>
-                    {
-                        string key = match.Groups[1].Value;
-                        return firstRow.ContainsKey(key) ? firstRow[key] : match.Value;
-                    });
-                    Console.WriteLine(result);
                     string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/HTML/ckeditorDemo");
 
-                    PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", result);
+                    for (int i = 0; i < csvData.Count; i++)
+                    {
+                        var row = csvData[i];
+                        string result = Regex.Replace(request.Content, pattern, match =>
+                        {
+                            string key = match.Groups[1].Value;
+                            return row.ContainsKey(key) ? row[key] : match.Value;
+                        });
+
+                        string pdfFileName = $"CkeditorPdf_{i + 1}.pdf";
+
+                        PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, pdfFileName, result);
+                    }
+
                     return Ok();
                 }
                 else
@@ -369,21 +375,12 @@ namespace DocumnetUploadAPI.Controllers
                     Console.WriteLine("The CSV file is empty or could not be read.");
                     return Ok();
                 }
-
-                //string replacement = "sample_text"; 
-                //string pattern = @"\[\[([^\]]+)\]\]";
-                //string result = Regex.Replace(request.Content, pattern, replacement);
-                //string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/HTML/ckeditorDemo");
-
-                //PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", result);
-                //return Ok();
             }
             catch (Exception ex)
             {
                 _logger.LogInformation($"ConvertToHTML Failed  {ex.Message} :: {ex.InnerException}");
                 return Ok();
             }
-
         }
 
         static List<Dictionary<string, string>> ReadCsv(string filePath)
