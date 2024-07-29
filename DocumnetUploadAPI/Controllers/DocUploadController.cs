@@ -323,7 +323,7 @@ namespace DocumnetUploadAPI.Controllers
 
                 string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/HTML");
 
-                //PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", htmlContent);
+                PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", htmlContent);
                 //PDFUtility.ItextSharpPDFConversation.GenearteHTML(PDFCombinedDirectory, "iTextSharp.pdf", htmlContent);
 
                 //PdfHeaderFooterHtmlExample.HTMLConvert.Main(PDFCombinedDirectory, "iTextCore.pdf", htmlContent);
