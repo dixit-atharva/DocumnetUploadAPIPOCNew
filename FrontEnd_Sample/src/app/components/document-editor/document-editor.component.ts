@@ -66,6 +66,7 @@ export class DocumentEditorComponent {
     fileInput.click();
   }
   safeEditorData!: SafeHtml;
+  processedHtmlContent: string = '';
 
   editorConfig1: AngularEditorConfig = {
     editable: true,
@@ -302,10 +303,25 @@ export class DocumentEditorComponent {
       content = content.replace(new RegExp(tagPlaceholder, 'g'), replacement);
     }
     this.safeEditorData = this.sanitize(content);
+    this.processedHtmlContent = content;
   }
 
   sanitize(content: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(content);
+  }
+
+  convertPdf() {
+
+
+    const uploadReq = this.http.post<string>(
+      `${this.apiUrl}/DocUpload/convertHtmlToPdf`,
+      { Content: this.editorData },
+      { reportProgress: true }
+    );
+
+    uploadReq.subscribe((error) => {
+      console.error('Error:', error);
+    });
   }
 
   handleInputChange(event: Event, tagName: string) {
@@ -325,17 +341,5 @@ export class DocumentEditorComponent {
 
   handleRadioChange(event: Event, tagName: string, option: string) {
     this.tagValues[tagName] = option;
-  }
-
-  convertPdf() {
-    const uploadReq = this.http.post<string>(
-      `${this.apiUrl}/DocUpload/convertHtmlToPdf`,
-      { Content: this.editorData },
-      { reportProgress: true }
-    );
-
-    uploadReq.subscribe((error) => {
-      console.error('Error:', error);
-    });
   }
 }

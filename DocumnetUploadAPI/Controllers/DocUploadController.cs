@@ -375,6 +375,14 @@ namespace DocumnetUploadAPI.Controllers
                     Console.WriteLine("The CSV file is empty or could not be read.");
                     return Ok();
                 }
+
+                //string replacement = "sample_text"; 
+                //string pattern = @"\[\[([^\]]+)\]\]";
+                //string result = Regex.Replace(request.Content, pattern, replacement);
+                //string PDFCombinedDirectory = Path.Combine($"{_uploadFolder}/HTML/ckeditorDemo");
+
+                //PDFUtility.PDFConversation.GenearteHTML(PDFCombinedDirectory, "PdfSharpCore.pdf", result);
+                //return Ok();
             }
             catch (Exception ex)
             {
