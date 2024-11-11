@@ -361,7 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/FrontEnd/.angular/cache/17.3.7
-/FrontEnd/dist/document-upload
-/FrontEnd_Sample/.angular/cache/17.3.6/angular-app
-/FrontEnd_Sample/.angular/cache/17.3.6/vite/deps
+.angular/

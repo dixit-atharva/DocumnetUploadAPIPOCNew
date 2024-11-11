@@ -1,0 +1,242 @@
+<div class="wrapper">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <a href="javascript:;"><ion-icon name="arrow-back"></ion-icon> Back</a>
+    </div>
+    <!-- .sidebar-header -->
+    <div class="sidebar-nav">
+      <div
+        class="btn-group btn-group-rounded justify-content-center d-flex mt-4 mb-5"
+        role="group"
+      >
+        <button type="button" class="btn btn-uppercase btn-primary px-4">
+          Continue
+        </button>
+        <button type="button" class="btn btn-uppercase btn-secondary px-4">
+          Cancel
+        </button>
+      </div>
+      <!-- .btn-group -->
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <!-- primaryEditorHighlight -->
+          <button (click)="highlightText()">Highlight Selected Text</button>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+            ><ion-icon name="information-circle"></ion-icon> Document Info</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+            ><ion-icon name="people"></ion-icon> Recipient(s)</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+            ><ion-icon name="key"></ion-icon> My Signature</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+            ><ion-icon name="timer"></ion-icon> Log</a
+          >
+        </li>
+      </ul>
+      <!-- .nav -->
+    </div>
+    <!-- .sidebar-nav -->
+  </div>
+  <!-- .sidebar -->
+
+  <div class="content">
+    <div class="content-header">
+      <a
+        href="javascript:;"
+        class="btn btn-rounded btn-sm btn-uppercase btn-primary float-right px-4 py-2"
+        (click)="downLoad()"
+        >Download</a
+      >
+      <h2>Go Digitel.pdf</h2>
+    </div>
+    <!-- .content-header -->
+    <div class="document-toolbar-container-sticky">
+      <div class="document-toolbar">
+        <div class="d-flex justify-content-between">
+          <div class="d-block text-primary">
+            Go to page
+            <span class="go-page">
+              <input
+                type="number"
+                id="gotopage"
+                [(ngModel)]="currentPage"
+                min="1"
+                max="{{ maxPage }}"
+                #gotopage
+                (keydown.enter)="onEnterFirstTextbox($event)"
+              />
+            </span>
+          </div>
+          <!-- .d-block -->
+          <div class="d-block text-primary">
+            <button
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Refresh"
+              (click)="refresh()"
+            >
+              <ion-icon name="sync"></ion-icon>
+            </button>
+            <button
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Zoom Out"
+              (click)="zoomOut()"
+            >
+              <ion-icon name="remove"></ion-icon>
+            </button>
+            <button
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Zoom In"
+              (click)="zoomIn()"
+            >
+              <ion-icon name="add"></ion-icon>
+            </button>
+            <button
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Expand"
+              (click)="enableshowPresentationModeButton()"
+            >
+              <ion-icon name="expand"></ion-icon>
+            </button>
+            <button
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Show Side Bar"
+              (click)="showSidebarButton()"
+            >
+              <ion-icon name="eye-outline"></ion-icon>
+            </button>
+            <button
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Enable Hand Tool Selection"
+              (click)="enableHandTool()"
+            >
+              <ion-icon name="hand-right-outline"></ion-icon>
+            </button>
+            <button
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Enable Text Selection"
+              (click)="enableTextSelection()"
+            >
+              <ion-icon name="text-outline"></ion-icon>
+            </button>
+          </div>
+          <!-- .d-block -->
+          <div class="d-block text-primary">
+            <strong>Page</strong>
+            <span class="page-current" id="pageCurrent">{{ currentPage }}</span
+            >/<span class="page-of">{{ maxPage }}</span>
+          </div>
+          <div class="d-block text-primary">
+            <section class="section">
+              <input
+                id="searchtext"
+                class="margin"
+                [(ngModel)]="searchtext"
+                placeholder="search term"
+              />
+              <small *ngIf="findState !== undefined"
+                ><span class="margin-left-24px">{{ findStateText }}</span>
+                <span
+                  class="margin-left-24px"
+                  *ngIf="totalMatches && totalMatches > 0"
+                  >Result {{ currentMatchNumber }} of {{ totalMatches }}
+                </span></small
+              >
+              <button
+              id="gotoPreviousPage"
+              (click)="findPrevious()"
+              style="margin-left: 10px"
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Previous"
+            >
+              <ion-icon name="caret-back-outline"></ion-icon>
+            </button>
+              <button
+              id="gotoNextPage"
+              (click)="findNext()"
+              class="btn btn-primary btn-toolbar-rounded btn-sm"
+              title="Next"
+            >
+              <ion-icon name="caret-forward-outline"></ion-icon>
+            </button>
+            
+            </section>
+            <section class="section button-box">
+             
+            </section>
+          </div>
+          <!-- .d-block -->
+        </div>
+        <!-- .justify-content-between -->
+      </div>
+      <!-- .document-toolbar -->
+    </div>
+    <!-- .document-toolbar -->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="document-container">
+            <div
+              class="document-render"
+              id="documentRender"
+              style="width: 1600px; height: 1000px"
+            >
+              <ngx-extended-pdf-viewer
+                [src]="pdfData"
+                [height]="'90vh'"
+                backgroundColor="#ffffff"
+                [showToolbar]="true"
+                [(sidebarVisible)]="sidebarOpen"
+                [activeSidebarView]="sideBarView"
+                [showSidebarButton]="false"
+                [showFindButton]="false"
+                [showPagingButtons]="true"
+                [showDrawEditor]="false"
+                [showStampEditor]="false"
+                [showTextEditor]="false"
+                [showZoomButtons]="false"
+                [showPresentationModeButton]="false"
+                [showOpenFileButton]="false"
+                [showPrintButton]="false"
+                [showDownloadButton]="false"
+                [showSecondaryToolbarButton]="false"
+                [showRotateCwButton]="false"
+                [showRotateCcwButton]="false"
+                [showHandToolButton]="false"
+                [showScrollingButton]="false"
+                [showSpreadButton]="false"
+                [showPropertiesButton]="false"
+                [textLayer]="textLayer"
+                [handTool]="handTool"
+                [(zoom)]="currentZoomFactor"
+                [(page)]="currentPage"
+                (pagesLoaded)="onPagesLoaded($event)"
+                [ignoreKeyboard]="true"
+                (updateFindMatchesCount)="updateFindMatchesCount($event)"
+                (updateFindState)="updateFindState($event)"
+                (textLayerRendered)="onTextLayerRendered($event)"
+              >
+              </ngx-extended-pdf-viewer>
+            </div>
+            <!-- .document-render -->
+          </div>
+          <!-- .document-container -->
+        </div>
+        <!-- .col-## -->
+      </div>
+      <!-- .row -->
+    </div>
+    <!-- .container-fluid -->
+  </div>
+  <!-- .content -->
+</div>

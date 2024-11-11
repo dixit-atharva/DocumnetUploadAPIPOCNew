@@ -1,0 +1,115 @@
+<div class="main-container">
+  <div class="tools-container">
+    <div class="tool" (click)="showToolSection(1)">Images Copy</div>
+    <div *ngIf="showTool1" class="tool-section">
+      <!-- Tool 1 Controls -->
+      <div *ngFor="let image of images; let i = index">
+        <img
+          *ngIf="i % 2 == 0"
+          style="border-style: ridge"
+          [src]="image"
+          alt="Image"
+          width="100"
+          height="100"
+          (click)="pasteImage($event)"
+        />
+      </div>
+    </div>
+    <div class="tool" (click)="showToolSection(2)">Text Copy</div>
+    <div *ngIf="showTool2" class="tool-section">
+      <span (click)="pasteText($event)">Test Dixit</span>
+      <br />
+      <span (click)="pasteText($event)">Test Rahul</span>
+    </div>
+    <div class="tool" (click)="showToolSection(3)">Mask</div>
+    <div *ngIf="showTool3" class="tool-section">
+      <!-- Tool 1 Controls -->
+      <b>Click on the page to mask out details. </b>
+      <br />
+      Tip: You can change the color of mask from right side tool.
+      <br />
+      <input
+        type="color"
+        [(ngModel)]="selectedColor"
+        (input)="applyColor($event)"
+      />
+    </div>
+    <div class="tool" (click)="showToolSection(4)">Add Sign</div>
+    <div *ngIf="showTool4" class="tool-section">
+      <!-- Tool 1 Controls -->
+      <div
+        style="
+          font-size: 10px;
+          line-height: 14px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+        "
+      >
+        <div
+          *ngFor="let m of sign; let i = index"
+          style="
+            background-color: rgb(228, 239, 248);
+            border-color: rgb(24, 159, 216);
+            order: 1px solid;
+            display: flex;
+            align-items: center;
+            min-height: 36px;
+            border-radius: 4px;
+            padding: 0 8px;
+            margin-bottom: 10px;
+          "
+          (click)="pasteSelectedSign(m)"
+        >
+          <div style="display: flex; flex-wrap: wrap; overflow: hidden">
+            <div
+              style="
+                font-size: 14px;
+                padding: 2px 0;
+                padding-top: 4px;
+                text-transform: capitalize;
+              "
+              [innerHTML]="m.Name"
+            ></div>
+            <div
+              style="
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                font-size: 10px;
+                padding: 1px 0;
+                width: 100%;
+              "
+              [innerHTML]="m.Mobile"
+            ></div>
+            <div
+              style="
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                font-size: 10px;
+                padding: 1px 0;
+                width: 100%;
+              "
+              [innerHTML]="m.SignType"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tool" (click)="showToolSection(5)">Tool 5</div>
+    <div *ngIf="showTool5" class="tool-section">
+      <!-- Tool 1 Controls -->
+      Tool 1 Controls Here...
+    </div>
+  </div>
+  <div class="pdf-container">
+    <img
+      src="../../../assets/Images/page_1.jpg"
+      alt="PDF Image 1"
+      style="border-style: dashed"
+      (click)="addImagesToPDF($event)"
+    />
+
+    <!-- Add more img tags for additional PDF images -->
+  </div>
+</div>

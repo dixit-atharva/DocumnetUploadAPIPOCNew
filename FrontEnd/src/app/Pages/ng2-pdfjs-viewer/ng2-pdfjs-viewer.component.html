@@ -1,0 +1,21 @@
+<p>ng2-pdfjs-viewer works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <input type="file" (change)="onFileSelected($event)" />
+        <button (click)="onView()">View</button>
+      </div>
+    </div>
+</div>
+<div class="row">
+  <div style="width: 1000px;height: 1000px;">
+    <ng2-pdfjs-viewer
+      #pdfViewerOnDemand
+      [externalWindow]="false"
+      [downloadFileName]="'mytestfile.pdf'"
+      [openFile]="false"
+      [viewBookmark]="false"
+      style="width: 100%;"
+      [download]="false"></ng2-pdfjs-viewer>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+.main-container {
+    display: flex;
+}
+
+.tools-container {
+    flex: 1;
+    border-right: 1px solid #ccc;
+}
+
+.tool {
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.tool:last-child {
+    border-bottom: none;
+}
+
+.pdf-container {
+    flex: 2;
+    padding: 20px;
+}
+
+.pdf-container img {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+
+.image-container {
+    position: absolute;
+}
+
+.remove-button {
+    position: absolute;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: red;
+    padding: 4px;
+}
+
+.es-tool_tab_details__wrapper {
+    width: 100%;
+    margin-top: 13px;
+}
+
+
+
+.text-box {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}

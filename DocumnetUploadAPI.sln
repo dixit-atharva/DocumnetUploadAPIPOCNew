@@ -3,18 +3,80 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumnetUploadAPI", "DocumnetUploadAPI\DocumnetUploadAPI.csproj", "{55C83F10-0AF8-4944-BE16-17053410C7F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumnetUploadAPI", "DocumnetUploadAPI\DocumnetUploadAPI.csproj", "{55C83F10-0AF8-4944-BE16-17053410C7F3}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A09CAD98-F106-448F-8EE0-5015582F0187}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "FrontEnd", "FrontEnd\FrontEnd.esproj", "{FA0D8328-3B47-499D-97D0-9F1D67589F02}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F516A001-2016-48F6-A1DB-ECD378121F90}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Docker.Help.md = Docker.Help.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDFUtility", "PDFUtility\PDFUtility.csproj", "{A6F86FA0-87FE-406E-BA86-5A128D59DA12}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "FrontEnd_Sample", "FrontEnd_Sample\FrontEnd_Sample.esproj", "{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "PDFSharpSignAndSecurity\ConsoleApp1.csproj", "{7A56C932-A121-40ED-8C38-0C92402F514B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProteanSign", "ProteanSign\ProteanSign.csproj", "{A776D36F-6480-4B12-968C-696D935006A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		ReleaseSigned|Any CPU = ReleaseSigned|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{55C83F10-0AF8-4944-BE16-17053410C7F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{55C83F10-0AF8-4944-BE16-17053410C7F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55C83F10-0AF8-4944-BE16-17053410C7F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55C83F10-0AF8-4944-BE16-17053410C7F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C83F10-0AF8-4944-BE16-17053410C7F3}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
+		{55C83F10-0AF8-4944-BE16-17053410C7F3}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
+		{A09CAD98-F106-448F-8EE0-5015582F0187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A09CAD98-F106-448F-8EE0-5015582F0187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A09CAD98-F106-448F-8EE0-5015582F0187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A09CAD98-F106-448F-8EE0-5015582F0187}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
+		{A09CAD98-F106-448F-8EE0-5015582F0187}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
+		{FA0D8328-3B47-499D-97D0-9F1D67589F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA0D8328-3B47-499D-97D0-9F1D67589F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA0D8328-3B47-499D-97D0-9F1D67589F02}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FA0D8328-3B47-499D-97D0-9F1D67589F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA0D8328-3B47-499D-97D0-9F1D67589F02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA0D8328-3B47-499D-97D0-9F1D67589F02}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{FA0D8328-3B47-499D-97D0-9F1D67589F02}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
+		{FA0D8328-3B47-499D-97D0-9F1D67589F02}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
+		{FA0D8328-3B47-499D-97D0-9F1D67589F02}.ReleaseSigned|Any CPU.Deploy.0 = Release|Any CPU
+		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.ReleaseSigned|Any CPU.ActiveCfg = ReleaseSigned|Any CPU
+		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.ReleaseSigned|Any CPU.Build.0 = ReleaseSigned|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
+		{869E6386-3AA7-4B00-88C3-E7FD7D66E9BF}.ReleaseSigned|Any CPU.Deploy.0 = Release|Any CPU
+		{7A56C932-A121-40ED-8C38-0C92402F514B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A56C932-A121-40ED-8C38-0C92402F514B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A56C932-A121-40ED-8C38-0C92402F514B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A56C932-A121-40ED-8C38-0C92402F514B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A56C932-A121-40ED-8C38-0C92402F514B}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
+		{7A56C932-A121-40ED-8C38-0C92402F514B}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
+		{A776D36F-6480-4B12-968C-696D935006A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A776D36F-6480-4B12-968C-696D935006A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A776D36F-6480-4B12-968C-696D935006A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A776D36F-6480-4B12-968C-696D935006A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A776D36F-6480-4B12-968C-696D935006A6}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
+		{A776D36F-6480-4B12-968C-696D935006A6}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
