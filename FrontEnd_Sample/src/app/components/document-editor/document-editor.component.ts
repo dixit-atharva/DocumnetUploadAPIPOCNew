@@ -60,6 +60,29 @@ interface Tag {
 export class DocumentEditorComponent {
   constructor(private sanitizer: DomSanitizer, private http: HttpClient) {
     this.safeEditorData = this.sanitize(this.editorData);
+    this.Ping();
+  }
+
+  Ping(){
+    alert('1')
+
+    // const ping = this.http.get(
+    //   `${this.apiUrl}/ping`,
+    // );
+
+    // ping.subscribe((error) => {
+    //   console.error('Error:', error);
+    // });
+
+    
+    fetch("http://localhost:63145/api/document", {
+        method: "GET",
+        redirect: "follow"
+      })
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+
   }
   triggerFileInput() {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
