@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Esign AuthMode="1" aspId="NSDLeGOVTest002" ekycId="" ekycIdType="A" responseSigType="pkcs7pdf" responseUrl="http://localhost:4200/response-protean" sc="Y" ts="2024-11-14T15:45:13" txn="UKC:eSign:8886:20241114154507511" ver="2.1"><Docs><InputHash docInfo="Documents for eSign" hashAlgorithm="SHA256" id="1">b2f0316403ad5cbd71782b770a1762999cacc00f9b192449ed3707d22dbf9c16</InputHash></Docs><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>unEnROYv63FFZwaNJnH4uky2Lsk=</DigestValue></Reference></SignedInfo><SignatureValue>edGI6TRE2XwZqLwPL2FYMmubYMkyBG/h4S8yGueXxEyjKfdLHUoEu8Xcv4JcLyUs9C4/nK+IyMxE&#13;
+NEXwOyS/fnPeDizV9WDGAxG/q1sB0sUlzm/cFNrybweq4pQ0mXMFXsCY+TwhgxAw7EPcfl2juGuS&#13;
++8nALNboyDvCbqbi+423+MvbZXoASUbOJOdbBBumRB84Ahf4Mc2kVYWGUVYqEGHQXsx+7tGUW2SK&#13;
+4aCneBNEzek4TUUVihDe9tPEjnNEoExgoVXgDaRKmZQv62NvgIuFZ3k6Ke5NlcW31yjHn9ipjOG0&#13;
+OPgs5NTLEVKHWcV9IESMACmuRZk0ZmG5MfiHEg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>CN=Rahul Patel,OU=SC,O=SignCare,L=Ahmedabad,ST=Gujarat,C=91</X509SubjectName><X509Certificate>MIIDcTCCAlmgAwIBAgIETaX9CjANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwI5MTEQMA4GA1UE&#13;
+CBMHR3VqYXJhdDESMBAGA1UEBxMJQWhtZWRhYmFkMREwDwYDVQQKEwhTaWduQ2FyZTELMAkGA1UE&#13;
+CxMCU0MxFDASBgNVBAMTC1JhaHVsIFBhdGVsMB4XDTI0MTExNDA5MTEwMVoXDTI1MTExNDA5MTEw&#13;
+MVowaTELMAkGA1UEBhMCOTExEDAOBgNVBAgTB0d1amFyYXQxEjAQBgNVBAcTCUFobWVkYWJhZDER&#13;
+MA8GA1UEChMIU2lnbkNhcmUxCzAJBgNVBAsTAlNDMRQwEgYDVQQDEwtSYWh1bCBQYXRlbDCCASIw&#13;
+DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMuFhxjV20ZFwDs5qYhpOXKNSEtpTbcrhKA9UBqa&#13;
+ncPLbdEO/Egf45Hor5H6+5N7gDVTA+pS1b2mCWYh/y6vxwFIBkn6o7B7+WC2ak5Q+ffO+/gg9OPg&#13;
+8hGAivYOnZxqKmPlB5abF3yEzkSkY5BalVIzDDAVU1YIjtKaJ9/6Xww9LGgcDu1JZSBL0tpu17wf&#13;
+vIBHvZg6pnGoYd+h7/FKp61yLwxvDzIjYvGV5saIZ7jjicVO4+4dAYFQ+AyJrBF2ZBfa0+k6j31x&#13;
+BvoQIz0WSNwuHwpBS3W8z0c9xbSVCFOLwLviXzW0swum/rJ3vbg4Tw7RU9xdWGMw5i8ZwY6aY8UC&#13;
+AwEAAaMhMB8wHQYDVR0OBBYEFLxXdhWW4tUHUAGPWk3Xs3+UF6InMA0GCSqGSIb3DQEBCwUAA4IB&#13;
+AQDDK08m7Z3si3ubXDGW42dD4GdpxwslfPiERbuHqgLAeTLMBRaknkjnV47E2I1AqEAiEjZgx/A9&#13;
+glcbgGuCgrreW7CK2vJtksYHOZAv4tQzHQcbLW41lq9H9oX3V/ZyhUdn/i+pRAlhroanpiXkKIbw&#13;
+BihchwyOrrqWKkvCfpn4erFFCTEiC3EAguxSDNFRH64SpFPe+JDlAaEQqBo8UHIT18yO8aAIwNTx&#13;
+nHpTLqirbX23pHBLrUFrC/n8/4DB70lVqZGGy+hb0g5N9WQhsehbblv9kXpxNHNNZJmW4rS4KjCZ&#13;
++UezidUDVsn6tOMfzOutge6q4G6A+OwlLU/7jZyH</X509Certificate></X509Data></KeyInfo></Signature></Esign>

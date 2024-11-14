@@ -1,1 +1,20 @@
-Error occure because of :null
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Esign AuthMode="1" aspId="NSDLeGOVTest002" ekycId="" ekycIdType="A" responseSigType="pkcs7" responseUrl="http://localhost:51180/EsignResponse.aspx" sc="Y" ts="2024-11-14T16:59:50" txn="UKC:eSign:7613:20241114165945267" ver="2.1"><Docs><InputHash docInfo="Documents for eSign" hashAlgorithm="SHA256" id="1">72e70ebfe804dd8d292eb4d87078609b29ec138160641bfa4d4db4d36711928a</InputHash></Docs><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>wTBUH7PoOhzk+J6PsUZ6GAWe2aI=</DigestValue></Reference></SignedInfo><SignatureValue>bkK5UbAvQwWnJHa4Uh5yK2jIhEgcxCy1cAlc4IQfGhM5OQCOkASKbaLqiGKtSw4I2Q5lxqFxxUlj&#13;
+bebU4hsf7KoiJ+yMiWVTiHz/cb/ogWAGLqgp25X66A5ZzeIiHaPyNO+Ln9+6rMJDk1YykwZKxCa/&#13;
+zqjlL7igKUa/nLPKFBpVwoeCLutC7VNqsmoXako+2yXi/vf1shktexQGM3/t2sDTBX6gSBRaiqvn&#13;
+Upjq+B+obrE5jnP6tX3b6+xnUAOLvx+YMBxfK5TCnXBtOJroCtAFLBRSFW6vxto1Sr1q/+4Ceh5p&#13;
+FeEWjbiEafX3qth8OzMunbYR4J7COiFseI/oMg==</SignatureValue><KeyInfo><X509Data><X509SubjectName>CN=Rahul Patel,OU=SC,O=SignCare,L=Ahmedabad,ST=Gujarat,C=91</X509SubjectName><X509Certificate>MIIDcTCCAlmgAwIBAgIETaX9CjANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwI5MTEQMA4GA1UE&#13;
+CBMHR3VqYXJhdDESMBAGA1UEBxMJQWhtZWRhYmFkMREwDwYDVQQKEwhTaWduQ2FyZTELMAkGA1UE&#13;
+CxMCU0MxFDASBgNVBAMTC1JhaHVsIFBhdGVsMB4XDTI0MTExNDA5MTEwMVoXDTI1MTExNDA5MTEw&#13;
+MVowaTELMAkGA1UEBhMCOTExEDAOBgNVBAgTB0d1amFyYXQxEjAQBgNVBAcTCUFobWVkYWJhZDER&#13;
+MA8GA1UEChMIU2lnbkNhcmUxCzAJBgNVBAsTAlNDMRQwEgYDVQQDEwtSYWh1bCBQYXRlbDCCASIw&#13;
+DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMuFhxjV20ZFwDs5qYhpOXKNSEtpTbcrhKA9UBqa&#13;
+ncPLbdEO/Egf45Hor5H6+5N7gDVTA+pS1b2mCWYh/y6vxwFIBkn6o7B7+WC2ak5Q+ffO+/gg9OPg&#13;
+8hGAivYOnZxqKmPlB5abF3yEzkSkY5BalVIzDDAVU1YIjtKaJ9/6Xww9LGgcDu1JZSBL0tpu17wf&#13;
+vIBHvZg6pnGoYd+h7/FKp61yLwxvDzIjYvGV5saIZ7jjicVO4+4dAYFQ+AyJrBF2ZBfa0+k6j31x&#13;
+BvoQIz0WSNwuHwpBS3W8z0c9xbSVCFOLwLviXzW0swum/rJ3vbg4Tw7RU9xdWGMw5i8ZwY6aY8UC&#13;
+AwEAAaMhMB8wHQYDVR0OBBYEFLxXdhWW4tUHUAGPWk3Xs3+UF6InMA0GCSqGSIb3DQEBCwUAA4IB&#13;
+AQDDK08m7Z3si3ubXDGW42dD4GdpxwslfPiERbuHqgLAeTLMBRaknkjnV47E2I1AqEAiEjZgx/A9&#13;
+glcbgGuCgrreW7CK2vJtksYHOZAv4tQzHQcbLW41lq9H9oX3V/ZyhUdn/i+pRAlhroanpiXkKIbw&#13;
+BihchwyOrrqWKkvCfpn4erFFCTEiC3EAguxSDNFRH64SpFPe+JDlAaEQqBo8UHIT18yO8aAIwNTx&#13;
+nHpTLqirbX23pHBLrUFrC/n8/4DB70lVqZGGy+hb0g5N9WQhsehbblv9kXpxNHNNZJmW4rS4KjCZ&#13;
++UezidUDVsn6tOMfzOutge6q4G6A+OwlLU/7jZyH</X509Certificate></X509Data></KeyInfo></Signature></Esign>

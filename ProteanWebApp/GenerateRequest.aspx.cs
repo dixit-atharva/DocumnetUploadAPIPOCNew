@@ -1,5 +1,6 @@
 ﻿using MultiEsignDLL;
 using Pkcs7pdf_Multiple_EsignService;
+using PKCS7PDF_Signature;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -27,10 +29,10 @@ namespace ProteanWebApp
             string aspId = "NSDLeGOVTest002"; //"ASPNIIPLMUMTEST132";  ; //"ASPMOSLMUMTEST133";
 
             string authMode = "1";
-            string resp_url = "http://localhost:51180/EsignResponse.aspx";// response URL after esign process ; //
+            string resp_url = "http://localhost:51180/EsignResponse.aspx";// response URL after esign process ; //http://localhost:51180/EsignResponse.aspx
             string certificatePath = $"{MainPath}rahul_cert.p12"; // ASP private cretificate [ie .p12] full path
             string certificatePassward = "123456"; //ASP private cretificate[ie.p12] password
-            string tickImagePath = $"{MainPath}tick.jpg"; //Tick Image for signature symbol
+            string tickImagePath = $"{MainPath}tick.png"; //Tick Image for signature symbol
             int serverTime = 15;
             string alias = "rahulpatel";
             string nameToShowOnSignatureStamp = "SignCare";
@@ -51,6 +53,7 @@ namespace ProteanWebApp
             // 1 : Release_eSign_2_1_MultiSign_DotNET
             // 2 : Release_eSign_2.1_MultiSign_DotNET_pkcs7
             // 3: Release_eSign_2.1_MultiSign_DotNET_pkcs7_login
+            // 4 : eSign_2_1_DotNET_Utility_new
             int defaultMode = 1;
 
             switch (defaultMode)
@@ -64,14 +67,70 @@ namespace ProteanWebApp
                     break;
 
                 case 2:
-                    Release_eSign_2_1_MultiSign_DotNET_pkcs7(pdfPath, jarPath, ekycId, aspId, authMode, resp_url, certificatePath, certificatePassward, tickImagePath, serverTime, alias, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, txn, log_err, CoordinatesPath);
+                    Release_eSign_2_1_MultiSign_DotNET_pkcs7(MainPath, pdfPath, jarPath, ekycId, aspId, authMode, resp_url, certificatePath, certificatePassward, tickImagePath, serverTime, alias, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, txn, log_err, CoordinatesPath);
                     break;
                 case 3:
                     Release_eSign_2_1_MultiSign_DotNET_pkcs7_login(pdfPath, jarPath, tickImagePath, serverTime, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, log_err, CoordinatesPath);
                     break;
+                case 4:
+                    eSign_2_1_DotNET_Utility_new(MainPath, pdfPath, ekycId, aspId, authMode, resp_url, certificatePath, certificatePassward, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp
+                        , tickImagePath, serverTime, alias, reasonForSign, pdfPassword, txn);
+                    break;
             }
 
 
+        }
+
+        private void eSign_2_1_DotNET_Utility_new(string MainPath, string Pdfpath, string ekycId, string aspId, string authMode, string resp_url
+            , string certificatePath, string certificatePassward, string nameToShowOnSignatureStamp, string locationOnSignature
+            , string tickImagePath, int serverTime, string alias, string reasonForSign, string pdfPassword, string txn)
+        {
+            // jdk or jre bin folder path for 64 bit(C:\Program Files\Java) and for 32 bit(C:\Program Files (x86)\Java)system
+            string Jrebinfolderpath = @"C:\Program Files\Java\jre1.8.0_181\bin";
+            string ResponseSignaturetype = "pkcs7pdf";
+            string Jarpath = $"{MainPath}Runnable2_eSign2.1_Single.jar";
+            try
+            {
+                Pkcs7pdfEsign req_resp = new Pkcs7pdfEsign();
+                string ret = req_resp.CreateRequestXml(Pdfpath, Jarpath, ekycId, aspId, authMode, resp_url, certificatePath, certificatePassward
+                    , tickImagePath, "100", "100", serverTime, alias, 1, nameToShowOnSignatureStamp, locationOnSignature, reasonForSign, 100, 100, pdfPassword, txn, ResponseSignaturetype, Jrebinfolderpath, 1);
+                string base_folder_path = Path.GetDirectoryName(Pdfpath);
+                string file_withoutExtn = Path.GetFileNameWithoutExtension(Pdfpath);
+                string req_flnm = file_withoutExtn + "_eSignRequestXml.txt";
+                while (!File.Exists(base_folder_path + "\\" + req_flnm))
+                {
+                    System.Threading.Thread.Sleep(1000);
+                }
+
+                string xml_get = null;
+                using (StreamReader sr = new StreamReader(base_folder_path + "\\" + req_flnm))
+                {
+                    xml_get = sr.ReadToEnd();
+                }
+                // post Request
+                NameValueCollection collections = new NameValueCollection();
+                collections.Add("msg", xml_get);
+                //UAT url
+                string remoteUrl = "https://pregw.esign.egov-nsdl.com/nsdl-esp/authenticate/esign-doc/";
+                string html = "<html><head>";
+                html += "</head><body onload='document.forms[0].submit()'>";
+                html += string.Format("<form name='PostForm' method='POST' action='{0}' enctype='multipart/form-data'>", remoteUrl);
+                foreach (string key in collections.Keys)
+                {
+                    html += string.Format("<input name='{0}' type='text' value='{1}'>", key, collections[key]);
+                }
+                html += "</form></body></html>";
+                Response.Clear();
+                Response.ContentEncoding = Encoding.GetEncoding("ISO-8859-1");
+                Response.HeaderEncoding = Encoding.GetEncoding("ISO-8859-1");
+                Response.Charset = "ISO-8859-1";
+                Response.Write(html);
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
         }
 
         private void Release_eSign_2_1_MultiSign_DotNET_pkcs7_login(string pdfPath, string jarPath, string tickImagePath, int serverTime, string nameToShowOnSignatureStamp, string locationToShowOnSignatureStamp, string reasonForSign, string pdfPassword, int log_err, string Coordinates)
@@ -115,11 +174,12 @@ namespace ProteanWebApp
             }
         }
 
-        private void Release_eSign_2_1_MultiSign_DotNET_pkcs7(string pdfPath, string jarPath, string ekycId, string aspId, string authMode, string resp_url, string certificatePath, string certificatePassward, string tickImagePath, int serverTime, string alias, string nameToShowOnSignatureStamp, string locationToShowOnSignatureStamp, string reasonForSign, string pdfPassword, string txn, int log_err, string CoordinatesPath)
+        private void Release_eSign_2_1_MultiSign_DotNET_pkcs7(string MainPath, string pdfPath, string jarPath, string ekycId, string aspId, string authMode, string resp_url, string certificatePath, string certificatePassward, string tickImagePath, int serverTime, string alias, string nameToShowOnSignatureStamp, string locationToShowOnSignatureStamp, string reasonForSign, string pdfPassword, string txn, int log_err, string CoordinatesPath)
         {
             try
             {
                 string jrebinpath = @"C:\Program Files\Java\jre1.8.0_431\bin";
+                jarPath = $"{MainPath}Runnable2_eSign2.1_Multiple.jar";
                 string responsesigtype = "";
                 PKCS7PDFMultiEsign req_resp = new PKCS7PDFMultiEsign();
                 string req = req_resp.GenerateRequestXml(jarPath, ekycId, pdfPath, aspId, authMode, resp_url, certificatePath, certificatePassward, tickImagePath, serverTime, alias, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, txn, responsesigtype, CoordinatesPath, jrebinpath, log_err);
@@ -198,7 +258,8 @@ namespace ProteanWebApp
             html += string.Format("<form name='PostForm' method='POST' action='{0}' enctype='multipart/form-data'>", remoteUrl);
             foreach (string key in collections.Keys)
             {
-                html += string.Format("<input name='{0}' type='text' value='{1}'>", key, collections[key]);
+                //html += string.Format("<input name='{0}' type='text' value='{1}'>", key, collections[key]);
+                html += string.Format("<input name='{0}' type='hidden' value='{1}'>", key, collections[key]);
             }
             html += "</form></body></html>";
             Response.Clear();
@@ -210,9 +271,9 @@ namespace ProteanWebApp
             #endregion
         }
 
-        private void Release_eSign_2_1_MultiSign_DotNET11(string inpt_PDF_path, string jar_path, string ekycId, string asp_id, 
-            string authMode, string resp_url, string cert, string passward, 
-            string img_path, int serverTime, string alias, string nameToShowOnSignatureStamp, 
+        private void Release_eSign_2_1_MultiSign_DotNET11(string inpt_PDF_path, string jar_path, string ekycId, string asp_id,
+            string authMode, string resp_url, string cert, string passward,
+            string img_path, int serverTime, string alias, string nameToShowOnSignatureStamp,
             string locationToShowOnSignatureStamp, string reasonForSign, string pdfPassword, string Txn, int log_err, string Coordinates)
         {
             #region Release_eSign_2.1_MultiSign_DotNET
@@ -279,7 +340,7 @@ namespace ProteanWebApp
                 WriteLog(ex.Message.ToString(), log_err, directoryName);
             }
 
-            string req =  "CreateRequestXml() Completed...";
+            string req = "CreateRequestXml() Completed...";
 
             //dll ref call
             // MultipleEsign req = new MultipleEsign();

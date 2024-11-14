@@ -2,21 +2,23 @@
 using System.Collections.Specialized;
 using System.Text;
 
-string Pdfpath = @"C:\Users\rahulp\Desktop\Signcare\Protean\eSign_2.1_DotNET_Utility_new\test.pdf";
-string Jarpath = @"C:\Users\rahulp\Desktop\Signcare\Protean\eSign_2.1_DotNET_Utility_new\Runnable2_eSign2.1_Single.jar";
+string mainPath = @"D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanSign\Content\";
+
+string Pdfpath = $"{mainPath}test.pdf";
+string Jarpath = $"{mainPath}Runnable2_eSign2.1_Single.jar";
 string ekycId = "";
 string AspId = "NSDLeGOVTest002";
 string AuthMode = "1";
 string Responseurl = "http://localhost:4200/response-protean";
-string Certificatepath = @"C:\Users\rahulp\Desktop\Signcare\Protean\eSign_2.1_DotNET_Utility_new\SignCare.pfx";
+string Certificatepath = $"{mainPath}rahul_cert.p12";
 string Certificatepassward = "123456";
-string tickImagePath = @"C:\Users\rahulp\Desktop\Signcare\Protean\eSign_2.1_DotNET_Utility_new\sign.jpg";
+string tickImagePath = $"{mainPath}tick.png";
 string xCo_ordinates = "40";
 string yCo_ordinates = "40";
 int signatureWidth = 133;
 int signatureHeight = 33;
 int serverTime = 15;
-string alias = "nsdl egov demo uat";
+string alias = "rahulpatel";
 int page = 1;
 string NameonSignature = "Sushrut Sathe";
 string locationOnSignature = "Pune";
@@ -25,7 +27,7 @@ string pdfPassword = "";
 string txn = "";
 int writelog = 1;
 // jdk or jre bin folder path for 64 bit(C:\Program Files\Java) and for 32 bit(C:\Program Files (x86)\Java)system
-string Jrebinfolderpath = @"C:\Program Files\Java\jre1.8.0_181\bin";
+string Jrebinfolderpath = @"C:\Program Files\Java\jre1.8.0_431\bin";
 string ResponseSignaturetype = "pkcs7pdf";
 try
 {
