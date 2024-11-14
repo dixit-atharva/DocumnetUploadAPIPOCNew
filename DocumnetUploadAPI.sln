@@ -21,7 +21,9 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "FrontEnd_Sample", "FrontEnd
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "PDFSharpSignAndSecurity\ConsoleApp1.csproj", "{7A56C932-A121-40ED-8C38-0C92402F514B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProteanSign", "ProteanSign\ProteanSign.csproj", "{A776D36F-6480-4B12-968C-696D935006A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProteanSign", "ProteanSign\ProteanSign.csproj", "{A776D36F-6480-4B12-968C-696D935006A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProteanWebApp", "ProteanWebApp\ProteanWebApp.csproj", "{F2C588B8-4555-4938-AFC0-0B4F1090957F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,12 @@ Global
 		{A776D36F-6480-4B12-968C-696D935006A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A776D36F-6480-4B12-968C-696D935006A6}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
 		{A776D36F-6480-4B12-968C-696D935006A6}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
+		{F2C588B8-4555-4938-AFC0-0B4F1090957F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C588B8-4555-4938-AFC0-0B4F1090957F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C588B8-4555-4938-AFC0-0B4F1090957F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C588B8-4555-4938-AFC0-0B4F1090957F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2C588B8-4555-4938-AFC0-0B4F1090957F}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C588B8-4555-4938-AFC0-0B4F1090957F}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

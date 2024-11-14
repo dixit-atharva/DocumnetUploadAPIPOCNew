@@ -1,0 +1,81 @@
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\v1.4_RunnableMultiO.jar @ 9115915849419678 @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\test.pdf @ NSDLeGOVTest002 @ 1 @ http://localhost:51180/EsignResponse.aspx @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\SignCare.p12 @ 123456 @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\tick.jpg @ 15 @ 1 @ SignCare @ Ahmedabad @ Digitally Signed by SignCare Solutions @  @ @D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\Coordinates.txt
+
+-----------------------------------------------------------
+Creating Requestxml process end
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\v1.4_RunnableMultiO.jar @  @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\test.pdf @ NSDLeGOVTest002 @ 1 @ http://localhost:51180/EsignResponse.aspx @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\SignCare.p12 @ 123456 @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\tick.jpg @ 15 @ 1 @ SignCare @ Ahmedabad @ Digitally Signed by SignCare Solutions @  @ @D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\Coordinates.txt
+
+-----------------------------------------------------------
+Creating Requestxml process end
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+"D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\v1.4_RunnableMultiO.jar" 1 "" "D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\test.pdf" "NSDLeGOVTest002" "1" "http://localhost:51180/EsignResponse.aspx" "D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\SignCare.p12" "123456" "D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\tick.jpg" 15 "1" "SignCare" "Ahmedabad" "Digitally Signed by SignCare Solutions" "" "" "" "D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\Coordinates.txt"
+
+-----------------------------------------------------------
+Creating Requestxml process end..
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\v1.4_RunnableMultiO.jar @  @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\test.pdf @ NSDLeGOVTest002 @ 1 @ http://localhost:51180/EsignResponse.aspx @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\SignCare.p12 @ 123456 @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\tick.jpg @ 15 @ 1 @ SignCare @ Ahmedabad @ Digitally Signed by SignCare Solutions @  @ @D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\Coordinates.txt
+
+-----------------------------------------------------------
+Creating Requestxml process end
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\v1.4_RunnableMultiO.jar @  @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\test.pdf @ NSDLeGOVTest002 @ 1 @ http://localhost:51180/EsignResponse.aspx @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\SignCare.p12 @ 123456 @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\tick.jpg @ 15 @ 1 @ SignCare @ Ahmedabad @ Digitally Signed by SignCare Solutions @  @ @D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\Coordinates.txt
+
+-----------------------------------------------------------
+Creating Requestxml process end
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\v1.4_RunnableMultiO.jar @  @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\test.pdf @ NSDLeGOVTest002 @ 1 @ http://localhost:51180/EsignResponse.aspx @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\SignCare.p12 @ 123456 @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\tick.jpg @ 15 @ 1 @ SignCare @ Ahmedabad @ Digitally Signed by SignCare Solutions @  @ @D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\Coordinates.txt
+
+-----------------------------------------------------------
+Creating Requestxml process end
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\v1.4_RunnableMultiO.jar @  @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\test.pdf @ NSDLeGOVTest002 @ 1 @ http://localhost:51180/EsignResponse.aspx @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\SignCare.p12 @ 123456 @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\tick.jpg @ 15 @ 1 @ SignCare @ Ahmedabad @ Digitally Signed by SignCare Solutions @  @ @D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\Coordinates.txt
+
+-----------------------------------------------------------
+Creating Requestxml process end
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\v1.4_RunnableMultiO.jar @  @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\test.pdf @ NSDLeGOVTest002 @ 1 @ http://localhost:51180/EsignResponse.aspx @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\SignCare.p12 @ 123456 @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\tick.jpg @ 15 @ 1 @ SignCare @ Ahmedabad @ Digitally Signed by SignCare Solutions @  @ 1@D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\Coordinates.txt
+
+-----------------------------------------------------------
+Creating Requestxml process end
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\v1.4_RunnableMultiO.jar @  @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\test.pdf @ NSDLeGOVTest002 @ 1 @ http://localhost:51180/EsignResponse.aspx @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\SignCare.p12 @ 123456 @ D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\tick.jpg @ 15 @ 1 @ SignCare @ Ahmedabad @ Digitally Signed by SignCare Solutions @ 123456 @ @D:\Rahul_Workplace\Code-Sample\DocumnetUploadAPIPOCNew\ProteanWebApp\Esign\Coordinates.txt
+
+-----------------------------------------------------------
+Creating Requestxml process end
