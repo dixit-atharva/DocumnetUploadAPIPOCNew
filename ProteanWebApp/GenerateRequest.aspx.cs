@@ -3,9 +3,12 @@ using Pkcs7pdf_Multiple_EsignService;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -25,11 +28,11 @@ namespace ProteanWebApp
 
             string authMode = "1";
             string resp_url = "http://localhost:51180/EsignResponse.aspx";// response URL after esign process ; //
-            string certificatePath = $"{MainPath}SignCare.p12"; // ASP private cretificate [ie .p12] full path
+            string certificatePath = $"{MainPath}rahul_cert.p12"; // ASP private cretificate [ie .p12] full path
             string certificatePassward = "123456"; //ASP private cretificate[ie.p12] password
             string tickImagePath = $"{MainPath}tick.jpg"; //Tick Image for signature symbol
             int serverTime = 15;
-            string alias = "1";
+            string alias = "rahulpatel";
             string nameToShowOnSignatureStamp = "SignCare";
             string locationToShowOnSignatureStamp = "Ahmedabad";
             string reasonForSign = "Digitally Signed by SignCare Solutions";
@@ -55,6 +58,11 @@ namespace ProteanWebApp
                 case 1:
                     Release_eSign_2_1_MultiSign_DotNET(pdfPath, jarPath, ekycId, aspId, authMode, resp_url, certificatePath, certificatePassward, tickImagePath, serverTime, alias, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, txn, log_err, CoordinatesPath);
                     break;
+
+                case 11:
+                    Release_eSign_2_1_MultiSign_DotNET11(pdfPath, jarPath, ekycId, aspId, authMode, resp_url, certificatePath, certificatePassward, tickImagePath, serverTime, alias, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, txn, log_err, CoordinatesPath);
+                    break;
+
                 case 2:
                     Release_eSign_2_1_MultiSign_DotNET_pkcs7(pdfPath, jarPath, ekycId, aspId, authMode, resp_url, certificatePath, certificatePassward, tickImagePath, serverTime, alias, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, txn, log_err, CoordinatesPath);
                     break;
@@ -200,6 +208,144 @@ namespace ProteanWebApp
             Response.Write(html);
             Response.End();
             #endregion
+        }
+
+        private void Release_eSign_2_1_MultiSign_DotNET11(string inpt_PDF_path, string jar_path, string ekycId, string asp_id, 
+            string authMode, string resp_url, string cert, string passward, 
+            string img_path, int serverTime, string alias, string nameToShowOnSignatureStamp, 
+            string locationToShowOnSignatureStamp, string reasonForSign, string pdfPassword, string Txn, int log_err, string Coordinates)
+        {
+            #region Release_eSign_2.1_MultiSign_DotNET
+            // MultipleEsign req_resp = new MultipleEsign();
+            // dll
+
+            string text = "\"" + inpt_PDF_path + "\"";
+            string text2 = "\"" + ekycId + "\"";
+            string text3 = "\"" + authMode + "\"";
+            string text4 = "\"" + jar_path + "\"";
+            string text5 = "\"" + asp_id + "\"";
+            string text6 = "\"" + cert + "\"";
+            string text7 = "\"" + passward + "\"";
+            string text8 = "\"" + alias + "\"";
+            string text9 = "\"" + resp_url + "\"";
+            string text10 = "\"" + img_path + "\"";
+            string text11 = "\"" + nameToShowOnSignatureStamp + "\"";
+            string text12 = "\"" + locationToShowOnSignatureStamp + "\"";
+            string text13 = "\"" + reasonForSign + "\"";
+            string text14 = "\"" + pdfPassword + "\"";
+            string text15 = "\"" + Txn + "\"";
+            string text16 = "\"" + Coordinates + "\"";
+            string directoryName = Path.GetDirectoryName(inpt_PDF_path);
+            if (log_err == 1)
+            {
+                WriteLog("CreatingRequestXml Process Start...", log_err, directoryName);
+            }
+
+            try
+            {
+                ProcessStartInfo processStartInfo = new ProcessStartInfo("java.exe", $" -jar {text4} 1 {text2} {text} {text5} {text3} {text9} {text6} {text7} {text10} {serverTime} {text8} {text11} {text12} {text13} {text14} {text15} {text16}");
+                processStartInfo.CreateNoWindow = true;
+                processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                processStartInfo.UseShellExecute = false;
+                Process process = Process.Start(processStartInfo);
+                process.WaitForExit(5000);
+                if (log_err == 1)
+                {
+                    string errorMessage = jar_path + " @ " + ekycId + " @ " + inpt_PDF_path + " @ " + asp_id + " @ " + authMode + " @ " + resp_url + " @ " + cert + " @ " + passward + " @ " + img_path + " @ " + serverTime + " @ " + alias + " @ " + nameToShowOnSignatureStamp + " @ " + locationToShowOnSignatureStamp + " @ " + reasonForSign + " @ " + pdfPassword + " @ " + Txn + "@" + Coordinates;
+                    WriteLog(errorMessage, log_err, directoryName);
+                }
+
+                int num = 0;
+                while (!process.HasExited)
+                {
+                    Thread.Sleep(1000);
+                    if (num > 6)
+                    {
+                        process.Close();
+                        break;
+                    }
+
+                    num++;
+                }
+
+                process.Close();
+                if (log_err == 1)
+                {
+                    WriteLog("Creating Requestxml process end", log_err, directoryName);
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteLog(ex.Message.ToString(), log_err, directoryName);
+            }
+
+            string req =  "CreateRequestXml() Completed...";
+
+            //dll ref call
+            // MultipleEsign req = new MultipleEsign();
+            string base_folder_path = System.IO.Path.GetDirectoryName(inpt_PDF_path);
+            string file_withoutExtn = Path.GetFileNameWithoutExtension(inpt_PDF_path);
+            string request = file_withoutExtn + "_eSignRequestXml.txt";
+
+            while (!File.Exists(base_folder_path + "\\" + request))
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+
+            // Request xml generated successfully.
+
+            string xml_get = null;
+            using (StreamReader sr = new StreamReader(base_folder_path + "\\" + request))
+            {
+                xml_get = sr.ReadToEnd();
+            }
+
+            // Request XML send to generate Signed XML
+            NameValueCollection collections = new NameValueCollection();
+            collections.Add("msg", xml_get);
+            string remoteUrl = "https://pregw.esign.egov-nsdl.com/nsdl-esp/authenticate/esign-doc/";  //URL for eSign 2.1 Web
+
+            string html = "<html><head>";
+            html += "</head><body onload='document.forms[0].submit()'>";
+            html += string.Format("<form name='PostForm' method='POST' action='{0}' enctype='multipart/form-data'>", remoteUrl);
+            foreach (string key in collections.Keys)
+            {
+                html += string.Format("<input name='{0}' type='text' value='{1}'>", key, collections[key]);
+            }
+            html += "</form></body></html>";
+            Response.Clear();
+            Response.ContentEncoding = Encoding.GetEncoding("ISO-8859-1");
+            Response.HeaderEncoding = Encoding.GetEncoding("ISO-8859-1");
+            Response.Charset = "ISO-8859-1";
+            Response.Write(html);
+            Response.End();
+            #endregion
+        }
+
+        public void WriteLog(string errorMessage, int log, string logFilePath)
+        {
+            try
+            {
+                string path = null;
+                string text = null;
+                string text2 = DateTime.Now.ToString("dd_MM_yyyy");
+                if (log == 1)
+                {
+                    path = logFilePath + "\\" + text2 + "_Log.txt";
+                    text += Environment.NewLine;
+                    text += "-----------------------------------------------------------";
+                    text += Environment.NewLine;
+                    text += errorMessage;
+                }
+                using (StreamWriter streamWriter = new StreamWriter(path, append: true))
+                {
+                    streamWriter.WriteLine(text);
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteLog(ex.Message.ToString(), log, logFilePath);
+            }
         }
     }
 }

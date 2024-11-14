@@ -168,6 +168,7 @@
     <Content Include="Esign\SignCare.pfx" />
     <Content Include="Esign\test.pdf" />
     <Content Include="Esign\SignCare.p12" />
+    <Content Include="Esign\rahul_cert.p12" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
