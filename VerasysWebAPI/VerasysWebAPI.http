@@ -1,0 +1,6 @@
+@VerasysWebAPI_HostAddress = http://localhost:5244
+
+GET {{VerasysWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
