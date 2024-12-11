@@ -85,6 +85,15 @@ namespace VerasysWebAPI.Services
                     // Output the txnref
                     Console.WriteLine("txnref: " + txnref);
 
+                    string authPageUrl = "https://esignuat.vsign.in/esp/authpage";
+
+                    #region ASP logo in auth UI
+                    //string aadhaarno = "pass aadhaar number";
+
+                    //// Get the Auth Page URL
+                    //authPageUrl = GetAuthPageUrl(aadhaarno);
+                    #endregion
+
                     // Generate the HTML content
                     var htmlContent = $@"
                             <!DOCTYPE html>
@@ -95,7 +104,7 @@ namespace VerasysWebAPI.Services
                                 <title>Auto Populate and Submit</title>
                             </head>
                             <body>
-                                <form id='authPageForm' method='post' action='https://esignuat.vsign.in/esp/authpage'>
+                                <form id='authPageForm' method='post' action='{authPageUrl}'>
                                     <label for='txnref'>TxnRef:</label>
                                     <input type='text' id='txnref' name='txnref' value='{HttpUtility.HtmlEncode(txnref)}'>
                                     <br><br>
@@ -125,6 +134,25 @@ namespace VerasysWebAPI.Services
                     Console.WriteLine("Error: " + response.StatusCode);
                 }
             }
+        }
+
+        public static string GetAuthPageUrl(string aadhaarno)
+        {
+            string logoVal = "https://stage.signcare.io/assets/img/brand-logo-email.png";
+            string colorid = "#FFFFFF";
+
+            // Construct the authdata string
+            string authdata = $"{logoVal}|{colorid}|{aadhaarno}";
+
+            // Encode authdata to Base64 URL-safe format
+            string base64AuthData = Convert.ToBase64String(Encoding.UTF8.GetBytes(authdata));
+
+            // Replace "+" and "/" for URL safety
+            base64AuthData = base64AuthData.Replace("+", "-").Replace("/", "_").TrimEnd('=');
+
+            // Construct the final URL
+            string url = $"https://esignuat.vsign.in/esp/{base64AuthData}/authpagev4";
+            return url;
         }
 
         private string RandomTxn()
