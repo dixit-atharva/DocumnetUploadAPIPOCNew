@@ -7,6 +7,7 @@ namespace VerasysWebAPI.Services
 {
     public class EsignResponseHandler
     {
+        string mainPath = "D:\\Project\\SignCare\\DocumnetUploadAPIPOCNew\\VerasysWebAPI\\Files\\";
         public async void HandleEsignResponse(string responseXml)
         {
             XmlDocument responseDoc = new XmlDocument();
@@ -42,13 +43,13 @@ namespace VerasysWebAPI.Services
             // Creating the request object
             var apiRequest = new AppendSignRequest
             {
-                tempInfoPath = "D:\\espresources\\",
-                signedFileParentPath = "D:\\espresources\\",
+                tempInfoPath = mainPath,
+                signedFileParentPath = mainPath,
                 responseXML = responseXML,
-                pdfDestinationPath = "D:\\User Data\\Documents\\ekyc-Agreement_signed.pdf",
+                pdfDestinationPath = $"{mainPath}ekyc-Agreement_signed.pdf",
                 tickImgPath = "",
-                aspLogo = "D:\\espresources\\asplogo.png",
-                signatureFontSize = "30"
+                aspLogo = $"{mainPath}asplogo.png",
+                signatureFontSize = "10"
             };
 
             // Serializing the request object to JSON

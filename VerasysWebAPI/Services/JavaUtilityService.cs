@@ -4,15 +4,19 @@ namespace VerasysWebAPI.Services
 {
     public class JavaUtilityService
     {
+        string mainPath = "D:\\Project\\SignCare\\DocumnetUploadAPIPOCNew\\VerasysWebAPI\\Files\\";
+
         public void StartJavaService()
         {
             try
             {
+                var jarFilePath = Path.Combine(mainPath, "Verasays-eSign-Web-4.1.5.jar");
+
                 // Configure the process start information
                 var processStartInfo = new ProcessStartInfo
                 {
                     FileName = @"C:\Program Files\Java\jre1.8.0_431\bin\java.exe", // Java executable
-                    Arguments = @"-jar ""D:\Verasys\VerasyseSign2.1UtilityService4.1.5\VerasyseSign2.1UtilityService4.1.5\Verasays-eSign-Web-4.1.5.jar""",
+                    Arguments = $"-jar \"{jarFilePath}\"",
                     RedirectStandardOutput = true, // Capture standard output
                     RedirectStandardError = true,  // Capture error output
                     UseShellExecute = false,       // Required for redirection

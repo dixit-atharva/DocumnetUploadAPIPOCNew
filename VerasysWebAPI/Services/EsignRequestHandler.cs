@@ -8,20 +8,22 @@ namespace VerasysWebAPI.Services
 {
     public class EsignRequestHandler
     {
+        string mainPath = "D:\\Project\\SignCare\\DocumnetUploadAPIPOCNew\\VerasysWebAPI\\Files\\";
+
         public async Task HandleEsignRequest()
         {
             // Create the request object
             var request = new SignRequest
             {
-                signedPdfPath = @"D:\espresources\",
+                signedPdfPath = mainPath,
                 ver = "21",
-                tempInfoPath = @"D:\espresources\",
+                tempInfoPath = mainPath,
                 pfxAlias = "{05ae2e10-4f6d-41a6-9f83-4d0025ca28a0}",
                 isresponseXML = "0",
                 txn = RandomTxn(),
-                pfxPath = @"D:/esp/Class II Organization 2 Year Document Signer Signature-2024 (2).pfx",
+                pfxPath = $"{mainPath}Class II Organization 2 Year Document Signer Signature-2024 (2).pfx",
                 signerName = "Himang",
-                pdfDestinationPath = @"D:\User Data\Documents\ekyc-Agreement_signed.pdf",
+                pdfDestinationPath = $"{mainPath}ekyc-Agreement_signed.pdf",
                 responseUrl = "http://localhost:5244/aspesignresponse",
                 pfxPassword = "abc1234",
                 aspId = "SSPLUAT001",
@@ -45,7 +47,7 @@ namespace VerasysWebAPI.Services
                         },
                         docUrl = "",
                         docInfo = "ekyc-Subscriber-Agreement.pdf",
-                        pdfbase64val = @"D:\espresources\signcare-test.pdf"
+                        pdfbase64val = $"{mainPath}signcare-test.pdf"
                     }
                 },
                 isrequestXML = "0",
@@ -108,7 +110,7 @@ namespace VerasysWebAPI.Services
                             </html>";
 
                     // Save the HTML file
-                    var htmlFilePath = @"D:\Verasys\WebAPI\WebAPI\View\SamplePage.html";
+                    var htmlFilePath = $"{mainPath}SamplePage.html";
                     File.WriteAllText(htmlFilePath, htmlContent);
 
                     // Open the HTML file in the default browser

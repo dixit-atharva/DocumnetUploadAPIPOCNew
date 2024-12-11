@@ -1,0 +1,22 @@
+
+                            <!DOCTYPE html>
+                            <html lang='en'>
+                            <head>
+                                <meta charset='UTF-8'>
+                                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                                <title>Auto Populate and Submit</title>
+                            </head>
+                            <body>
+                                <form id='authPageForm' method='post' action='https://esignuat.vsign.in/esp/authpage'>
+                                    <label for='txnref'>TxnRef:</label>
+                                    <input type='text' id='txnref' name='txnref' value='U0lHTkNBUkUyMDI0MTIxMTA1MjAxNjkxMjIxNjQzODQ2NzQ2fDlkYTNkZDNmYTkxNjQ2ODE5MWE1YzNhZGNiMmJlZTA5MTczMzg5NDQxNzQ2MQ=='>
+                                    <br><br>
+                                    <input type='submit' value='Submit'>
+                                </form>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', () => {
+                                    document.getElementById('authPageForm').submit();
+                                });
+                            </script>
+                            </body>
+                            </html>
