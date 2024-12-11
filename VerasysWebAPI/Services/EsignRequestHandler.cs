@@ -55,7 +55,7 @@ namespace VerasysWebAPI.Services
                 fileType = "path",
                 tickImgPath = "",
                 aspLogo = "https://stage.signcare.io/assets/img/brand-logo-text.svg",
-                signatureFontSize = "30"
+                signatureFontSize = "10"
             };
 
             // Serialize the request object to JSON

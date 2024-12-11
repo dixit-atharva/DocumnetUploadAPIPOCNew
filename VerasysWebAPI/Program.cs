@@ -12,8 +12,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-var javaUtilityService = new JavaUtilityService();
-javaUtilityService.StartJavaService();
+//var javaUtilityService = new JavaUtilityService();
+//javaUtilityService.StartJavaService();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -31,6 +31,9 @@ app.MapControllers();
 // Anonymous API to handle eSign request
 app.MapPost("/aspesignrequest", async (HttpRequest request) =>
 {
+    var javaUtilityService = new JavaUtilityService();
+    javaUtilityService.StartJavaService();
+
     var handler = new EsignRequestHandler();
     handler.HandleEsignRequest();
     return Results.Ok("eSign request processed successfully.");
@@ -40,6 +43,9 @@ app.MapPost("/aspesignrequest", async (HttpRequest request) =>
 // Anonymous API to handle eSign responses
 app.MapPost("/aspesignresponse", async (HttpRequest request) =>
 {
+    var javaUtilityService = new JavaUtilityService();
+    javaUtilityService.StartJavaService();
+
     using var reader = new StreamReader(request.Body);
     var responseXml = await reader.ReadToEndAsync();
 
