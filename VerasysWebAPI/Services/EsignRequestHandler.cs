@@ -40,7 +40,7 @@ namespace VerasysWebAPI.Services
                             {
                                 coordinates = new List<PdfCoordinate>
                                 {
-                                    new PdfCoordinate { w = 100, x = 20, h = 40, y = 20 }
+                                    new PdfCoordinate { w = 180, x = 20, h = 80, y = 20 }
                                 },
                                 page = "1"
                             }
@@ -53,8 +53,8 @@ namespace VerasysWebAPI.Services
                 isrequestXML = "0",
                 AuthMode = 1,
                 fileType = "path",
-                tickImgPath = "",
-                aspLogo = "https://stage.signcare.io/assets/img/brand-logo-text.svg",
+                tickImgPath = $"{mainPath}tick.png",
+                aspLogo = "https://stage.signcare.io/assets/img/brand-logo-email.png",
                 signatureFontSize = "10"
             };
 

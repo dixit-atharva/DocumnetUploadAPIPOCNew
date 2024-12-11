@@ -47,8 +47,8 @@ namespace VerasysWebAPI.Services
                 signedFileParentPath = mainPath,
                 responseXML = responseXML,
                 pdfDestinationPath = $"{mainPath}ekyc-Agreement_signed.pdf",
-                tickImgPath = "",
-                aspLogo = $"{mainPath}asplogo.png",
+                tickImgPath = $"{mainPath}tick.png",
+                aspLogo = "https://stage.signcare.io/assets/img/brand-logo-email.png",
                 signatureFontSize = "10"
             };
 
