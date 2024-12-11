@@ -28,29 +28,29 @@ namespace VerasysWebAPI.Services
                 {
                     process.Start();
 
-                    // Read the output asynchronously to avoid blocking
-                    string output = process.StandardOutput.ReadToEnd();
-                    string error = process.StandardError.ReadToEnd();
+                    //// Read the output asynchronously to avoid blocking
+                    //string output = process.StandardOutput.ReadToEnd();
+                    //string error = process.StandardError.ReadToEnd();
 
-                    // Wait for the process to exit
-                    process.WaitForExit();
+                    //// Wait for the process to exit
+                    //process.WaitForExit();
 
-                    // Log the output and error
-                    if (!string.IsNullOrEmpty(output))
-                    {
-                        Console.WriteLine("Java Output: " + output);
-                    }
+                    //// Log the output and error
+                    //if (!string.IsNullOrEmpty(output))
+                    //{
+                    //    Console.WriteLine("Java Output: " + output);
+                    //}
 
-                    if (!string.IsNullOrEmpty(error))
-                    {
-                        Console.WriteLine("Java Error: " + error);
-                    }
+                    //if (!string.IsNullOrEmpty(error))
+                    //{
+                    //    Console.WriteLine("Java Error: " + error);
+                    //}
 
-                    // Check the exit code for success/failure
-                    if (process.ExitCode != 0)
-                    {
-                        throw new Exception($"Java process exited with code {process.ExitCode}. Error: {error}");
-                    }
+                    //// Check the exit code for success/failure
+                    //if (process.ExitCode != 0)
+                    //{
+                    //    throw new Exception($"Java process exited with code {process.ExitCode}. Error: {error}");
+                    //}
                 }
             }
             catch (Exception ex)
