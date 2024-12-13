@@ -8,7 +8,7 @@ namespace VerasysWebAPI.Services
 {
     public class EsignRequestHandler
     {
-        string mainPath = "D:\\Project\\SignCare\\DocumnetUploadAPIPOCNew\\VerasysWebAPI\\Files\\";
+        string mainPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/");
 
         public async Task HandleEsignRequest()
         {

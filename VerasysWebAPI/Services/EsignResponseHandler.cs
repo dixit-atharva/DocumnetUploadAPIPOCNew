@@ -7,7 +7,8 @@ namespace VerasysWebAPI.Services
 {
     public class EsignResponseHandler
     {
-        string mainPath = "D:\\Project\\SignCare\\DocumnetUploadAPIPOCNew\\VerasysWebAPI\\Files\\";
+        string mainPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/");
+
         public async void HandleEsignResponse(string responseXml)
         {
             XmlDocument responseDoc = new XmlDocument();
@@ -31,6 +32,12 @@ namespace VerasysWebAPI.Services
         }
 
         private string Base64Encode(string input)
+        {
+            byte[] byteArray = Encoding.UTF8.GetBytes(input);
+            return Convert.ToBase64String(byteArray);
+        }
+
+        private string Base64Decode(string input)
         {
             byte[] byteArray = Encoding.UTF8.GetBytes(input);
             return Convert.ToBase64String(byteArray);

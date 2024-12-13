@@ -7,6 +7,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Files\Class II Organization 2 Year Document Signer Signature-2024 %282%29.pfx" />
+    <None Remove="Files\ekyc-Agreement_signed.pdf" />
+    <None Remove="Files\SamplePage.html" />
+    <None Remove="Files\signcare-test.pdf" />
+    <None Remove="Files\tick.png" />
+    <None Remove="Files\Verasays-eSign-Web-4.1.5.jar" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Files\Class II Organization 2 Year Document Signer Signature-2024 (2).pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\ekyc-Agreement_signed.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\SamplePage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\signcare-test.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\tick.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Verasays-eSign-Web-4.1.5.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>

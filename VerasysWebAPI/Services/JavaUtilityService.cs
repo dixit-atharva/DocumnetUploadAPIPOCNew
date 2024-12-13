@@ -4,7 +4,7 @@ namespace VerasysWebAPI.Services
 {
     public class JavaUtilityService
     {
-        string mainPath = "D:\\Project\\SignCare\\DocumnetUploadAPIPOCNew\\VerasysWebAPI\\Files\\";
+        string mainPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/");
 
         public void StartJavaService()
         {
