@@ -19,15 +19,15 @@ namespace ProteanWebApp
             string pdfPath = $"{MainPath}test.pdf"; //PDF File path which needs to sign
             string jarPath = $"{MainPath}v1.4_RunnableMultiO.jar";
             string ekycId = "";// "9115915849419678";// Aadhar number token /UID ID 72 digit its optional field
-            string aspId = "NSDLeGOVTest002"; //"ASPNIIPLMUMTEST132";  ; //"ASPMOSLMUMTEST133";
+            string aspId = "ASPSSPLUAT008151";
 
             string authMode = "1";
-            string resp_url = "http://localhost:51180/EsignResponse.aspx";// response URL after esign process ; //http://localhost:51180/EsignResponse.aspx
-            string certificatePath = $"{MainPath}rahul_cert.p12"; // ASP private cretificate [ie .p12] full path
-            string certificatePassward = "123456"; //ASP private cretificate[ie.p12] password
+            string resp_url = "http://localhost:5125/api/v1/eSign/eMudra-CallBack";// "http://localhost:51180/EsignResponse.aspx";
+            string certificatePath = $"{MainPath}SignCare_SelfSign_Cert.p12"; // ASP private cretificate [ie .p12] full path
+            string certificatePassward = "signcare"; //ASP private cretificate[ie.p12] password
             string tickImagePath = $"{MainPath}tick.png"; //Tick Image for signature symbol
             int serverTime = 15;
-            string alias = "rahulpatel";
+            string alias = "signcare";
             string nameToShowOnSignatureStamp = "SignCare";
             string locationToShowOnSignatureStamp = "Ahmedabad";
             string reasonForSign = "Digitally Signed by SignCare Solutions";

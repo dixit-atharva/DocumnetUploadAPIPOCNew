@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Content\Cert\Coordinates.txt" />
+    <None Remove="Content\Cert\SignCare_SelfSign_Cert.p12" />
+    <None Remove="Content\Cert\tick.png" />
+    <None Remove="Content\Cert\v1.4_RunnableMultiO.jar" />
+    <None Remove="Content\DLL\MultiEsignDLL.dll" />
+    <None Remove="Content\PDF\test.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Content\Cert\Coordinates.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cert\SignCare_SelfSign_Cert.p12">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cert\tick.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cert\v1.4_RunnableMultiO.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DLL\MultiEsignDLL.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\PDF\test.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MultiEsignDLL">
+      <HintPath>Content\DLL\MultiEsignDLL.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

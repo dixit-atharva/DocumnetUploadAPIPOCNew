@@ -1,4 +1,4 @@
-﻿<%@ Page ValidateRequest="false" Language="C#" AutoEventWireup="true" CodeBehind="EsignResponse.aspx.cs" Inherits="ProteanWebApp.EsignResponse" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SampleResponse.aspx.cs" Inherits="ProteanWebApp.SampleResponse" %>
 
 <!DOCTYPE html>
 
