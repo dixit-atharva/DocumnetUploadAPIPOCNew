@@ -43,16 +43,16 @@ namespace ProteanWebAPI.Controllers
                 string locationToShowOnSignatureStamp = "Ahmedabad";
                 string reasonForSign = "Digitally Signed by SignCare Solutions";
                 string pdfPassword = "";
-                string txn = "";
+                string txn = Guid.NewGuid().ToString();
                 int log_err = 1;
 
-                string CoordinatesList = "";
+                //string CoordinatesList = "";
                 string CoordinatesPath = Path.Combine(ContentPath, "Cert", "Coordinates.txt");
 
-                using (StreamReader sr = new StreamReader(CoordinatesPath))
-                {
-                    CoordinatesList = sr.ReadToEnd();
-                }
+                //using (StreamReader sr = new StreamReader(CoordinatesPath))
+                //{
+                //    CoordinatesList = sr.ReadToEnd();
+                //}
 
                 // MultipleEsign req_resp = new MultipleEsign();
                 // dll
@@ -67,7 +67,7 @@ namespace ProteanWebAPI.Controllers
                 string file_withoutExtn = Path.GetFileNameWithoutExtension(pdfPath);
                 string request = file_withoutExtn + "_eSignRequestXml.txt";
 
-                while (!System.IO.File.Exists(base_folder_path + "\\" + request))
+                while (!System.IO.File.Exists(Path.Combine(base_folder_path, request)))
                 {
                     System.Threading.Thread.Sleep(1000);
                 }
@@ -75,7 +75,7 @@ namespace ProteanWebAPI.Controllers
                 // Request xml generated successfully.
 
                 string xml_get = null;
-                using (StreamReader sr = new StreamReader(base_folder_path + "\\" + request))
+                using (StreamReader sr = new StreamReader(Path.Combine(base_folder_path, request)))
                 {
                     xml_get = sr.ReadToEnd();
                 }
