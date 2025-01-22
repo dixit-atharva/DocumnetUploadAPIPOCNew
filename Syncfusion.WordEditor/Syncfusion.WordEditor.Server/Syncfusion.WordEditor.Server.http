@@ -1,0 +1,6 @@
+@Syncfusion.WordEditor.Server_HostAddress = http://localhost:5047
+
+GET {{Syncfusion.WordEditor.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
